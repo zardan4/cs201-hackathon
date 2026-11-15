@@ -80,8 +80,12 @@
       "example_file_url": "https://github.com/devua/csv/blob/master/salaries/2026_june_raw.csv",
       "methodology_url": "https://dou.ua/lenta/articles/salary-report-devs-summer-2026/",
       "purpose": "Separate IT compensation benchmarks",
-      "access_verified": "CSV repository listing and methodology reviewed; file contents and reuse conditions still need inspection",
-      "downloaded": false
+      "access_verified": "Repository README and all 71 survey CSVs reviewed; one folder per survey file in datasets/devua-salaries/",
+      "downloaded": true,
+      "revision": "5870fcfdcd25d6f23c9c00b88396a3db7643c413",
+      "local_raw": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/",
+      "local_shards": "datasets/devua-salaries/<survey>/",
+      "observed_rows": 539862
     },
     {
       "name": "State Employment Service open data",
@@ -103,5 +107,13 @@
     "rows": 169358,
     "manifest": "manifests/parquet_shards.json",
     "note": "Combined EN/UK jobs with original values preserved; relative paths resolve from data/."
+  },
+  "prepared_salaries": {
+    "local_shards": "datasets/devua-salaries/",
+    "tables": 71,
+    "rows": 539862,
+    "manifest": "manifests/parquet_shards.json",
+    "download_manifest": "manifests/devua-csv.json",
+    "note": "One Parquet table per source CSV; survey schemas differ between waves, so tables are not merged. Original values preserved; no cleaning, deduplication, or column renaming."
   }
 }

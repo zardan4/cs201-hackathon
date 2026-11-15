@@ -1,0 +1,592 @@
+{
+  "repo_id": "devua/csv",
+  "repo_url": "https://github.com/devua/csv",
+  "revision": "5870fcfdcd25d6f23c9c00b88396a3db7643c413",
+  "revision_committed_at": "2026-08-14T18:56:40+03:00",
+  "started_at": "2026-11-15T20:20:18.843008+00:00",
+  "complete": true,
+  "expected_rows": null,
+  "observed_rows": 539862,
+  "validation": "File sizes and SHA-256 hashes against a pinned git checkout; CSV rows counted during shard conversion",
+  "license_declared": null,
+  "license_note": "No licence file in the repository; README requires citing DOU with an active link on any publication",
+  "files": [
+    {
+      "source_path": "salaries/2010_october_clean.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2010_october_clean.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2010_october_clean.csv",
+      "bytes": 108072,
+      "sha256": "5ef5aa398c4fd4d1b10a766e75b7ada7905fcc2d822d4f74fcec7d160f87e526",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2010_october_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2010_october_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2010_october_raw.csv",
+      "bytes": 106300,
+      "sha256": "e1884c3cd3e7c27ee66667feb84b492543c59bf82b5ae05a0c1f86cff9231ecb",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2011_dec_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_dec_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_dec_final.csv",
+      "bytes": 1149052,
+      "sha256": "25fe1091e4ec10ea60f59a0b34c3d01d77296b6faf85d4b04d38464d875938e6",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2011_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_dec_mini.csv",
+      "bytes": 209239,
+      "sha256": "a2752636dfe8f698449da7251422dd1cf38f807dbe620dc3b30f9161b599d5f5",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2011_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_dec_raw.csv",
+      "bytes": 936135,
+      "sha256": "4f6e8f39c57e82d2423f53ea8b37e8e7c3e31eb3247e0d14d75b9896f4f4eebe",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2011_may_clean.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_may_clean.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_may_clean.csv",
+      "bytes": 842449,
+      "sha256": "1329d431da07d27749967b63cfad0f03a8f832177ea568007e0270c8f61a0851",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2011_may_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_may_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_may_final.csv",
+      "bytes": 800751,
+      "sha256": "a0e82c4e2d42cd9734b3347c936a5ff3ba84a61409d5cbe1d7f811fe42a7d616",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2011_may_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_may_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2011_may_raw.csv",
+      "bytes": 666966,
+      "sha256": "2a111ff010a513bb472864b861458b1b55cd2b8fd0df485fde0ab69a5a180da8",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2012_dec_extra.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_dec_extra.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_dec_extra.csv",
+      "bytes": 1358617,
+      "sha256": "bbeec3524d4c19ad6711b5c9c99752838e05f245c178d6c9a59752d3eca961aa",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2012_dec_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_dec_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_dec_final.csv",
+      "bytes": 1343159,
+      "sha256": "275fbf73f2047805253711eee2bc3e9c475f0c48d25587061a0e391258f36cc3",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2012_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_dec_mini.csv",
+      "bytes": 660552,
+      "sha256": "1d4ebde86ba0ae43e3173bfa89bdc74bacb31c11c50586cb2f4273d7f254d099",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2012_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_dec_raw.csv",
+      "bytes": 1053934,
+      "sha256": "b7f8a5c5b49c2ab47b321a66aefce6b5ed3e5e26841d63f0312e0477cec1d794",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2012_may_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_may_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_may_final.csv",
+      "bytes": 964796,
+      "sha256": "6cf053318002d608b210f3c197abf830cbfe41e209087d0530efaae10d754d7c",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2012_may_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_may_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_may_mini.csv",
+      "bytes": 173672,
+      "sha256": "7fabc1d3cf0dcf591639eb9ba9967ff184a271ce1007cd2b7d30a31065dae9af",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2012_may_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_may_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2012_may_raw.csv",
+      "bytes": 779665,
+      "sha256": "9c220e423eac21da1d723ef863cc3c91fc362d9c6a1949909d09f788724c7a3f",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2013_dec_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_dec_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_dec_final.csv",
+      "bytes": 2104029,
+      "sha256": "5c52e03dae472e3b999667c9b07eacf0c4b1a47705d8f70c7bb22b1c0f2c9ec6",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2013_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_dec_mini.csv",
+      "bytes": 1212131,
+      "sha256": "cb5d9b11438aa2eede301754f19a21d9e38b6ebbbd058240ec4e7930699caa39",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2013_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_dec_raw.csv",
+      "bytes": 1700083,
+      "sha256": "2010d53c8e9c0e055c1b8fc7f2fb6cba52516d86d1f833ad019528d47e54a1f8",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2013_may_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_may_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_may_final.csv",
+      "bytes": 1676657,
+      "sha256": "d0bb2d872088df88ffd1a6acfad3bcd5c39c8ddd67aafac334060668fad97e68",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2013_may_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_may_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_may_mini.csv",
+      "bytes": 822776,
+      "sha256": "363fff1e26f8d5b5c603a5cfa9a38740ee9e910d7fe52bf0cbf2d3881477789e",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2013_may_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_may_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2013_may_raw.csv",
+      "bytes": 1310272,
+      "sha256": "c95a4f440c84c29b336b90f8ad759ea8f5a77590a25de2eb73c6f21ebaeeac56",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2014_dec_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_dec_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_dec_final.csv",
+      "bytes": 2623464,
+      "sha256": "83c21b62d1002ad0290a07bb55b985f2e577efc6c0f15b7056ebda39dec48f63",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2014_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_dec_mini.csv",
+      "bytes": 1501259,
+      "sha256": "f017323e5f375ead4c895962f70d79f5205f64903189c299992ac1bd6ec2a9aa",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2014_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_dec_raw.csv",
+      "bytes": 2134518,
+      "sha256": "6e3f37285742b7c881535b5484d303fadf73ff52865397dedc300a2d94b57879",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2014_may_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_may_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_may_final.csv",
+      "bytes": 2081415,
+      "sha256": "497e9fb9803edff2388c6905b31936f3fbea24ced2cd79a9f5b730ba348bde42",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2014_may_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_may_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_may_mini.csv",
+      "bytes": 1201890,
+      "sha256": "665421de38e29310c0273d3499525a1264b47676795e828e7d3751ed719aa2b6",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2014_may_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_may_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2014_may_raw.csv",
+      "bytes": 1691798,
+      "sha256": "1d2aaa9996cecb121d0ff8198c1adeb1cc228144aff30290edb1045314645b6a",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2015_dec_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_dec_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_dec_final.csv",
+      "bytes": 3009486,
+      "sha256": "74ee1088c98ffe9fed5bd419d5effdb0f28da9edc5c2eecad25454b3ef0dab07",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2015_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_dec_mini.csv",
+      "bytes": 1764947,
+      "sha256": "1cab041bfbfa68c9953712944d15e2384b9935510b74f6981a3e058a4d33d4cb",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2015_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_dec_raw.csv",
+      "bytes": 2447309,
+      "sha256": "0b27df6e91ab122a629fc5cfba7d702931d1b045b6e51771987f739c10617a55",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2015_may_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_may_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_may_final.csv",
+      "bytes": 2698181,
+      "sha256": "575e95a26527d5983e093ee747edc4da040f7a6d52f05ad48debe865cd635eaa",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2015_may_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_may_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_may_mini.csv",
+      "bytes": 1539847,
+      "sha256": "ac34ee1896614e0a0464af98e25394d6740a85485f5bf4ed60e67e5ef693385c",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2015_may_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_may_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2015_may_raw.csv",
+      "bytes": 2183075,
+      "sha256": "8202bfb5de143ace19c9f22b6ba8eb9d10cd7ac02d327705e4e3120934cf34bf",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2016_dec_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_dec_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_dec_final.csv",
+      "bytes": 3777120,
+      "sha256": "3e9c9b00f748b144c2a353647474232485cfbd602f3457154a8b67f9df51a386",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2016_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_dec_mini.csv",
+      "bytes": 2184053,
+      "sha256": "e1bc2ab3545109f644237c882f139ed181f123e459f63337a4fb4e628c05e19c",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2016_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_dec_raw.csv",
+      "bytes": 3056684,
+      "sha256": "5155b82e4e38b1a19eea831a4f2d6ec01a2113f35aa4ca9a10c29a4fb6c1b743",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2016_may_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_may_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_may_final.csv",
+      "bytes": 3105533,
+      "sha256": "058ac86cd27b1503d966c06bdd5d0f27bd4570f945b383d3eb732fba90a1bd8e",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2016_may_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_may_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_may_mini.csv",
+      "bytes": 1805842,
+      "sha256": "8c925df558ece6041b4ad75ac8198bbbf66a092ab01ea8d8088516bb46c9c61f",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2016_may_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_may_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2016_may_raw.csv",
+      "bytes": 2538520,
+      "sha256": "d83ee8faffc1153816c9dbceaa967af7d23486ab15cf24d01f5c8a18299beadd",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2017_dec_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_dec_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_dec_final.csv",
+      "bytes": 3448026,
+      "sha256": "d4eead17f86121e4c9d7612c2452b4cbb8a0d5c9585602d01c5f34ddd8626ef0",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2017_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_dec_mini.csv",
+      "bytes": 2056899,
+      "sha256": "98ad6cb332d343eac7ab3d0e46203c1b7e040bf16902f2b66327bf19a1246f05",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2017_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_dec_raw.csv",
+      "bytes": 2908776,
+      "sha256": "3a3b00148cfa0300a71723a709d93a8edc882b3ae7421a93905931bae411efcd",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2017_jun_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_jun_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_jun_final.csv",
+      "bytes": 3607222,
+      "sha256": "1399ae57f0e31c89ef66164d323645d9a3002569d517a86d700593bafd5dc82d",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2017_jun_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_jun_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_jun_mini.csv",
+      "bytes": 2137134,
+      "sha256": "aca331ed3e98d9853483f45f61c4b21105bac0d25364a13acfcd30aebc5aeab0",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2017_jun_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_jun_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2017_jun_raw.csv",
+      "bytes": 3020081,
+      "sha256": "31537be86e9e3d7f069f257b2dd57252aaf64bcd92fd6e27349998ffb0a753a3",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2018_dec_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_dec_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_dec_final.csv",
+      "bytes": 4331951,
+      "sha256": "c7359f0b8611dc56226fa07609686c2cffc7cf64b8a389c127d4d31796cdc2a9",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2018_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_dec_mini.csv",
+      "bytes": 2553048,
+      "sha256": "e5821960983046a7f86759acfa38adca1d203e67ded773aad6a2913c4531185b",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2018_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_dec_raw.csv",
+      "bytes": 3662623,
+      "sha256": "a2a840c80ec5fa49ca9d7e9436a22904313fd965ae6a0d757ee3d1bf692e2094",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2018_june_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_june_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_june_final.csv",
+      "bytes": 4011161,
+      "sha256": "28a5f93798899d9b467e56b72730ecd2c748714011a51996c7a7ac4279412d75",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2018_june_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_june_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_june_mini.csv",
+      "bytes": 2372719,
+      "sha256": "1102c4c4a848986ff770389ddf54cbcda755ed5ea49d963a1624a7550ba91264",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2018_june_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_june_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2018_june_raw.csv",
+      "bytes": 3391415,
+      "sha256": "131f17b156905d7e110851df81d98274bc8b686d06c120dffd70f28f77a95b73",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2019_dec_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_dec_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_dec_mini.csv",
+      "bytes": 2555179,
+      "sha256": "3ec86a4329d5e713a1c8a8688fbfa06c50b63612b7823c8dd90a49bf3a49d547",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2019_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_dec_raw.csv",
+      "bytes": 2595912,
+      "sha256": "b67c60cf46de3f45e4c9e3407eccc83a9266c22fa874844a6da3f6a5c769bdb7",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2019_june_final.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_june_final.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_june_final.csv",
+      "bytes": 4788887,
+      "sha256": "0f356406e78009534c5dfa60ee38df3c1e3015757a825e67313e1dc8e9596389",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2019_june_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_june_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_june_mini.csv",
+      "bytes": 2817127,
+      "sha256": "f8aff786d4f4554fce74bbb68134c4c55632cf32210b95d8112d624242998cc5",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2019_june_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_june_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2019_june_raw.csv",
+      "bytes": 4050968,
+      "sha256": "7c6b1be6c6a9715d0f2a4aaca5dee309ab4c41882d5685a285b5fbdde79e2108",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2020_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2020_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2020_dec_raw.csv",
+      "bytes": 4349335,
+      "sha256": "54a282fe33ff7d0439b20b14fb035fe7556fac1111f9de018d6d2ef46981e3d4",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2020_june_mini.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2020_june_mini.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2020_june_mini.csv",
+      "bytes": 2730201,
+      "sha256": "5a6a1763355ef7a63419767a901a1c2ab8b8b7eba144c4aaf37b1e6b76fa73e0",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2021_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2021_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2021_dec_raw.csv",
+      "bytes": 7193037,
+      "sha256": "660359d58ca477ccc0909bda358208133beec35c63467de2cb34e9dd62939a75",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2021_june_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2021_june_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2021_june_raw.csv",
+      "bytes": 5252701,
+      "sha256": "bb4bff5e7f027cb4ea2cc96dc65d0754b470c9bd24376049cdfa6e6720b8c1c4",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2022_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2022_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2022_dec_raw.csv",
+      "bytes": 5215530,
+      "sha256": "4c19a7b7921ccb6b19ff743f72a33a1b9e8b0adad8af8712d0ad000504a3f13f",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2022_june_dev.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2022_june_dev.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2022_june_dev.csv",
+      "bytes": 410751,
+      "sha256": "e5d32ac6b06cab09d7ef26474b93c7a5f30e9e563458f76f8b37e9cf84b702b9",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2022_june_other.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2022_june_other.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2022_june_other.csv",
+      "bytes": 517331,
+      "sha256": "8c2fb22e1562141fa51be030a3dc9d4ce3627c8faec1d40c16f47757bfbd194b",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2022_june_qa.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2022_june_qa.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2022_june_qa.csv",
+      "bytes": 407732,
+      "sha256": "324a18214ae2b52a57f0770fd86e4e8ab662b42f0aadcd804749bedb0c2b4386",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2023_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2023_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2023_dec_raw.csv",
+      "bytes": 5387419,
+      "sha256": "62d39a8d0c507286e8c06865504e8527a43be9899e8e1fa06e66471511653527",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2023_june_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2023_june_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2023_june_raw.csv",
+      "bytes": 6363261,
+      "sha256": "37e2e79741fe17fd889175be842dc8cc35c8c702b43a037e5be855bfa55d47c0",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2024_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2024_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2024_dec_raw.csv",
+      "bytes": 3200525,
+      "sha256": "2e2dd76777abb091351ef76b0520f88d3fe41ced99bb50f8ebe013f3ea989605",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2024_june_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2024_june_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2024_june_raw.csv",
+      "bytes": 5218281,
+      "sha256": "5e700cf78f65e001dd9146c7abdaf8e6e35e95f9714119af1eaf1baed3174d7a",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2025_dec_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2025_dec_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2025_dec_raw.csv",
+      "bytes": 4507514,
+      "sha256": "067d1b9bedf95aff1d7f07419874c9dbff3ab4b8d1492073e6f8599f166e8850",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2025_june_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2025_june_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2025_june_raw.csv",
+      "bytes": 3551971,
+      "sha256": "48b03a18fad8f6c64f7cb48e45f2ac545b63ff8c25925dd96b26af0454188805",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "salaries/2026_june_raw.csv",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2026_june_raw.csv",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/salaries/2026_june_raw.csv",
+      "bytes": 10251375,
+      "sha256": "c9ce3517c58c1d6bbc2451663ec10f19827e893bf166ad156fcb539486b9b54f",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    },
+    {
+      "source_path": "README.md",
+      "local_path": "raw/devua/csv/5870fcfdcd25d6f23c9c00b88396a3db7643c413/README.md",
+      "url": "https://github.com/devua/csv/blob/5870fcfdcd25d6f23c9c00b88396a3db7643c413/README.md",
+      "bytes": 2606,
+      "sha256": "9f0da3a8a76dba28215f6a2fdef198ac2db036f4e683e3650fafe26464d4374e",
+      "verified_at": "2026-11-15T20:20:18.843008+00:00"
+    }
+  ],
+  "completed_at": "2026-11-15T20:20:38.352451+00:00"
+}
