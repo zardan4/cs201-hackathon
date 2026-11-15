@@ -1,0 +1,31 @@
+{
+  "repo_id": "lang-uk/recruitment-dataset-job-descriptions-ukrainian",
+  "revision": "2feb8e866c557433d15a27d41808bc427b584fdb",
+  "started_at": "2026-11-15T15:27:19.211600+00:00",
+  "complete": true,
+  "expected_rows": 27461,
+  "observed_rows": null,
+  "validation": "File sizes, available upstream SHA-256 hashes, and Parquet signatures; row count not measured",
+  "license_declared": "MIT",
+  "files": [
+    {
+      "source_path": "README.md",
+      "local_path": "raw/djinni/recruitment-dataset-job-descriptions-ukrainian/2feb8e866c557433d15a27d41808bc427b584fdb/README.md",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-job-descriptions-ukrainian/resolve/2feb8e866c557433d15a27d41808bc427b584fdb/README.md?download=true",
+      "bytes": 4089,
+      "sha256": "ababf1a5d4ea460fb5543eba384f933d14092f5a703a29ac21757d14e05a425b",
+      "upstream_sha256": null,
+      "verified_at": "2026-11-15T15:27:19.572444+00:00"
+    },
+    {
+      "source_path": "data/train-00000-of-00001.parquet",
+      "local_path": "raw/djinni/recruitment-dataset-job-descriptions-ukrainian/2feb8e866c557433d15a27d41808bc427b584fdb/data/train-00000-of-00001.parquet",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-job-descriptions-ukrainian/resolve/2feb8e866c557433d15a27d41808bc427b584fdb/data/train-00000-of-00001.parquet?download=true",
+      "bytes": 40645342,
+      "sha256": "8ebd33adb6dfdd2bccda0579634025e4348163debb833c63323d5837969218cd",
+      "upstream_sha256": "8ebd33adb6dfdd2bccda0579634025e4348163debb833c63323d5837969218cd",
+      "verified_at": "2026-11-15T15:27:22.115812+00:00"
+    }
+  ],
+  "completed_at": "2026-11-15T15:27:22.116242+00:00"
+}

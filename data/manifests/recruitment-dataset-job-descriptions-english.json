@@ -1,0 +1,31 @@
+{
+  "repo_id": "lang-uk/recruitment-dataset-job-descriptions-english",
+  "revision": "b56a6054c10f1266a141e37c8df66c79ff2863af",
+  "started_at": "2026-11-15T15:27:13.787263+00:00",
+  "complete": true,
+  "expected_rows": 141897,
+  "observed_rows": null,
+  "validation": "File sizes, available upstream SHA-256 hashes, and Parquet signatures; row count not measured",
+  "license_declared": "MIT",
+  "files": [
+    {
+      "source_path": "README.md",
+      "local_path": "raw/djinni/recruitment-dataset-job-descriptions-english/b56a6054c10f1266a141e37c8df66c79ff2863af/README.md",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-job-descriptions-english/resolve/b56a6054c10f1266a141e37c8df66c79ff2863af/README.md?download=true",
+      "bytes": 4087,
+      "sha256": "bc28c19bf08c05ea3ce37fbfe7cd10d565c72ad98ac3096179790d5b74bd3dad",
+      "upstream_sha256": null,
+      "verified_at": "2026-11-15T15:27:14.152072+00:00"
+    },
+    {
+      "source_path": "data/train-00000-of-00001.parquet",
+      "local_path": "raw/djinni/recruitment-dataset-job-descriptions-english/b56a6054c10f1266a141e37c8df66c79ff2863af/data/train-00000-of-00001.parquet",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-job-descriptions-english/resolve/b56a6054c10f1266a141e37c8df66c79ff2863af/data/train-00000-of-00001.parquet?download=true",
+      "bytes": 145859589,
+      "sha256": "71dddaf0d9660f34ddf946953b67f54f1e7d60e22dcf9a4b8139b6378b18aab9",
+      "upstream_sha256": "71dddaf0d9660f34ddf946953b67f54f1e7d60e22dcf9a4b8139b6378b18aab9",
+      "verified_at": "2026-11-15T15:27:18.919235+00:00"
+    }
+  ],
+  "completed_at": "2026-11-15T15:27:18.919625+00:00"
+}

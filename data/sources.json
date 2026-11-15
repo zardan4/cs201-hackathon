@@ -1,0 +1,107 @@
+{
+  "catalog_version": 1,
+  "reviewed_on": "2026-11-15",
+  "status": "downloaded",
+  "collection_url": "https://huggingface.co/collections/lang-uk/djinni-recruitment-dataset",
+  "paper_url": "https://aclanthology.org/2024.unlp-1.2.pdf",
+  "preprocessing_repository_url": "https://github.com/Stereotypes-in-LLMs/recruitment-dataset",
+  "declared_coverage_years": [
+    2020,
+    2023
+  ],
+  "coverage_note": "Published historical coverage; exact first and last job months require a full-data audit. Candidate records have no publication date.",
+  "expected_counts_basis": "Published release counts from the paper Table 2, with English counts also checked against dataset-card metadata; not locally measured.",
+  "sources": [
+    {
+      "repo_id": "lang-uk/recruitment-dataset-job-descriptions-english",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-job-descriptions-english",
+      "entity": "job",
+      "text_language": "en",
+      "config": "default",
+      "split": "train",
+      "expected_rows": 141897,
+      "license_declared": "MIT",
+      "priority": "core",
+      "revision": "b56a6054c10f1266a141e37c8df66c79ff2863af",
+      "downloaded": true,
+      "observed_rows": 141897,
+      "local_shards": "datasets/jobs-en"
+    },
+    {
+      "repo_id": "lang-uk/recruitment-dataset-job-descriptions-ukrainian",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-job-descriptions-ukrainian",
+      "entity": "job",
+      "text_language": "uk",
+      "config": "default",
+      "split": "train",
+      "expected_rows": 27461,
+      "license_declared": "MIT",
+      "priority": "core",
+      "revision": "2feb8e866c557433d15a27d41808bc427b584fdb",
+      "downloaded": true,
+      "observed_rows": 27461,
+      "local_shards": "datasets/jobs-uk"
+    },
+    {
+      "repo_id": "lang-uk/recruitment-dataset-candidate-profiles-english",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-candidate-profiles-english",
+      "entity": "candidate",
+      "text_language": "en",
+      "config": "default",
+      "split": "train",
+      "expected_rows": 210250,
+      "license_declared": "MIT",
+      "priority": "optional",
+      "revision": "86255174c6c378a2b52cd7e81d79002c64d899a6",
+      "downloaded": true,
+      "observed_rows": 210250,
+      "local_shards": "datasets/candidates-en"
+    },
+    {
+      "repo_id": "lang-uk/recruitment-dataset-candidate-profiles-ukrainian",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-candidate-profiles-ukrainian",
+      "entity": "candidate",
+      "text_language": "uk",
+      "config": "default",
+      "split": "train",
+      "expected_rows": 24230,
+      "license_declared": "MIT",
+      "priority": "optional",
+      "revision": "6a5a1355601d8525457cc3b9f84d3ffae2341ddf",
+      "downloaded": true,
+      "observed_rows": 24230,
+      "local_shards": "datasets/candidates-uk"
+    }
+  ],
+  "additional_sources": [
+    {
+      "name": "DOU salary surveys",
+      "url": "https://github.com/devua/csv/tree/master/salaries",
+      "example_file_url": "https://github.com/devua/csv/blob/master/salaries/2026_june_raw.csv",
+      "methodology_url": "https://dou.ua/lenta/articles/salary-report-devs-summer-2026/",
+      "purpose": "Separate IT compensation benchmarks",
+      "access_verified": "CSV repository listing and methodology reviewed; file contents and reuse conditions still need inspection",
+      "downloaded": false
+    },
+    {
+      "name": "State Employment Service open data",
+      "url": "https://old.dcz.gov.ua/storinka/vidkryti-dani",
+      "purpose": "Broader occupational coverage using registered vacancies and unemployment",
+      "access_verified": "Official resource catalog reviewed; individual resources and their freshness still need inspection",
+      "downloaded": false
+    },
+    {
+      "name": "Work.ua statistics",
+      "url": "https://www.work.ua/en/stat/",
+      "purpose": "Separate recent advertised-pay and job-count benchmarks",
+      "access_verified": "Public aggregate statistics page reviewed; no bulk export or API verified",
+      "downloaded": false
+    }
+  ],
+  "prepared_jobs": {
+    "local_shards": "datasets/jobs",
+    "rows": 169358,
+    "manifest": "manifests/parquet_shards.json",
+    "note": "Combined EN/UK jobs with original values preserved; relative paths resolve from data/."
+  }
+}

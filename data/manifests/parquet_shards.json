@@ -1,0 +1,346 @@
+{
+  "generated_at": "2026-11-15T16:09:16.094643+00:00",
+  "pyarrow_version": "26.0.0",
+  "max_shard_bytes": 41943040,
+  "compression": "zstd",
+  "datasets": [
+    {
+      "name": "jobs",
+      "directory": "datasets/jobs",
+      "source_path": "processed/jobs.parquet",
+      "source_sha256": "49d5252d139d8fbc714e9dfbf7628122fc9755b909b2eb4591f5e8659b4b29fd",
+      "repo_id": null,
+      "revision": null,
+      "rows": 169358,
+      "columns": {
+        "source_id": "string",
+        "title": "string",
+        "description": "string",
+        "company_name": "string",
+        "experience_bucket": "string",
+        "category": "string",
+        "english_level": "string",
+        "published_raw": "string",
+        "text_language": "string",
+        "source_index": "int64",
+        "record_key": "string",
+        "source_repo": "string",
+        "source_revision": "string",
+        "source_file": "string",
+        "retrieved_at": "string",
+        "published_month": "string"
+      },
+      "shards": [
+        {
+          "path": "datasets/jobs/part-00000.parquet",
+          "rows": 25000,
+          "start_row": 0,
+          "bytes": 17744578,
+          "sha256": "ef918c43b6509952698c3fb3905371d0edd3a9f5c8b130d4b8918ab2ec5c90c8"
+        },
+        {
+          "path": "datasets/jobs/part-00001.parquet",
+          "rows": 25000,
+          "start_row": 25000,
+          "bytes": 17076121,
+          "sha256": "837ba448ef9cc047bb5242e3f34f9b3201e22afca060d1f861d8811eec61d187"
+        },
+        {
+          "path": "datasets/jobs/part-00002.parquet",
+          "rows": 25000,
+          "start_row": 50000,
+          "bytes": 16420834,
+          "sha256": "5e3c60ad07a4859e044479780e2cb8430a640250122e9636f845f3d14363362c"
+        },
+        {
+          "path": "datasets/jobs/part-00003.parquet",
+          "rows": 25000,
+          "start_row": 75000,
+          "bytes": 16825384,
+          "sha256": "097197eac094eb9e0eeecc0d4cf0e1773f916b2b65dcd70b92d726fe68722db7"
+        },
+        {
+          "path": "datasets/jobs/part-00004.parquet",
+          "rows": 25000,
+          "start_row": 100000,
+          "bytes": 18034490,
+          "sha256": "aabeba104e08b66a074b0e0885278503696dc10ee4d863380095874c804db826"
+        },
+        {
+          "path": "datasets/jobs/part-00005.parquet",
+          "rows": 25000,
+          "start_row": 125000,
+          "bytes": 19415940,
+          "sha256": "cb958faa12a6b7951c07099e47bfd40e59312a31e983fb3772a544f2ac38ab17"
+        },
+        {
+          "path": "datasets/jobs/part-00006.parquet",
+          "rows": 19358,
+          "start_row": 150000,
+          "bytes": 17631123,
+          "sha256": "cd62b44908c09b049f9aa27b3b38331aafd85011fc9719aac444a0e8cae9dd8a"
+        }
+      ],
+      "validation": {
+        "all_values_and_nulls_preserved": true,
+        "schema_and_metadata_preserved": true,
+        "row_order_preserved": true,
+        "directory_loading_matches": true,
+        "all_shards_within_size_limit": true,
+        "original_file_unchanged": true
+      }
+    },
+    {
+      "name": "candidates-en",
+      "directory": "datasets/candidates-en",
+      "source_path": "raw/djinni/recruitment-dataset-candidate-profiles-english/86255174c6c378a2b52cd7e81d79002c64d899a6/data/train-00000-of-00001.parquet",
+      "source_sha256": "a7b1378e0b231507c377659bf2c80fa4ba60c4e31e1107b13425d103879ecc3b",
+      "repo_id": "lang-uk/recruitment-dataset-candidate-profiles-english",
+      "revision": "86255174c6c378a2b52cd7e81d79002c64d899a6",
+      "rows": 210250,
+      "columns": {
+        "Position": "string",
+        "Moreinfo": "string",
+        "Looking For": "string",
+        "Highlights": "string",
+        "Primary Keyword": "string",
+        "English Level": "string",
+        "Experience Years": "double",
+        "CV": "string",
+        "CV_lang": "string",
+        "id": "string",
+        "__index_level_0__": "int64"
+      },
+      "shards": [
+        {
+          "path": "datasets/candidates-en/part-00000.parquet",
+          "rows": 25000,
+          "start_row": 0,
+          "bytes": 19997362,
+          "sha256": "66b2951df7403d60a14777cebcace0aa5450f6229f36cb340b86983ed14d955e"
+        },
+        {
+          "path": "datasets/candidates-en/part-00001.parquet",
+          "rows": 25000,
+          "start_row": 25000,
+          "bytes": 18440570,
+          "sha256": "e75fb77293a025b6f40973fc6d275e982a1df18f3baee32e45a37d931a776a14"
+        },
+        {
+          "path": "datasets/candidates-en/part-00002.parquet",
+          "rows": 25000,
+          "start_row": 50000,
+          "bytes": 18513838,
+          "sha256": "0ce98b7cf9f7984e7a3248e86176e698fd4f457c030a525919af8c25c4e3bbb9"
+        },
+        {
+          "path": "datasets/candidates-en/part-00003.parquet",
+          "rows": 25000,
+          "start_row": 75000,
+          "bytes": 17188319,
+          "sha256": "b9c3b7d6e04f8cf430e0e649038abedc61ef21c6f48929113260b0b2ebf7d251"
+        },
+        {
+          "path": "datasets/candidates-en/part-00004.parquet",
+          "rows": 25000,
+          "start_row": 100000,
+          "bytes": 19147413,
+          "sha256": "6f78f81eea4aee22ad439e09eb806a5fe28424b656d7e0497a379eeaed2ae764"
+        },
+        {
+          "path": "datasets/candidates-en/part-00005.parquet",
+          "rows": 25000,
+          "start_row": 125000,
+          "bytes": 20634570,
+          "sha256": "ff1239e0304b539eeb1493cf6c15224741db0e1cd69317dbb8177f616cc752c9"
+        },
+        {
+          "path": "datasets/candidates-en/part-00006.parquet",
+          "rows": 25000,
+          "start_row": 150000,
+          "bytes": 19830895,
+          "sha256": "daca1ec2cfbd0dcab92550fb62d01b869b7b16e6215eb0c9f5d6b8502641c0bf"
+        },
+        {
+          "path": "datasets/candidates-en/part-00007.parquet",
+          "rows": 25000,
+          "start_row": 175000,
+          "bytes": 19716785,
+          "sha256": "f7b2bdf7eb134423625f65102d658eb31128ec0069950836bc767de5d28711e1"
+        },
+        {
+          "path": "datasets/candidates-en/part-00008.parquet",
+          "rows": 10250,
+          "start_row": 200000,
+          "bytes": 6926205,
+          "sha256": "f5d8a4e41c6f4f497efa7e1e2f787e15e8534670e5ef4982aa3c76bd3cbb2f5e"
+        }
+      ],
+      "validation": {
+        "all_values_and_nulls_preserved": true,
+        "schema_and_metadata_preserved": true,
+        "row_order_preserved": true,
+        "directory_loading_matches": true,
+        "all_shards_within_size_limit": true,
+        "original_file_unchanged": true
+      }
+    },
+    {
+      "name": "candidates-uk",
+      "directory": "datasets/candidates-uk",
+      "source_path": "raw/djinni/recruitment-dataset-candidate-profiles-ukrainian/6a5a1355601d8525457cc3b9f84d3ffae2341ddf/data/train-00000-of-00001.parquet",
+      "source_sha256": "5dc533e9e745b355ffe70e3437f692e4ee03e1f6ea01d5e4bab1dfb00e39798f",
+      "repo_id": "lang-uk/recruitment-dataset-candidate-profiles-ukrainian",
+      "revision": "6a5a1355601d8525457cc3b9f84d3ffae2341ddf",
+      "rows": 24230,
+      "columns": {
+        "Position": "string",
+        "Moreinfo": "string",
+        "Looking For": "string",
+        "Highlights": "string",
+        "Primary Keyword": "string",
+        "English Level": "string",
+        "Experience Years": "double",
+        "CV": "string",
+        "CV_lang": "string",
+        "id": "string",
+        "__index_level_0__": "int64"
+      },
+      "shards": [
+        {
+          "path": "datasets/candidates-uk/part-00000.parquet",
+          "rows": 24230,
+          "start_row": 0,
+          "bytes": 20482403,
+          "sha256": "e2cfebaa604f0bb77180a8c6aa683cb0240ec2be8ce65266c27d94f0eab75952"
+        }
+      ],
+      "validation": {
+        "all_values_and_nulls_preserved": true,
+        "schema_and_metadata_preserved": true,
+        "row_order_preserved": true,
+        "directory_loading_matches": true,
+        "all_shards_within_size_limit": true,
+        "original_file_unchanged": true
+      }
+    },
+    {
+      "name": "jobs-en",
+      "directory": "datasets/jobs-en",
+      "source_path": "raw/djinni/recruitment-dataset-job-descriptions-english/b56a6054c10f1266a141e37c8df66c79ff2863af/data/train-00000-of-00001.parquet",
+      "source_sha256": "71dddaf0d9660f34ddf946953b67f54f1e7d60e22dcf9a4b8139b6378b18aab9",
+      "repo_id": "lang-uk/recruitment-dataset-job-descriptions-english",
+      "revision": "b56a6054c10f1266a141e37c8df66c79ff2863af",
+      "rows": 141897,
+      "columns": {
+        "Position": "string",
+        "Long Description": "string",
+        "Company Name": "string",
+        "Exp Years": "string",
+        "Primary Keyword": "string",
+        "English Level": "string",
+        "Published": "string",
+        "Long Description_lang": "string",
+        "id": "string",
+        "__index_level_0__": "int64"
+      },
+      "shards": [
+        {
+          "path": "datasets/jobs-en/part-00000.parquet",
+          "rows": 25000,
+          "start_row": 0,
+          "bytes": 17211380,
+          "sha256": "4c531b72240b95c9672d280781ded7e23a5ccf94ae33d232a34f80f320ebe2cf"
+        },
+        {
+          "path": "datasets/jobs-en/part-00001.parquet",
+          "rows": 25000,
+          "start_row": 25000,
+          "bytes": 16539042,
+          "sha256": "e8ed3c76fbd609f4c3e34fc19a1a4fae40869fb4c0d13b8a252d15d16be294e0"
+        },
+        {
+          "path": "datasets/jobs-en/part-00002.parquet",
+          "rows": 25000,
+          "start_row": 50000,
+          "bytes": 15876843,
+          "sha256": "4e1496024b6be1d764fd721d74cd808c7de8bf303bfff5cc892c20072a8062d0"
+        },
+        {
+          "path": "datasets/jobs-en/part-00003.parquet",
+          "rows": 25000,
+          "start_row": 75000,
+          "bytes": 16286017,
+          "sha256": "fdd77854f9da4a15eefc180d3b0ec4e8d0821ab06a861502c3ccd208a4de6cc5"
+        },
+        {
+          "path": "datasets/jobs-en/part-00004.parquet",
+          "rows": 25000,
+          "start_row": 100000,
+          "bytes": 17491547,
+          "sha256": "4ef37f474fd926e4e3b32ec8a91e836ffdcc48f71cf97c2d076731ce76c42b4e"
+        },
+        {
+          "path": "datasets/jobs-en/part-00005.parquet",
+          "rows": 16897,
+          "start_row": 125000,
+          "bytes": 11529392,
+          "sha256": "a9ed34e04939dc9147605942fe89e43d3e114235c121f692d2f0c9080fd73331"
+        }
+      ],
+      "validation": {
+        "all_values_and_nulls_preserved": true,
+        "schema_and_metadata_preserved": true,
+        "row_order_preserved": true,
+        "directory_loading_matches": true,
+        "all_shards_within_size_limit": true,
+        "original_file_unchanged": true
+      }
+    },
+    {
+      "name": "jobs-uk",
+      "directory": "datasets/jobs-uk",
+      "source_path": "raw/djinni/recruitment-dataset-job-descriptions-ukrainian/2feb8e866c557433d15a27d41808bc427b584fdb/data/train-00000-of-00001.parquet",
+      "source_sha256": "8ebd33adb6dfdd2bccda0579634025e4348163debb833c63323d5837969218cd",
+      "repo_id": "lang-uk/recruitment-dataset-job-descriptions-ukrainian",
+      "revision": "2feb8e866c557433d15a27d41808bc427b584fdb",
+      "rows": 27461,
+      "columns": {
+        "Position": "string",
+        "Long Description": "string",
+        "Company Name": "string",
+        "Exp Years": "string",
+        "Primary Keyword": "string",
+        "English Level": "string",
+        "Published": "string",
+        "Long Description_lang": "string",
+        "id": "string",
+        "__index_level_0__": "int64"
+      },
+      "shards": [
+        {
+          "path": "datasets/jobs-uk/part-00000.parquet",
+          "rows": 25000,
+          "start_row": 0,
+          "bytes": 22425145,
+          "sha256": "9b89c9976e5e47979fb9c721bf636460530421928860b2e87e5200ccaeeb4a63"
+        },
+        {
+          "path": "datasets/jobs-uk/part-00001.parquet",
+          "rows": 2461,
+          "start_row": 25000,
+          "bytes": 2145599,
+          "sha256": "f8c31ace2b9e61005a0b029994b683bc7cb2ad6030ead1efd95607c60833945d"
+        }
+      ],
+      "validation": {
+        "all_values_and_nulls_preserved": true,
+        "schema_and_metadata_preserved": true,
+        "row_order_preserved": true,
+        "directory_loading_matches": true,
+        "all_shards_within_size_limit": true,
+        "original_file_unchanged": true
+      }
+    }
+  ]
+}

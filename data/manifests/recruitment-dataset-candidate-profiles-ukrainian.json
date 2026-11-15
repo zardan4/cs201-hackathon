@@ -1,0 +1,31 @@
+{
+  "repo_id": "lang-uk/recruitment-dataset-candidate-profiles-ukrainian",
+  "revision": "6a5a1355601d8525457cc3b9f84d3ffae2341ddf",
+  "started_at": "2026-11-15T15:27:30.014677+00:00",
+  "complete": true,
+  "expected_rows": 24230,
+  "observed_rows": null,
+  "validation": "File sizes, available upstream SHA-256 hashes, and Parquet signatures; row count not measured",
+  "license_declared": "MIT",
+  "files": [
+    {
+      "source_path": "README.md",
+      "local_path": "raw/djinni/recruitment-dataset-candidate-profiles-ukrainian/6a5a1355601d8525457cc3b9f84d3ffae2341ddf/README.md",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-candidate-profiles-ukrainian/resolve/6a5a1355601d8525457cc3b9f84d3ffae2341ddf/README.md?download=true",
+      "bytes": 4108,
+      "sha256": "2c28e6378e72240f58c88f4204c18eeb93d6f798aa41906c5c355a90c0657c97",
+      "upstream_sha256": null,
+      "verified_at": "2026-11-15T15:27:30.399998+00:00"
+    },
+    {
+      "source_path": "data/train-00000-of-00001.parquet",
+      "local_path": "raw/djinni/recruitment-dataset-candidate-profiles-ukrainian/6a5a1355601d8525457cc3b9f84d3ffae2341ddf/data/train-00000-of-00001.parquet",
+      "url": "https://huggingface.co/datasets/lang-uk/recruitment-dataset-candidate-profiles-ukrainian/resolve/6a5a1355601d8525457cc3b9f84d3ffae2341ddf/data/train-00000-of-00001.parquet?download=true",
+      "bytes": 32043828,
+      "sha256": "5dc533e9e745b355ffe70e3437f692e4ee03e1f6ea01d5e4bab1dfb00e39798f",
+      "upstream_sha256": "5dc533e9e745b355ffe70e3437f692e4ee03e1f6ea01d5e4bab1dfb00e39798f",
+      "verified_at": "2026-11-15T15:27:32.601438+00:00"
+    }
+  ],
+  "completed_at": "2026-11-15T15:27:32.601843+00:00"
+}

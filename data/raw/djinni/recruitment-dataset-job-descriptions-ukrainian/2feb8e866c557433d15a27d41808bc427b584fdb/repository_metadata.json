@@ -1,0 +1,122 @@
+{
+  "_id": "6607d7c23fbd33a1d00f1433",
+  "id": "lang-uk/recruitment-dataset-job-descriptions-ukrainian",
+  "author": "lang-uk",
+  "sha": "2feb8e866c557433d15a27d41808bc427b584fdb",
+  "lastModified": "2024-06-02T10:27:36.000Z",
+  "private": false,
+  "gated": false,
+  "disabled": false,
+  "tags": [
+    "language:uk",
+    "license:mit",
+    "size_categories:10K<n<100K",
+    "format:parquet",
+    "modality:text",
+    "library:datasets",
+    "library:pandas",
+    "library:mlcroissant",
+    "library:polars",
+    "region:us"
+  ],
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\tDjinni Dataset (Ukrainian Job Descriptions part)\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tOverview\n\t\n\nThe Djinni Recruitment Dataset (Ukrainian Job Descriptions part)  contains 150,000 job descriptions and 230,000 anonymized candidate CVs, posted between 2020-2023 on the Djinni IT job platform. The dataset includes samples in English and Ukrainian. \nThe dataset contains various attributes related to job descriptions, including position titles, job descriptions, company names, experience requirements… See the full description on the dataset page: https://huggingface.co/datasets/lang-uk/recruitment-dataset-job-descriptions-ukrainian.",
+  "downloads": 45,
+  "likes": 0,
+  "cardData": {
+    "dataset_info": {
+      "features": [
+        {
+          "name": "Position",
+          "dtype": "string"
+        },
+        {
+          "name": "Long Description",
+          "dtype": "string"
+        },
+        {
+          "name": "Company Name",
+          "dtype": "string"
+        },
+        {
+          "name": "Exp Years",
+          "dtype": "string"
+        },
+        {
+          "name": "Primary Keyword",
+          "dtype": "string"
+        },
+        {
+          "name": "English Level",
+          "dtype": "string"
+        },
+        {
+          "name": "Published",
+          "dtype": "string"
+        },
+        {
+          "name": "Long Description_lang",
+          "dtype": "string"
+        },
+        {
+          "name": "id",
+          "dtype": "string"
+        },
+        {
+          "name": "__index_level_0__",
+          "dtype": "int64"
+        }
+      ],
+      "splits": [
+        {
+          "name": "train",
+          "num_bytes": 83166918,
+          "num_examples": 27461
+        }
+      ],
+      "download_size": 40645342,
+      "dataset_size": 83166918
+    },
+    "configs": [
+      {
+        "config_name": "default",
+        "data_files": [
+          {
+            "split": "train",
+            "path": "data/train-*"
+          }
+        ]
+      }
+    ],
+    "license": "mit",
+    "language": [
+      "uk"
+    ],
+    "size_categories": [
+      "10K<n<100K"
+    ]
+  },
+  "siblings": [
+    {
+      "rfilename": ".gitattributes",
+      "blobId": "28df5f900b358436f0267334b3e3e9af33f917ba",
+      "size": 2307
+    },
+    {
+      "rfilename": "README.md",
+      "blobId": "de954a4ec5f946ca89ad4f717a421892e55875f4",
+      "size": 4089
+    },
+    {
+      "rfilename": "data/train-00000-of-00001.parquet",
+      "blobId": "3fb7e2b5b9863719555a2d6505584392e824b6d5",
+      "size": 40645342,
+      "lfs": {
+        "sha256": "8ebd33adb6dfdd2bccda0579634025e4348163debb833c63323d5837969218cd",
+        "size": 40645342,
+        "pointerSize": 133
+      }
+    }
+  ],
+  "createdAt": "2024-03-30T09:13:38.000Z",
+  "usedStorage": 40645342
+}
