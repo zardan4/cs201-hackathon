@@ -46,8 +46,8 @@ Maximum score: **15 points**. 34 teams, 5 groups. The most important thing: the 
 | Джерело | Де | Що містить | Для чого |
 |---|---|---|---|
 | **DOU — актуальні вакансії** | `data/dou_active_vacancies.csv` | ~3 500 вакансій; колонки: `date, title, company, location, salary, categories, link, snippet` | **Основне джерело для свайпів** (актуальні вакансії) |
-| **DOU salaries** | `data/datasets/devua-salaries/`, `data/raw/devua/` | Історичні опитування зарплат IT-спеціалістів | Статистика зарплат за навичками/позиціями |
-| **Djinni recruitment dataset** (MIT) | `data/datasets/jobs-en`, `jobs-uk`, `candidates-en`, `candidates-uk`, `data/raw/djinni/` | ~140k+ описів вакансій та ~200k профілів кандидатів (2020–2023), parquet | Словник навичок, зарплатна статистика, ціна навичок |
+| **DOU salaries** | `data/datasets/devua-salaries/`, `data/raw/devua/` | Історичні опитування зарплат IT-спеціалістів | Статистика зарплат (опитування DOU, ~14k рядків у `2026_june_raw`: зарплата, посада, мова, стаж) |
+| **Djinni recruitment dataset** (MIT) | `data/datasets/jobs-en`, `jobs-uk`, `candidates-en`, `candidates-uk`, `data/raw/djinni/` | ~140k+ описів вакансій та ~200k профілів кандидатів (2020–2023), parquet | Словник навичок (**зарплат у Djinni немає**) |
 
 ⚠️ **Важливі особливості даних:**
 - У `dou_active_vacancies.csv` зарплата вказана лише у **~16 %** вакансій (≈550 з 3 512), формати різні: `$700`, `$560–1700`, `від $600`, `до $2500`. Потрібен парсер → поля `salary_min`, `salary_max`, `salary_mid` (USD). Вакансії без зарплати все одно показуємо, але для статистики використовуємо лише ті, де вона є (+ історичні датасети).
@@ -70,51 +70,21 @@ Maximum score: **15 points**. 34 teams, 5 groups. The most important thing: the 
 - **HTML/CSS** — шаблони й стилі. Мінімальний JS допускається **лише** для жестів свайпу (drag) — вся логіка залишається в Python; свайп також має працювати кнопками ✗ / ♥ (POST-запит на Python-ендпоінт).
 - Збереження стану користувача (профіль, вподобані вакансії): Flask `session`/cookie або простий JSON-файл — без складної БД і без реєстрації.
 
-### Структура проєкту (пропозиція)
+### Ролі, сутності та таски
+
+Детальна документація (читайте **перед стартом роботи**):
+- 👥 [`docs/TEAM.md`](docs/TEAM.md) — ролі (**Data Analyst**, **Web Engineer A: профіль + CV + інсайти**, **Web Engineer B: свайпи**), власні файли, таски з залежностями, графік до 20:15.
+- 📐 [`docs/CONTRACTS.md`](docs/CONTRACTS.md) — **сутності** (`Job`, `UserProfile`, `JobMatch`, `SwipeAction`, `SalaryRecord`, `SalaryStats`, `UpgradeSuggestion`, `CvParseResult`, `InsightsReport`), артефакти `cache/`, Python-інтерфейси `analytics/` і `app/services/`, HTTP-роути.
+
+Коротко: **DA** перетворює `data/` на таблиці й аналітичні функції (`analytics/`), **WE** підключають їх до сайту через шар `app/services/` і сутності з `app/models.py`. Між собою ролі спілкуються лише через ці контракти.
 
 ```
-app/
-  main.py          # Flask: маршрути /, /swipe, /profile, /insights, POST /like, /skip
-  data_loader.py   # читання CSV/parquet, очищення, парсинг зарплати
-  skills.py        # словник навичок, витягування навичок з тексту
-  matching.py      # скоринг та відбір вакансій під профіль
-  salary.py        # статистика зарплат (медіана/середня), розподіли
-  upgrade.py       # рекомендації «що підкачати»
-  storage.py       # збереження профілю та вподобаних вакансій
-  templates/       # base.html, onboarding.html, swipe.html, profile.html, insights.html
-  static/          # style.css, (мінімальний) swipe.js
+analytics/   # DA: jobs, skills, salary_records, matching, salary, upgrade, cv, build, fixtures/
+app/         # WE: main.py, models.py, storage.py, services/, web/, templates/, static/
+cache/       # згенеровані таблиці (не в git)
+docs/        # TEAM.md, CONTRACTS.md, DATA_NOTES.md, DEMO.md
 requirements.txt
 ```
-
-### Розбиття на таски
-
-Кожен таск має **власні файли** (щоб розробники й агенти не конфліктували в Git) і чіткий вихід. Між модулями домовляємось про контракти нижче — це дозволяє працювати паралельно.
-
-**Контракти між модулями:**
-- `data_loader.load_jobs() -> pandas.DataFrame` з колонками: `id, title, company, location, is_remote, salary_min, salary_max, salary_mid, categories (list[str]), skills (set[str]), snippet, link`.
-- `skills.extract_skills(text: str) -> set[str]`; `skills.ALL_SKILLS: list[str]`.
-- `matching.rank_jobs(jobs, user_skills, position, exclude_ids) -> DataFrame` (+ колонка `match_score` 0–1).
-- `salary.salary_stats(jobs, user_skills) -> dict` (`median`, `mean`, `count`, `distribution`).
-- `upgrade.recommend(jobs, user_skills, top_n=5) -> list[dict]` (`skill`, `salary_gain`, `new_jobs`).
-- `storage`: `get_profile()`, `save_profile(position, skills)`, `like(job_id)`, `skip(job_id)`, `liked_jobs()`.
-
-| Таск | Опис | Файли | Залежить від | Done-критерій |
-|---|---|---|---|---|
-| **T0. Каркас** | Flask-проєкт, `requirements.txt`, `base.html` з нижньою навігацією на 3 вкладки, запуск `python -m app.main` | `app/main.py`, `requirements.txt`, `templates/base.html` | — | Сайт відкривається, 3 вкладки перемикаються |
-| **T1. Дані** | Завантажити CSV, очистити, парсинг зарплати (`$700`, `$560–1700`, `від/до`), `is_remote`, список категорій, унікальний `id` | `app/data_loader.py` | — | `load_jobs()` повертає DataFrame за контрактом; юніт-перевірка на прикладах зарплат |
-| **T2. Навички** | Словник навичок (з Djinni + вручну), `extract_skills`, додати колонку `skills` | `app/skills.py` | T1 | У ≥80 % вакансій категорії IT знайдено ≥1 навичку |
-| **T3. Онбординг** | Екран вибору позиції та навичок (теги), збереження профілю | `templates/onboarding.html`, `app/storage.py` | T0, T2 | Після вибору профіль зберігається й відкриваються вкладки |
-| **T4. Матчинг** | `rank_jobs`, скоринг, відсів уже свайпнутих | `app/matching.py` | T1, T2 | Для тестового профілю повертає відсортований список зі `match_score` |
-| **T5. Свайпи (вкладка 1)** | Картка вакансії, кнопки ✗/♥, жест свайпу, POST `/like` `/skip`, наступна картка | `templates/swipe.html`, `static/swipe.js`, `static/style.css`, роути в `main.py` | T0, T3, T4 | Вправо — вакансія в збережених, вліво — зникає; черга закінчується красивим порожнім станом |
-| **T6. Профіль (вкладка 2)** | Показ позиції/навичок, редагування, список вподобаних вакансій із посиланнями | `templates/profile.html`, `app/storage.py` | T3, T5 | Вподобані вакансії відображаються й відкриваються за посиланням |
-| **T7. Статистика (вкладка 3, частина A)** | Медіана/середня зарплата за навичками, розподіл, графік | `app/salary.py`, `templates/insights.html` | T1, T2 | Дашборд показує числа й графік для профілю користувача |
-| **T8. Апгрейд (вкладка 3, частина B)** | Рекомендації «що підкачати»: приріст зарплати + нові вакансії | `app/upgrade.py`, блок у `insights.html` | T4, T7 | Топ-5 навичок із цифрами для будь-якого профілю |
-| **T9. Резюме (stretch)** | Завантаження TXT/PDF → `extract_skills` → попередній вибір навичок | `app/resume.py`, форма в `onboarding.html` | T2, T3 | Навички з резюме підставляються в онбординг |
-| **T10. Полірування й демо** | Стилі «як у Tinder/Badoo», порожні стани, помилки, сценарій демо на 2 хв, перевірка запуску з нуля | `static/style.css`, `docs/` | усі | Свіжий `git clone` + `pip install -r requirements.txt` + запуск працює без помилок |
-
-**Рекомендований порядок:** T0 і T1 одночасно → T2 → (T3, T4, T7 паралельно) → (T5, T6, T8 паралельно) → T10. T9 — лише якщо лишився час.
-
-**Правила паралельної роботи:** кожен розробник/агент бере один таск і працює лише в його файлах; перед стартом `git pull --rebase`; коміти малі й часті, **від різних учасників**; не змінюйте чужі контракти без домовленості в чаті команди.
 
 ---
 

@@ -4,12 +4,13 @@ Read this file before doing any work. These rules come from the hackathon criter
 
 ## Project context
 
-Python hackathon on the topic **Open Data** (16 November, 16:30–21:00 Kyiv time; work until 20:15, defense 20:15–21:00 online in Google Meet). Max 15 points. The most important factor is that the program really works during the demo. The project idea is **SwipeJob** — a Tinder/Badoo-style web app for IT job search (3 tabs: swipes, profile, insights/upgrade). **Read the `Ідея проєкту (UA)` section in `README.md` first**: it defines the idea, data sources, module contracts and the task breakdown (T0–T10).
+Python hackathon on the topic **Open Data** (16 November, 16:30–21:00 Kyiv time; work until 20:15, defense 20:15–21:00 online in Google Meet). Max 15 points. The most important factor is that the program really works during the demo. The project idea is **SwipeJob** — a Tinder/Badoo-style web app for IT job search (3 tabs: swipes, profile, insights/upgrade). **Read the `Ідея проєкту (UA)` section in `README.md` first**: it defines the idea and data sources. Then read `docs/TEAM.md` (roles, file ownership, tasks) and `docs/CONTRACTS.md` (entities, cache artifacts, function and HTTP interfaces).
 
 ## How to work on the project (for agents)
 
-- Take exactly **one task** (T0–T10 from `README.md`) from the developer who runs you; edit **only that task's files**.
-- Respect the module contracts in `README.md` (function names, DataFrame columns). Do not change a contract without telling the user.
+- Team roles: **DA** (Data Analyst, `analytics/`), **WE-A** (profile + CV + insights UI), **WE-B** (swipe tab). Ask the user which role/task (IDs like DA4, A2, B3 in `docs/TEAM.md`) you are working on; edit **only that role's files**.
+- Web code never reads `data/` or raw DataFrames: it goes through `app/services/` and the dataclasses in `app/models.py`. Analytics code returns plain dict/list matching `docs/CONTRACTS.md`.
+- Respect the entities and function signatures in `docs/CONTRACTS.md`; change a contract in that file first and tell the user. Do not change a contract without telling the user.
 - Data lives in `data/` (read-only for the app code). The DOU CSV has a BOM: read it with `encoding="utf-8-sig"`. Only ~16% of vacancies have a salary.
 - Backend, matching, statistics and parsing: **Python only** (Flask + pandas). HTML/CSS for templates; JS only for the minimal swipe gesture, never for business logic.
 - Applying to jobs / sending resumes is **out of scope**; "like" only saves the vacancy in the profile.
