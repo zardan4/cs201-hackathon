@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "swipe/_icons.html" import icon %}
 {% block title %}Swipe{% endblock %}
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='swipe/swipe.css') }}">
@@ -6,49 +7,145 @@
 {% block content %}
 {% if needs_onboarding %}
 <section class="panel swipe-empty">
+  <span class="swipe-empty__icon">{{ icon('heart', 28) }}</span>
   <h1>Let's set up your profile</h1>
   <p>Pick your position and skills so we can match you with salaried IT jobs.</p>
   <a class="button" href="{{ url_for('profile.onboarding') }}">Start onboarding</a>
 </section>
 {% elif not matches %}
 <section class="panel swipe-empty">
+  <span class="swipe-empty__icon">{{ icon('briefcase', 28) }}</span>
   <h1>No more jobs for now</h1>
   <p>You've seen every salaried vacancy that matches your profile{% if profile.remote_only %} (remote only){% endif %}.
      Add more skills to unlock new matches.</p>
   <a class="button" href="{{ url_for('profile.index') }}">Edit profile</a>
 </section>
 {% else %}
-<section class="swipe" aria-label="Job cards">
-  <div class="swipe-stack" id="swipe-stack">
-    {% for match in matches %}
-    {% set job = match.job %}
-    <article class="job-card" data-job-id="{{ job.id }}" style="z-index: {{ loop.revindex }}">
-      <div class="job-card__badges">
-        <span class="job-card__score">{{ (match.score * 100) | round | int }}% match</span>
-        {% if job.is_remote %}<span class="job-card__remote">Remote</span>{% endif %}
+<div class="feed">
+  <section class="feed__cards" aria-label="Job cards">
+    <div class="swipe-stack" id="swipe-stack">
+      {% for match in matches %}
+      {% set job = match.job %}
+      {% set percent = (match.score * 100) | round | int %}
+      <article class="job-card" data-job-id="{{ job.id }}" style="z-index: {{ loop.revindex }}"
+               data-strong-match="{{ 'true' if match.score >= strong_match_score else 'false' }}">
+        <header class="job-card__hero">
+          <span class="job-card__logo" aria-hidden="true">{{ (job.company.lstrip('«"\' ') or '?')[0] | upper }}</span>
+          <ul class="job-card__chips">
+            {% if job.is_remote %}<li>{{ icon('globe', 14) }} Remote</li>{% endif %}
+            {% for city in job.locations[:2] %}<li>{{ city }}</li>{% endfor %}
+            {% for category in job.categories[:1] %}<li>{{ category }}</li>{% endfor %}
+          </ul>
+        </header>
+        <div class="job-card__body">
+          <h2 class="job-card__title">{{ job.title }}</h2>
+          <p class="job-card__company">{{ job.company }}{% if job.locations %} · {{ job.locations[0] }}{% endif %}</p>
+          <p class="job-card__meta">
+            <span class="job-card__salary">{{ job.salary_text or 'Salary not specified' }}</span>
+            <span class="job-card__posted">{{ icon('clock', 14) }} Posted {{ job.posted_at.strftime('%b %d') }}</span>
+          </p>
+          {% if match.matched_skills or match.missing_skills %}
+          <ul class="job-card__skills" aria-label="Skills">
+            {% for skill in match.matched_skills %}<li class="skill skill--have">{{ skill }}</li>{% endfor %}
+            {% for skill in match.missing_skills %}<li class="skill skill--missing" title="You don't have this skill yet">+ {{ skill }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+          <p class="job-card__snippet">{{ job.snippet | truncate(200) }}</p>
+          <div class="job-card__footer">
+            <div class="job-card__score">
+              <span>Match score</span>
+              <strong class="job-card__percent">{{ percent }}%</strong>
+              <span class="job-card__bar"><span style="width: {{ percent }}%"></span></span>
+            </div>
+            <a class="job-card__link" href="{{ job.url }}" target="_blank" rel="noopener">DOU {{ icon('external', 14) }}</a>
+          </div>
+        </div>
+        <span class="job-card__stamp job-card__stamp--like">LIKE</span>
+        <span class="job-card__stamp job-card__stamp--skip">NOPE</span>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="swipe-actions">
+      <button type="button" class="swipe-btn swipe-btn--skip" data-action="skip" aria-label="Skip">{{ icon('x', 26) }}</button>
+      <button type="button" class="swipe-btn swipe-btn--like" data-action="like" aria-label="Like and save">{{ icon('heart', 30) }}</button>
+    </div>
+  </section>
+
+  <aside class="feed__side">
+    <section class="side-card">
+      <h2 class="side-card__label">Your activity</h2>
+      <div class="stats">
+        <div class="stat stat--indigo"><strong data-stat="swipes">{{ activity.swipes }}</strong><span>Swipes</span></div>
+        <div class="stat stat--green"><strong data-stat="liked">{{ activity.liked }}</strong><span>Saved</span></div>
+        <div class="stat stat--amber"><strong data-stat="skipped">{{ activity.skipped }}</strong><span>Skipped</span></div>
+        <div class="stat stat--pink"><strong><span data-stat="like_rate">{{ activity.like_rate }}</span>%</strong><span>Like rate</span></div>
       </div>
-      <h2 class="job-card__title">{{ job.title }}</h2>
-      <p class="job-card__company">{{ job.company }}</p>
-      <p class="job-card__salary">{{ job.salary_text or 'Salary not specified' }}</p>
-      {% if job.locations %}<p class="job-card__location">📍 {{ job.locations | join(', ') }}</p>{% endif %}
-      <ul class="job-card__skills">
-        {% for skill in match.matched_skills %}<li class="skill skill--have">{{ skill }}</li>{% endfor %}
-        {% for skill in match.missing_skills %}<li class="skill skill--missing">{{ skill }}</li>{% endfor %}
+    </section>
+
+    <section class="side-card">
+      <h2 class="side-card__label">Why you match</h2>
+      {% for match in matches %}
+      {% set job = match.job %}
+      <ul class="why" data-job-id="{{ job.id }}"{% if not loop.first %} hidden{% endif %}>
+        <li class="why__row">
+          <span class="why__icon why__icon--indigo">{{ icon('star', 16) }}</span>
+          <div><strong>{{ match.matched_skills | length }} of {{ (match.matched_skills + match.missing_skills) | length }} skills match</strong>
+               <span>{{ match.matched_skills | join(', ') if match.matched_skills else 'No shared skills yet' }}</span></div>
+        </li>
+        <li class="why__row">
+          <span class="why__icon why__icon--green">{{ icon('dollar', 16) }}</span>
+          <div><strong>Salary {{ job.salary_text }}</strong><span>Listed by the employer on DOU</span></div>
+        </li>
+        <li class="why__row">
+          <span class="why__icon why__icon--amber">{{ icon('briefcase', 16) }}</span>
+          {% if profile.position | lower in job.categories | map('lower') | list %}
+          <div><strong>{{ profile.position }} role</strong><span>Matches your position</span></div>
+          {% else %}
+          <div><strong>{{ job.categories | join(', ') or 'Other category' }}</strong><span>Different from your position ({{ profile.position }})</span></div>
+          {% endif %}
+        </li>
+        <li class="why__row">
+          <span class="why__icon why__icon--blue">{{ icon('pin', 16) }}</span>
+          <div><strong>{{ 'Remote friendly' if job.is_remote else 'On-site / office' }}</strong>
+               <span>{{ job.locations | join(', ') or 'Location not specified' }}</span></div>
+        </li>
       </ul>
-      {% if match.reason %}<p class="job-card__reason">{{ match.reason }}</p>{% endif %}
-      <p class="job-card__snippet">{{ job.snippet | truncate(220) }}</p>
-      <a class="job-card__link" href="{{ job.url }}" target="_blank" rel="noopener">Open on DOU ↗</a>
-      <span class="job-card__stamp job-card__stamp--like">LIKE</span>
-      <span class="job-card__stamp job-card__stamp--skip">NOPE</span>
-    </article>
-    {% endfor %}
+      {% endfor %}
+    </section>
+
+    <section class="side-card">
+      <h2 class="side-card__label">Swipe guide</h2>
+      <ul class="guide">
+        <li><span class="why__icon why__icon--red">{{ icon('x', 16) }}</span> Skip — not interested</li>
+        <li><span class="why__icon why__icon--indigo">{{ icon('heart', 16) }}</span> Like — save to your profile</li>
+        <li><span class="why__icon why__icon--blue">{{ icon('external', 16) }}</span> Open the original vacancy on DOU</li>
+      </ul>
+      <p class="guide__hint">Drag the card left or right, or use the buttons.</p>
+    </section>
+  </aside>
+</div>
+
+<div class="match-overlay" id="match-overlay" hidden>
+  <div class="match-overlay__box" role="dialog" aria-modal="true" aria-labelledby="match-title">
+    <span class="match-overlay__heart">{{ icon('heart', 30) }}</span>
+    <h2 id="match-title">It's a Match!</h2>
+    <p>This job fits your profile well. We saved it to your profile.</p>
+    <div class="match-overlay__pair">
+      <span class="match-overlay__avatar match-overlay__avatar--you">{{ (profile.position or 'Y')[0] | upper }}</span>
+      <span class="match-overlay__fit"><strong data-match="percent"></strong>FIT</span>
+      <span class="match-overlay__avatar match-overlay__avatar--company" data-match="logo"></span>
+    </div>
+    <div class="match-overlay__role">
+      <span>Role</span>
+      <strong data-match="title"></strong>
+      <em data-match="salary"></em>
+    </div>
+    <div class="match-overlay__actions">
+      <a class="match-overlay__primary" href="{{ url_for('profile.index') }}">View saved jobs</a>
+      <button type="button" class="match-overlay__secondary" id="match-close">Keep swiping</button>
+    </div>
   </div>
-  <div class="swipe-actions">
-    <button type="button" class="swipe-btn swipe-btn--skip" data-action="skip" aria-label="Skip">✗</button>
-    <button type="button" class="swipe-btn swipe-btn--like" data-action="like" aria-label="Like">♥</button>
-  </div>
-  <p class="swipe-hint">Drag the card or use the buttons. Liked jobs are saved to your profile.</p>
-</section>
+</div>
 {% endif %}
 {% endblock %}
 {% block scripts %}

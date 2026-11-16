@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% from "swipe/_icons.html" import icon %}
+{% block title %}Liked jobs{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='swipe/swipe.css') }}">
+{% endblock %}
+{% block content %}
+<div class="liked">
+  <header class="liked__header">
+    <h1>Liked Jobs</h1>
+    <span class="liked__count">{{ total }} {{ 'offer' if total == 1 else 'offers' }}</span>
+  </header>
+
+  {% if total == 0 %}
+  <section class="panel swipe-empty">
+    <span class="swipe-empty__icon">{{ icon('heart', 28) }}</span>
+    <h2>No liked jobs yet</h2>
+    <p>Swipe right on a vacancy to save it here.</p>
+    <a class="button" href="{{ url_for('swipe.index') }}">Start swiping</a>
+  </section>
+  {% else %}
+  <nav class="liked__filters" aria-label="Filter liked jobs">
+    {% for key, label in filters.items() %}
+    <a href="{{ url_for('swipe.liked', filter=key) }}"{% if key == active_filter %} aria-current="page"{% endif %}>{{ label }}</a>
+    {% endfor %}
+  </nav>
+
+  {% if not saved %}
+  <p class="liked__none">No {{ filters[active_filter] | lower }} jobs among your likes.</p>
+  {% endif %}
+
+  <ul class="liked__list">
+    {% for item in saved %}
+    {% set job = item.job %}
+    <li class="liked-row">
+      <span class="liked-row__logo" aria-hidden="true">{{ (job.company.lstrip('«"\' ') or '?')[0] | upper }}</span>
+      <div class="liked-row__main">
+        <p class="liked-row__title">
+          <a href="{{ job.url }}" target="_blank" rel="noopener">{{ job.title }}</a>
+          <span class="liked-row__badge {{ 'liked-row__badge--remote' if job.is_remote else '' }}">{{ 'Remote' if job.is_remote else 'Office' }}</span>
+        </p>
+        <p class="liked-row__meta">
+          {{ job.company }}{% if job.locations %} · {{ job.locations | join(', ') }}{% endif %}{% if job.categories %} · {{ job.categories | join(', ') }}{% endif %}
+        </p>
+        {% if job.skills %}
+        <ul class="liked-row__skills" aria-label="Skills">
+          {% for skill in job.skills[:6] %}
+          <li class="skill {{ 'skill--have' if skill in profile.skills else 'skill--missing' }}">{{ skill }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="liked-row__side">
+        <strong class="liked-row__salary">{{ job.salary_text or 'Salary not specified' }}</strong>
+        <span class="liked-row__date">Liked {{ item.created_at.strftime('%b %d') }}</span>
+        <a class="liked-row__open" href="{{ job.url }}" target="_blank" rel="noopener"
+           aria-label="Open {{ job.title }} on DOU">{{ icon('external', 16) }}</a>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endblock %}

@@ -4,12 +4,23 @@ Analytics modules are imported inside the functions so the web app still starts
 while the DA's `analytics` package is being built.
 """
 
+from dataclasses import dataclass
 from datetime import date, datetime
 
 from app import storage
-from app.models import Job, JobMatch, SwipeAction, UserProfile
+from app.models import Job, JobMatch, SavedJob, SwipeAction, UserProfile
 
 VALID_ACTIONS = ("like", "skip")
+STRONG_MATCH_SCORE = 0.7  # a like at or above this score shows the "It's a match!" overlay
+
+
+@dataclass(kw_only=True)
+class SwipeActivity:
+    """Counters for the "Your activity" panel on the swipe tab."""
+    swipes: int
+    liked: int
+    skipped: int
+    like_rate: int  # percent of swipes that were likes
 
 
 def _as_list(value) -> list[str]:
@@ -92,8 +103,16 @@ def record_swipe(user_id: str, job_id: str, action: str) -> None:
     storage.append_swipe(SwipeAction(user_id=user_id, job_id=job_id, action=action))
 
 
-def saved_jobs(user_id: str) -> list[Job]:
-    """Liked jobs, newest like first (shown on the profile tab)."""
+def swipe_activity(user_id: str) -> SwipeActivity:
+    swipes = storage.list_swipes(user_id)
+    liked = sum(1 for swipe in swipes if swipe.action == "like")
+    like_rate = round(100 * liked / len(swipes)) if swipes else 0
+    return SwipeActivity(swipes=len(swipes), liked=liked, skipped=len(swipes) - liked,
+                         like_rate=like_rate)
+
+
+def liked_jobs(user_id: str) -> list[SavedJob]:
+    """Liked jobs with the like time, newest first (the Liked page)."""
     from analytics.jobs import load_jobs
 
     likes = [swipe for swipe in storage.list_swipes(user_id) if swipe.action == "like"]
@@ -104,4 +123,14 @@ def saved_jobs(user_id: str) -> list[Job]:
     rows = jobs_table[jobs_table["id"].astype(str).isin(liked_ids)].to_dict("records")
     jobs_by_id = {str(row["id"]): _job_from_dict(row) for row in rows}
     newest_first = sorted(likes, key=lambda swipe: swipe.created_at, reverse=True)
-    return [jobs_by_id[swipe.job_id] for swipe in newest_first if swipe.job_id in jobs_by_id]
+    return [
+        SavedJob(user_id=swipe.user_id, job_id=swipe.job_id, action=swipe.action,
+                 created_at=swipe.created_at, job=jobs_by_id[swipe.job_id])
+        for swipe in newest_first
+        if swipe.job_id in jobs_by_id  # a vacancy may disappear after a data refresh
+    ]
+
+
+def saved_jobs(user_id: str) -> list[Job]:
+    """Liked jobs, newest like first (contract API used by the profile tab)."""
+    return [saved.job for saved in liked_jobs(user_id)]
