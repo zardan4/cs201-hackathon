@@ -1,5 +1,5 @@
 <section class="panel" aria-labelledby="saved-jobs-title">
-  <div class="saved-heading"><h2 id="saved-jobs-title">Saved jobs{% if not saved_jobs_error %} <span class="saved-count">{{ saved_jobs | length }}</span>{% endif %}</h2><a href="{{ url_for('swipe.liked') }}">View in Liked</a></div>
+  <div class="saved-heading"><h2 id="saved-jobs-title">Saved jobs{% if not saved_jobs_error %} <span class="saved-count">{{ saved_jobs | length }}</span>{% endif %}</h2></div>
   {% if saved_jobs_error %}
     <p role="alert">Saved jobs couldn’t be loaded. Your likes are preserved.</p>
     <a href="{{ url_for('profile.index') }}">Try again</a>

@@ -1,28 +1,13 @@
-// Swipe tab UI only (no business logic): gestures, card stack visuals, and
-// showing numbers/flags the server already computed. Swipes go to POST /api/swipe.
-// When the stack is empty the page reloads and the server renders the next cards.
+// Swipe tab UI only (no business logic): gestures, card animation and the
+// match overlay (shown when the server flagged the card as a strong match).
+// Swipes go to POST /api/swipe. When the stack is empty the page reloads and
+// the server renders the next cards.
 (function () {
   const stack = document.getElementById("swipe-stack");
   const overlay = document.getElementById("match-overlay");
   const THRESHOLD = 100; // px of horizontal drag that counts as a swipe
 
   const topCard = () => stack.querySelector(".job-card:not(.is-gone)");
-
-  /** Show the "Why you match" block that belongs to the current top card. */
-  function refreshStack() {
-    const card = topCard();
-    const topId = card && card.dataset.jobId;
-    document.querySelectorAll(".why").forEach((block) => {
-      block.hidden = block.dataset.jobId !== topId;
-    });
-  }
-
-  function showActivity(activity) {
-    Object.entries(activity || {}).forEach(([key, value]) => {
-      const element = document.querySelector(`[data-stat="${key}"]`);
-      if (element) element.textContent = value;
-    });
-  }
 
   function showMatch(card) {
     const copy = (name, selector) => {
@@ -44,15 +29,12 @@
   function sendSwipe(card, action) {
     card.classList.add("is-gone", action === "like" ? "is-liked" : "is-skipped");
     card.style.transform = "";
-    refreshStack();
     if (action === "like" && card.dataset.strongMatch === "true") showMatch(card);
     fetch("/api/swipe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ job_id: card.dataset.jobId, action: action }),
     })
-      .then((response) => response.json())
-      .then((data) => showActivity(data.activity))
       .catch(() => {})
       .finally(reloadIfEmpty);
   }

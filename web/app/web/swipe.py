@@ -23,33 +23,7 @@ def index():
         profile=profile,
         matches=matches,
         needs_onboarding=needs_onboarding,
-        activity=jobs_service.swipe_activity(profile.user_id),
         strong_match_score=jobs_service.STRONG_MATCH_SCORE,
-    )
-
-
-LIKED_FILTERS = {
-    "all": ("All", lambda job: True),
-    "remote": ("Remote", lambda job: job.is_remote),
-    "office": ("Office", lambda job: not job.is_remote),
-}
-
-
-@swipe_bp.get("/liked")
-def liked():
-    """Liked jobs list with All / Remote / Office filters (server-side)."""
-    active_filter = request.args.get("filter", "all")
-    if active_filter not in LIKED_FILTERS:
-        active_filter = "all"
-    saved = jobs_service.liked_jobs(g.profile.user_id)
-    keep = LIKED_FILTERS[active_filter][1]
-    return render_template(
-        "swipe/liked.html",
-        profile=g.profile,
-        total=len(saved),
-        saved=[item for item in saved if keep(item.job)],
-        filters={key: label for key, (label, _) in LIKED_FILTERS.items()},
-        active_filter=active_filter,
     )
 
 
@@ -68,7 +42,7 @@ def next_jobs():
 
 @swipe_bp.post("/api/swipe")
 def swipe():
-    """Body {"job_id": "...", "action": "like"|"skip"} -> {"ok": true, "activity": {...}}."""
+    """Body {"job_id": "...", "action": "like"|"skip"} -> {"ok": true}."""
     body = request.get_json(silent=True) or {}
     job_id = str(body.get("job_id", "")).strip()
     action = body.get("action")
@@ -78,5 +52,4 @@ def swipe():
         jobs_service.record_swipe(g.profile.user_id, job_id, action)
     except ValueError as error:
         return jsonify(ok=False, error=str(error)), 400
-    activity = jobs_service.swipe_activity(g.profile.user_id)
-    return jsonify(ok=True, activity=asdict(activity))
+    return jsonify(ok=True)

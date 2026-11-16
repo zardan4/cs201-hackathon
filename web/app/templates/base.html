@@ -16,9 +16,8 @@
     {% block content %}{% endblock %}
   </main>
   <nav class="tab-bar" aria-label="Main navigation">
-    {% for endpoint, label in [('swipe.index', 'Swipe'), ('swipe.liked', 'Liked'), ('profile.index', 'Profile'), ('insights.index', 'Insights')] %}
-      {# Swipe and Liked share the swipe blueprint, so compare exact endpoints there. #}
-      {% set active = request.endpoint == endpoint if request.blueprint == 'swipe' else request.blueprint == endpoint.split('.')[0] %}
+    {% for endpoint, label in [('swipe.index', 'Swipe'), ('profile.index', 'Profile'), ('insights.index', 'Insights')] %}
+      {% set active = request.blueprint == endpoint.split('.')[0] %}
       {% if not g.onboarding_complete | default(false) and endpoint != 'profile.index' %}
         <span class="locked-tab" aria-disabled="true" title="Upload your CV and confirm your profile first">{{ label }} <small>Locked</small></span>
       {% else %}
