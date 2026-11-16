@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Swipe{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='swipe/swipe.css') }}">
+{% endblock %}
+{% block content %}
+{% if needs_onboarding %}
+<section class="panel swipe-empty">
+  <h1>Let's set up your profile</h1>
+  <p>Pick your position and skills so we can match you with salaried IT jobs.</p>
+  <a class="button" href="{{ url_for('profile.onboarding') }}">Start onboarding</a>
+</section>
+{% elif not matches %}
+<section class="panel swipe-empty">
+  <h1>No more jobs for now</h1>
+  <p>You've seen every salaried vacancy that matches your profile{% if profile.remote_only %} (remote only){% endif %}.
+     Add more skills to unlock new matches.</p>
+  <a class="button" href="{{ url_for('profile.index') }}">Edit profile</a>
+</section>
+{% else %}
+<section class="swipe" aria-label="Job cards">
+  <div class="swipe-stack" id="swipe-stack">
+    {% for match in matches %}
+    {% set job = match.job %}
+    <article class="job-card" data-job-id="{{ job.id }}" style="z-index: {{ loop.revindex }}">
+      <div class="job-card__badges">
+        <span class="job-card__score">{{ (match.score * 100) | round | int }}% match</span>
+        {% if job.is_remote %}<span class="job-card__remote">Remote</span>{% endif %}
+      </div>
+      <h2 class="job-card__title">{{ job.title }}</h2>
+      <p class="job-card__company">{{ job.company }}</p>
+      <p class="job-card__salary">{{ job.salary_text or 'Salary not specified' }}</p>
+      {% if job.locations %}<p class="job-card__location">📍 {{ job.locations | join(', ') }}</p>{% endif %}
+      <ul class="job-card__skills">
+        {% for skill in match.matched_skills %}<li class="skill skill--have">{{ skill }}</li>{% endfor %}
+        {% for skill in match.missing_skills %}<li class="skill skill--missing">{{ skill }}</li>{% endfor %}
+      </ul>
+      {% if match.reason %}<p class="job-card__reason">{{ match.reason }}</p>{% endif %}
+      <p class="job-card__snippet">{{ job.snippet | truncate(220) }}</p>
+      <a class="job-card__link" href="{{ job.url }}" target="_blank" rel="noopener">Open on DOU ↗</a>
+      <span class="job-card__stamp job-card__stamp--like">LIKE</span>
+      <span class="job-card__stamp job-card__stamp--skip">NOPE</span>
+    </article>
+    {% endfor %}
+  </div>
+  <div class="swipe-actions">
+    <button type="button" class="swipe-btn swipe-btn--skip" data-action="skip" aria-label="Skip">✗</button>
+    <button type="button" class="swipe-btn swipe-btn--like" data-action="like" aria-label="Like">♥</button>
+  </div>
+  <p class="swipe-hint">Drag the card or use the buttons. Liked jobs are saved to your profile.</p>
+</section>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+{% if matches %}<script src="{{ url_for('static', filename='swipe/swipe.js') }}" defer></script>{% endif %}
+{% endblock %}
