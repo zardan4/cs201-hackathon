@@ -4,6 +4,12 @@
 > Усі сутності виведені з реальних даних у `data/` (див. «Звідки беруться поля»).
 > Ролі й таски: [`TEAM.md`](TEAM.md). Ідея: [`../README.md`](../README.md).
 
+## 0. Рішення щодо зарплат (зафіксовано)
+
+- **Вкладка свайпів показує лише вакансії, де зарплата вказана** (`salary_mid` не `None`): у `dou_active_vacancies.csv` це ≈550 із 3 512 (≈16 %). Вакансії без зарплати в стрічку **не потрапляють**.
+- **Вся статистика зарплат (вкладка 3) рахується тільки з опитувань DOU** (`data/datasets/devua-salaries/`, свіжі: `2026_june_raw`, `2025_dec_raw`, за потреби `2025_june_raw`), а **не** з вакансій. Вакансії — лише джерело карток і «нових вакансій» для апгрейду.
+- ⚠️ Ризик: пул ≈550 вакансій після фільтра за навичками може бути малим. DA на старті (DA1) рахує, скільки вакансій у пулі по кожній позиції, і пише це в `docs/DATA_NOTES.md`. Для запасу в `analytics/config.py` є прапорець `SWIPE_REQUIRES_SALARY = True` (якщо виставити `False`, у стрічці з'являться й вакансії без зарплати; картка тоді показує «зарплата не вказана»).
+
 ## 1. Потік даних (хто кого годує)
 
 ```
@@ -28,7 +34,7 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 | `is_remote` | `bool` | `True`, якщо у `location` є `віддалено` |
 | `salary_text` | `str \| None` | оригінальний `salary` (`"$560–1700"`, `"від $600"`, `"до $2500"`, `"$700"`) |
 | `salary_min` / `salary_max` | `int \| None` | USD/міс. `"від X"` → min=X; `"до X"` → max=X; `"A–B"` → обидва; `"X"` → обидва = X |
-| `salary_mid` | `int \| None` | середина інтервалу (або єдине значення). **Заповнене лише у ≈16 % вакансій** |
+| `salary_mid` | `int \| None` | середина інтервалу (або єдине значення). **Заповнене лише у ≈16 % вакансій; саме вони (і тільки вони) йдуть у свайпи** — див. розділ 0 |
 | `categories` | `list[str]` | з `categories` через кому: `Python`, `Java`, `QA`, `DevOps`, `AI/ML`, … (це «позиції» DOU) |
 | `skills` | `list[str]` | канонічні навички, витягнуті з `title`+`snippet`+`categories` (розділ 2.2) |
 | `snippet` | `str` | короткий опис (EN/UK) |
@@ -85,19 +91,19 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 > ⚠️ Опитування DOU: у README/публікаціях обов'язково вказувати DOU як джерело (див. `data/manifests/devua-csv.json`). Дані Djinni (`jobs-*`, `candidates-*`) — MIT; **зарплат у них немає**, колонки: jobs — `Position, Long Description, Company Name, Exp Years, Primary Keyword, English Level, Published, id`; candidates — `Position, Moreinfo, Looking For, Highlights, Primary Keyword, English Level, Experience Years, CV, id`. Їх використовуємо для словника навичок і (stretch) спільної зустрічальності навичок.
 
 ### 2.8 `SalaryStats` — статистика зарплат (вихід DA)
-`median: float`, `mean: float`, `p25: float`, `p75: float`, `count: int` (розмір вибірки), `basis: "survey" | "vacancies"`, `filters: dict` (які фільтри застосовано: position/skills/experience), `histogram: list[{"from": int, "to": int, "count": int}]`. Якщо `count < 30` — DA розширює фільтр і повертає це у `filters`, щоб UI міг показати «мало даних».
+`median: float`, `mean: float`, `p25: float`, `p75: float`, `count: int` (розмір вибірки), `basis: "survey"` (завжди — статистика лише з опитувань DOU, розділ 0), `filters: dict` (які фільтри застосовано: position/skills/experience), `histogram: list[{"from": int, "to": int, "count": int}]`. Якщо `count < 30` — DA розширює фільтр і повертає це у `filters`, щоб UI міг показати «мало даних».
 
 ### 2.9 `UpgradeSuggestion` — «що підкачати» (вихід DA)
 `skill: str`, `salary_gain_usd: float` (приріст медіани, якщо додати навичку), `salary_gain_pct: float`, `new_jobs_count: int` (скільки додаткових вакансій з'являється), `example_job_ids: list[str]`, `sample_size: int`.
 
 ### 2.10 `InsightsReport` — усе для вкладки 3
-`profile_salary: SalaryStats` (опитування), `vacancy_salary: SalaryStats | None` (вакансії з зарплатою), `jobs_available: int`, `top_upgrades: list[UpgradeSuggestion]`.
+`profile_salary: SalaryStats` (опитування DOU), `jobs_available: int` (вакансій із зарплатою, що підходять профілю), `top_upgrades: list[UpgradeSuggestion]`.
 
 ## 3. Артефакти `cache/` (контракт DA → WE)
 
 | Файл | Створює | Схема |
 |---|---|---|
-| `cache/jobs.parquet` | `analytics.build` | колонки = поля `Job` (списки зберігаються як `list`) |
+| `cache/jobs.parquet` | `analytics.build` | колонки = поля `Job` (списки як `list`); **лише вакансії з `salary_mid`** (пул для свайпів) |
 | `cache/salary_records.parquet` | `analytics.build` | колонки = поля `SalaryRecord` |
 | `analytics/skills_catalog.json` | DA (комітиться) | див. 2.2 |
 | `analytics/fixtures/*.json` | DA (комітиться) | зразки `Job`, `SalaryRecord`, `JobMatch`, `SalaryStats`, `UpgradeSuggestion`, `CvParseResult` у форматі цього документа |
@@ -108,7 +114,7 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 ### 4.1 `analytics/` — пише DA (чисті функції, без Flask)
 ```python
 # analytics/jobs.py
-def load_jobs() -> "pandas.DataFrame"                       # cache/jobs.parquet, колонки Job
+def load_jobs() -> "pandas.DataFrame"                       # cache/jobs.parquet, колонки Job (лише вакансії з зарплатою)
 # analytics/skills.py
 def extract_skills(text: str) -> list[str]
 def all_skills() -> list[dict]                              # skills_catalog.json
@@ -117,10 +123,9 @@ def all_positions() -> list[str]
 def parse_cv(text: str) -> dict                             # поля CvParseResult
 # analytics/matching.py
 def rank_jobs(position: str, skills: list[str], exclude_ids: set[str],
-              remote_only: bool = False, limit: int = 50) -> list[dict]   # поля JobMatch (+ job як dict)
+              remote_only: bool = False, limit: int = 50) -> list[dict]   # поля JobMatch (+ job як dict); лише вакансії з зарплатою (розділ 0)
 # analytics/salary.py
 def salary_stats(position: str, skills: list[str], experience_years: float | None) -> dict   # SalaryStats
-def vacancy_salary_stats(position: str, skills: list[str]) -> dict | None                   # SalaryStats(basis="vacancies")
 # analytics/upgrade.py
 def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list[dict]      # UpgradeSuggestion
 ```

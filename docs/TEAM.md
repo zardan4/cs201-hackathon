@@ -29,12 +29,12 @@
 | ID | Таск | Вихід / Done | Залежить |
 |---|---|---|---|
 | DA0 | **Фікстури + заглушки**: `analytics/fixtures/*.json` за розділом 2 `CONTRACTS.md`, заглушки всіх функцій розділу 4.1 | WE можуть працювати на моках | — (перший, ≤ 30 хв) |
-| DA1 | `analytics/jobs.py`: CSV (`utf-8-sig`) → таблиця `Job`: `id` з `link`, парсинг `salary` (`$700`, `$560–1700`, `від/до`), `locations`, `is_remote`, `categories` у список; `cache/jobs.parquet` | `load_jobs()` повертає всі ~3 500 вакансій за схемою | — |
+| DA1 | `analytics/jobs.py`: CSV (`utf-8-sig`) → таблиця `Job`: `id` з `link`, парсинг `salary` (`$700`, `$560–1700`, `від/до`), `locations`, `is_remote`, `categories` у список; **залишити лише вакансії із зарплатою** → `cache/jobs.parquet`; порахувати розмір пулу по позиціях | `load_jobs()` повертає ≈550 вакансій із зарплатою за схемою; розміри пулу записані в `docs/DATA_NOTES.md` | — |
 | DA2 | `analytics/skills.py` + `skills_catalog.json`: каталог навичок (мови з опитування DOU + ключові слова з Djinni-описів + вручну), `extract_skills`, заповнити `Job.skills` | ≥ 80 % IT-вакансій мають ≥ 1 навичку | DA1 |
 | DA3 | `analytics/salary_records.py`: нормалізація опитувань `2026_june_raw`, `2025_dec_raw` у `SalaryRecord` (мапінг різних назв колонок, парсинг стажу), `cache/salary_records.parquet` | таблиця з ≥ 20 000 рядків, без порожніх `salary_usd` | — |
-| DA4 | `analytics/matching.py`: `rank_jobs` — `score = \|user ∩ job\| / \|job\|` + бонус за збіг позиції, фільтр `remote_only`, виключення `exclude_ids`, `matched/missing_skills`, `reason` | для тестового профілю — відсортований список `JobMatch` | DA1, DA2 |
-| DA5 | `analytics/salary.py`: `salary_stats` (опитування: фільтр за позицією/навичкою/стажем, розширення фільтра при `count<30`), `vacancy_salary_stats`, гістограма | `SalaryStats` для будь-якого профілю без винятків | DA3, DA1 |
-| DA6 | `analytics/upgrade.py`: `recommend_upgrades` — для кожної відсутньої навички: приріст медіани + нові вакансії; топ-N за приростом, мінімум `sample_size ≥ 30` | 5 рекомендацій із числами для будь-якого профілю | DA4, DA5 |
+| DA4 | `analytics/matching.py`: `rank_jobs` (лише вакансії з зарплатою) — `score = \|user ∩ job\| / \|job\|` + бонус за збіг позиції, фільтр `remote_only`, виключення `exclude_ids`, `matched/missing_skills`, `reason` | для тестового профілю — відсортований список `JobMatch` | DA1, DA2 |
+| DA5 | `analytics/salary.py`: `salary_stats` — **тільки з опитувань DOU** (фільтр за позицією/навичкою/стажем, розширення фільтра при `count<30`), гістограма | `SalaryStats` для будь-якого профілю без винятків | DA3, DA1 |
+| DA6 | `analytics/upgrade.py`: `recommend_upgrades` — для кожної відсутньої навички: приріст медіани (з опитувань) + нові вакансії (з пулу з зарплатою); топ-N за приростом, мінімум `sample_size ≥ 30` | 5 рекомендацій із числами для будь-якого профілю | DA4, DA5 |
 | DA7 | `analytics/cv.py`: `parse_cv(text)` → `CvParseResult` (навички, позиція, стаж, англійська) | на 3 тестових резюме знаходить розумні навички | DA2 |
 | DA8 | `python -m analytics.build` (збирає весь `cache/`) + `docs/DATA_NOTES.md` (що знайшли в даних, обмеження, ліцензії/цитування DOU) | чистий клон → `cache/` за < 1 хв | DA1–DA3 |
 
@@ -45,7 +45,7 @@
 | A1 | `catalog_service` + онбординг `/onboarding`: вибір позиції, навичок-тегів, стажу, англійської | профіль зберігається, редірект на `/swipe` | A0, DA0 |
 | A2 | `profile_service` + `/profile`: показ і редагування профілю; **список вподобаних вакансій** (з `jobs_service.saved_jobs`) із посиланнями `url` | вподобані з вкладки свайпів видно в профілі | A1, B1 |
 | A3 | **Завантаження CV** `POST /profile/cv`: файл (TXT; PDF через `pypdf`) → текст → `analytics.cv.parse_cv` → попередньо заповнений профіль для підтвердження | після завантаження навички підставляються у форму | A1, DA7 |
-| A4 | `insights_service.build_report` + `/insights`: числа (медіана/середня/p25/p75), графік розподілу, «зараз доступно N вакансій» | сторінка працює для будь-якого профілю | A1, DA5 |
+| A4 | `insights_service.build_report` + `/insights`: числа (медіана/середня/p25/p75 з опитувань DOU), графік розподілу, «зараз доступно N вакансій із зарплатою», підпис джерела (DOU) | сторінка працює для будь-якого профілю | A1, DA5 |
 | A5 | Блок «Що підкачати» на `/insights`: картки `UpgradeSuggestion` (навичка, +$, +N вакансій) | топ-5 з цифрами | A4, DA6 |
 
 ### WE-B — Swipe («Badoo»)

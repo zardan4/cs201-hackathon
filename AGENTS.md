@@ -14,6 +14,7 @@ Python hackathon on the topic **Open Data** (16 November, 16:30–21:00 Kyiv tim
 - Data lives in `data/` (read-only for the app code). The DOU CSV has a BOM: read it with `encoding="utf-8-sig"`. Only ~16% of vacancies have a salary.
 - Backend, matching, statistics and parsing: **Python only** (Flask + pandas). HTML/CSS for templates; JS only for the minimal swipe gesture, never for business logic.
 - Applying to jobs / sending resumes is **out of scope**; "like" only saves the vacancy in the profile.
+- Salary decision: the swipe feed contains **only vacancies that have a salary**; all salary **statistics come only from the DOU salary surveys** (`data/datasets/devua-salaries`), never from vacancies (`docs/CONTRACTS.md` section 0).
 - Run `git pull --rebase` before starting and before each commit. Keep commits small.
 
 ## Hard rules (violating any = 0 points for the team)
