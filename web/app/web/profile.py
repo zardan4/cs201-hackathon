@@ -5,7 +5,6 @@ import hmac
 
 from flask import Blueprint, abort, current_app, flash, g, redirect, render_template, request, url_for
 
-from app import storage
 from app.services import catalog_service, profile_service
 
 profile_bp = Blueprint("profile", __name__)
@@ -32,7 +31,7 @@ def protect_profile_forms():
 
 
 def _view_context(form=None, error=None) -> dict:
-    draft = storage.load_cv_draft(g.profile.user_id)
+    draft = profile_service.get_cv_draft(g.profile.user_id)
     profile = g.profile
     values = {
         "position": profile.position,

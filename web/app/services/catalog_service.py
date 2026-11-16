@@ -73,6 +73,18 @@ def all_skills() -> list[str]:
     return [entry["name"] for entry in _skill_entries(required=False)]
 
 
+def detected_skills(text: str) -> list[str]:
+    """Find every supported CV keyword using the same extractor as vacancies."""
+    entries = skill_entries()
+    allowed = {entry["name"] for entry in entries}
+    module = analytics_module("analytics.skills")
+    if module is not None:
+        return sorted(allowed.intersection(module.extract_skills(text)))
+    return sorted(entry["name"] for entry in entries if any(
+        re.search(r"(?<!\w)" + re.escape(alias) + r"(?!\w)", text, re.IGNORECASE)
+        for alias in {entry["name"], *entry["aliases"]}))
+
+
 def all_positions() -> list[str]:
     module = analytics_module("analytics.skills")
     values = module.all_positions() if module is not None else _POSITIONS

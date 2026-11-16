@@ -162,8 +162,9 @@ are never accepted from submitted fields. Access to a profile requires its brows
 session; this demo has no login or recovery across browsers.
 
 Gemini returns only role, canonical skills, experience, English level and review
-warnings. Its JSON schema limits skills to the shared catalogue and roles to DOU
-categories; Python validates the response again and maps known skill aliases to
+warnings. The full skills catalogue is supplied in the prompt; Python enforces
+catalogue membership, while JSON schema limits roles to DOU categories. A large
+skill enum exceeds Gemini's schema branching limit. Python maps known skill aliases to
 canonical names. Unknown skills are omitted with a warning, and missing details
 remain editable. The saved `UserProfile.position` and `skills` can be passed
 directly to `analytics.matching.rank_jobs` through WE-B's `jobs_service`.

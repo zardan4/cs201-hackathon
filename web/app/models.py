@@ -25,6 +25,7 @@ class Job:
     snippet: str
     url: str
     posted_at: date
+    tags: list[str] = field(default_factory=list)
 
 
 @dataclass(kw_only=True)
