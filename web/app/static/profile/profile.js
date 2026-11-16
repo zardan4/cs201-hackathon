@@ -158,6 +158,23 @@
     })
   );
 
+  // "Clear all" saved jobs asks "Remove all N? Yes / Cancel" inline instead of a native dialog.
+  document.querySelectorAll("[data-clear-form]").forEach((form) => {
+    const ask = form.querySelector("[data-clear-ask]");
+    const box = form.querySelector("[data-clear-confirm]");
+    ask.addEventListener("click", (event) => {
+      event.preventDefault();
+      ask.hidden = true;
+      box.hidden = false;
+      box.querySelector("button[type=submit]").focus();
+    });
+    form.querySelector("[data-clear-cancel]").addEventListener("click", () => {
+      box.hidden = true;
+      ask.hidden = false;
+      ask.focus();
+    });
+  });
+
   document.querySelectorAll("[data-cv-upload]").forEach(initCvUpload);
   document.querySelectorAll("[data-skills]").forEach(initSkills);
 })();

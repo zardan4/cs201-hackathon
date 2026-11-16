@@ -61,3 +61,6 @@
 .feed-reset { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .feed-reset h2 { margin: 0 0 .15rem; font-size: 1.05rem; }
 .feed-reset p { margin: 0; }
+.clear-confirm { display: inline-flex; align-items: center; gap: .7rem; font-size: .85rem; color: var(--muted); }
+.clear-confirm[hidden], [data-clear-ask][hidden] { display: none; }
+.link-button--muted { color: var(--muted); }

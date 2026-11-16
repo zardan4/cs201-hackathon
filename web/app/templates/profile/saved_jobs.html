@@ -1,9 +1,15 @@
 <section class="panel" aria-labelledby="saved-jobs-title">
   <div class="saved-heading"><h2 id="saved-jobs-title">Saved jobs{% if not saved_jobs_error %} <span class="saved-count">{{ saved_jobs | length }}</span>{% endif %}</h2>
     {% if saved_jobs %}
-    <form method="post" action="{{ url_for('profile.clear_saved_jobs') }}" onsubmit="return confirm('Remove all saved jobs?')">
+    {# Two-step confirmation in the page (profile.js); native confirm() dialogs get blocked by some browsers. #}
+    <form method="post" action="{{ url_for('profile.clear_saved_jobs') }}" data-clear-form>
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <button type="submit" class="link-button">Clear all</button>
+      <button type="submit" class="link-button" data-clear-ask>Clear all</button>
+      <span class="clear-confirm" hidden data-clear-confirm>
+        <span>Remove all {{ saved_jobs | length }}?</span>
+        <button type="submit" class="link-button link-button--danger">Yes, remove</button>
+        <button type="button" class="link-button link-button--muted" data-clear-cancel>Cancel</button>
+      </span>
     </form>
     {% endif %}
   </div>
