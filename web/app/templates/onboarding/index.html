@@ -6,6 +6,12 @@
   <li{% if draft %} aria-current="step"{% endif %}>2. Review your profile</li>
   <li>3. Explore jobs</li>
 </ol>
+{% if not draft %}
+<div class="hero">
+  <img class="hero__logo" src="{{ url_for('static', filename='brand/logo.png') }}" alt="BlowMyJob" width="190" height="190">
+  <p>Swipe right on IT jobs that fit your stack and your salary.</p>
+</div>
+{% endif %}
 <section class="panel">
   {% if draft %}
     <h1>Review your profile</h1>

@@ -8,6 +8,7 @@
       {% for job in saved_jobs %}
       <li>
         <article class="profile-saved-job">
+          <span class="saved-logo" aria-hidden="true">{{ (job.company.lstrip('«"\' ') or '?')[0] | upper }}</span>
           <div><h3><a href="{{ job.url }}" target="_blank" rel="noopener noreferrer">{{ job.title }}</a></h3><p class="saved-company">{{ job.company }}</p></div>
           <strong class="saved-salary">{{ job.salary_text or 'Salary not specified' }}</strong>
           <p class="saved-location">{% if job.is_remote %}Remote{% if job.locations %} · {% endif %}{% endif %}{{ job.locations | join(', ') }}{% if not job.is_remote and not job.locations %}Location not specified{% endif %}</p>

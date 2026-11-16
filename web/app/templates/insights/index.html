@@ -23,7 +23,7 @@
     <section class="panel">
       <div class="section-heading"><h2>Salary distribution</h2><span class="sample-badge">{{ '{:,}'.format(salary.count) }} responses</span></div>
       {% if salary.filters.get('widened') or salary.count < 30 %}<p class="notice" role="status">{{ 'The comparison group was broadened because the exact profile had too few responses.' if salary.filters.get('widened') else 'This comparison has fewer than 30 responses. Treat the figures as a limited sample.' }}</p>{% endif %}
-      <img class="salary-chart" src="{{ url_for('insights.distribution') }}" alt="Monthly salary distribution for the applied DOU survey comparison group; exact bucket counts are in the table below." width="900" height="370">
+      <img class="salary-chart" src="{{ url_for('insights.distribution') }}" alt="Monthly salary distribution for the applied DOU survey comparison group; exact bucket counts are in the table below." width="700" height="380">
       <details class="data-details"><summary>View distribution counts</summary>
         <table><caption>DOU survey salaries in USD per month; the last bucket includes the upper tail.</caption><thead><tr><th scope="col">Salary range</th><th scope="col">Responses</th></tr></thead><tbody>
           {% for bucket in salary.histogram %}<tr><th scope="row">${{ '{:,}'.format(bucket['from']) }}{{ '+' if loop.last else '–${:,}'.format(bucket['to']) }}</th><td>{{ '{:,}'.format(bucket['count']) }}</td></tr>{% endfor %}

@@ -1,34 +1,28 @@
-/* Swipe tab (WE-B). Look follows the BlowMyJob design PDF: indigo accent, soft cards. */
-.feed, .match-overlay, .swipe-empty {
-  --sw-accent: #6366f1;
-  --sw-accent-text: #4f46e5;
-  --sw-accent-soft: #eef0ff;
-  --sw-ink: #111827;
-  --sw-muted: #6b7280;
-  --sw-line: #e5e7eb;
-  --sw-surface: #ffffff;
-  --sw-tile: #f9fafb;
-  --sw-green: #15803d;
-  --sw-red: #dc2626;
-  --sw-shadow: 0 12px 32px rgba(17, 24, 39, .10);
-}
+/* Swipe tab: Tinder-style card stack on the BlowMyJob dark theme (tokens from profile/base.css). */
 .icon { flex: none; vertical-align: -0.15em; }
 
-/* ---------- Layout ---------- */
-.feed { max-width: 440px; margin: 0 auto; }
-.feed__cards { display: flex; flex-direction: column; align-items: center; }
-.swipe-hint { margin: 1rem 0 0; font-size: .85rem; color: var(--sw-muted); text-align: center; }
+/* ---------- Layout: the stack grows to fill the screen, buttons stay in reach ---------- */
+main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem; }
+.feed { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.feed__cards { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; }
+.swipe-hint { margin: .5rem 0 0; font-size: .75rem; color: var(--muted); text-align: center; opacity: .75; }
 
 /* ---------- Card stack ---------- */
-.swipe-stack { position: relative; width: 100%; height: 580px; }
+.swipe-stack { position: relative; width: 100%; flex: 1; min-height: 340px; }
 .job-card {
+  --h1: #ff3d81; --h2: #ff8a3d;
   position: absolute; inset: 0; display: flex; flex-direction: column;
-  background: var(--sw-surface); border: 1px solid var(--sw-line); border-radius: 1.5rem;
-  box-shadow: var(--sw-shadow); overflow: hidden;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 1.75rem;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, .5); overflow: hidden;
   touch-action: pan-y; user-select: none; cursor: grab;
   opacity: 0; transform: translateY(24px) scale(.92);
   transition: transform .3s ease, opacity .3s ease;
 }
+.job-card.hero-1 { --h1: #7b2ff7; --h2: #ff3d81; }
+.job-card.hero-2 { --h1: #ff5e3a; --h2: #ffb13d; }
+.job-card.hero-3 { --h1: #c81d4e; --h2: #ff6b3d; }
+.job-card.hero-4 { --h1: #4a35c9; --h2: #ff4fa0; }
+.job-card.hero-5 { --h1: #e0116a; --h2: #7a3cff; }
 /* Cards are swiped in DOM order, so the top card is the first one not yet gone. */
 .job-card:first-child:not(.is-gone),
 .job-card.is-gone + .job-card:not(.is-gone) { opacity: 1; transform: none; }
@@ -40,94 +34,104 @@
 .job-card.is-skipped { transform: translateX(-150%) rotate(-20deg) !important; }
 
 .job-card__hero {
-  flex: none; height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem;
-  background: linear-gradient(135deg, #1a1b2e 0%, #1e3a6e 100%);
+  position: relative; flex: none; height: 38%; min-height: 128px; max-height: 210px; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem;
+  background: linear-gradient(145deg, var(--h1), var(--h2));
+}
+/* Soft geometric shapes, like the cubes in the reference mock. */
+.job-card__hero::before, .job-card__hero::after { content: ""; position: absolute; border-radius: 1.4rem; background: rgba(255, 255, 255, .14); }
+.job-card__hero::before { width: 120px; height: 120px; right: -34px; top: -30px; transform: rotate(24deg); }
+.job-card__hero::after { width: 84px; height: 84px; left: -22px; bottom: -28px; transform: rotate(-18deg); background: rgba(0, 0, 0, .13); }
+.job-card__match {
+  position: absolute; top: .9rem; left: .9rem; z-index: 1; padding: .3rem .75rem; border-radius: 999px;
+  background: rgba(13, 20, 39, .72); backdrop-filter: blur(8px); color: #fff; font-size: .75rem; font-weight: 750; letter-spacing: .01em;
 }
 .job-card__logo {
-  display: grid; place-items: center; width: 72px; height: 72px; border-radius: 1.1rem;
-  background: #fff; color: var(--sw-accent-text); font-size: 2rem; font-weight: 800;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+  position: relative; z-index: 1; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 1.3rem;
+  background: #fff; color: var(--h1); font-size: 2.1rem; font-weight: 850; box-shadow: 0 10px 28px rgba(0, 0, 0, .3);
 }
-.job-card__chips { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; list-style: none; margin: 0; padding: 0 1rem; }
+.job-card__chips { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; list-style: none; margin: 0; padding: 0 1rem; }
 .job-card__chips li {
-  display: inline-flex; align-items: center; gap: .3rem; font-size: .75rem; color: #fff;
-  padding: .2rem .65rem; border-radius: 999px; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .25);
+  display: inline-flex; align-items: center; gap: .3rem; font-size: .72rem; font-weight: 650; color: #fff;
+  padding: .22rem .65rem; border-radius: 999px; background: rgba(13, 20, 39, .38); border: 1px solid rgba(255, 255, 255, .28);
 }
 
-.job-card__body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: .45rem; padding: 1.25rem 1.5rem 1.25rem; }
-.job-card__title { margin: 0; font-size: 1.35rem; line-height: 1.25; color: var(--sw-ink); }
-.job-card__company { margin: 0; color: var(--sw-muted); font-size: .95rem; }
-.job-card__meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1rem; margin: 0; }
-.job-card__salary { font-size: 1.2rem; font-weight: 800; color: var(--sw-green); }
-.job-card__posted { display: inline-flex; align-items: center; gap: .3rem; font-size: .85rem; color: var(--sw-muted); }
+.job-card__body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: .5rem; padding: 1.1rem 1.25rem 1.1rem; }
+.job-card__title { margin: 0; font-size: 1.3rem; line-height: 1.2; font-weight: 800; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.job-card__company { margin: 0; color: var(--muted); font-size: .92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.job-card__meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem 1rem; margin: 0; }
+.job-card__salary { font-size: 1.35rem; font-weight: 850; letter-spacing: -.02em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.job-card__posted { display: inline-flex; align-items: center; gap: .3rem; font-size: .8rem; color: var(--muted); }
 
-.job-card__skills { display: flex; flex-wrap: wrap; gap: .35rem; list-style: none; padding: 0; margin: .15rem 0; }
-.skill { font-size: .78rem; font-weight: 600; padding: .15rem .65rem; border-radius: 999px; }
-.skill--have { background: var(--sw-accent-soft); color: var(--sw-accent-text); border: 1px solid #c7cbfb; }
-.skill--missing { background: var(--sw-tile); color: var(--sw-muted); border: 1px dashed #c9cdd5; }
+.job-card__skills { display: flex; flex-wrap: wrap; gap: .35rem; list-style: none; padding: 0; margin: .1rem 0; max-height: 4.4rem; overflow: hidden; }
+.skill { font-size: .75rem; font-weight: 700; padding: .2rem .65rem; border-radius: 999px; }
+.skill--have { background: var(--grad); color: #fff; }
+.skill--missing { background: transparent; color: var(--muted); border: 1px dashed rgba(255, 255, 255, .25); }
 
-.job-card__snippet { flex: 1; min-height: 0; overflow: hidden; margin: 0; font-size: .9rem; color: #374151; }
-.job-card__footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: .5rem; border-top: 1px solid var(--sw-line); }
-.job-card__score { flex: 1; display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: .1rem .5rem; font-size: .8rem; color: var(--sw-muted); }
-.job-card__percent { color: var(--sw-accent-text); font-size: 1rem; }
-.job-card__bar { grid-column: 1 / -1; height: 6px; border-radius: 999px; background: var(--sw-accent-soft); overflow: hidden; }
-.job-card__bar span { display: block; height: 100%; border-radius: inherit; background: var(--sw-accent); }
-.job-card__link { display: inline-flex; align-items: center; gap: .25rem; font-size: .85rem; font-weight: 600; color: var(--sw-accent-text); text-decoration: none; }
+.job-card__snippet {
+  flex: 1; min-height: 0; overflow: hidden; margin: 0; font-size: .88rem; color: #c3c9de;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
+}
+.job-card__footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: .65rem; border-top: 1px solid var(--line); }
+.job-card__score { flex: 1; display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: .2rem .5rem; font-size: .75rem; color: var(--muted); }
+.job-card__percent { color: var(--ink); font-size: 1rem; }
+.job-card__bar { grid-column: 1 / -1; height: 6px; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+.job-card__bar span { display: block; height: 100%; border-radius: inherit; background: var(--grad); }
+.job-card__link { display: inline-flex; align-items: center; gap: .25rem; font-size: .82rem; font-weight: 700; color: var(--orange); text-decoration: none; }
 
 .job-card__stamp {
-  position: absolute; top: 1.25rem; padding: .15rem .7rem; font-size: 1.6rem; font-weight: 900; background: #fff;
-  border: 4px solid; border-radius: .5rem; opacity: 0; transition: opacity .15s;
+  position: absolute; top: 1.4rem; z-index: 2; padding: .1rem .7rem; font-size: 1.6rem; font-weight: 900; letter-spacing: .04em;
+  background: rgba(13, 20, 39, .55); border: 4px solid; border-radius: .6rem; opacity: 0; transition: opacity .15s;
 }
-.job-card__stamp--like { left: 1.25rem; color: var(--sw-green); transform: rotate(-15deg); }
-.job-card__stamp--skip { right: 1.25rem; color: var(--sw-red); transform: rotate(15deg); }
+.job-card__stamp--like { left: 1.2rem; color: var(--green); transform: rotate(-14deg); }
+.job-card__stamp--skip { right: 1.2rem; color: var(--red); transform: rotate(14deg); }
 .job-card.show-like .job-card__stamp--like,
 .job-card.show-skip .job-card__stamp--skip { opacity: 1; }
 
-/* ---------- Buttons ---------- */
-.swipe-actions { display: flex; align-items: center; gap: 1.75rem; margin-top: 2rem; }
+/* ---------- Action buttons ---------- */
+.swipe-actions { flex: none; display: flex; align-items: center; justify-content: center; gap: 1.6rem; margin-top: 1rem; }
 .swipe-btn {
-  display: grid; place-items: center; border: none; border-radius: 50%; cursor: pointer;
-  background: var(--sw-surface); box-shadow: 0 8px 22px rgba(17, 24, 39, .14); transition: transform .15s;
+  display: grid; place-items: center; border-radius: 50%; cursor: pointer; transition: transform .15s, box-shadow .15s;
+  background: var(--surface-2); border: 1.5px solid var(--line);
 }
 .swipe-btn:hover { transform: scale(1.08); }
-.swipe-btn:focus-visible { outline: 3px solid var(--sw-accent); outline-offset: 3px; }
-.swipe-btn--skip { width: 3.75rem; height: 3.75rem; color: var(--sw-red); }
-.swipe-btn--like { width: 4.75rem; height: 4.75rem; color: #fff; background: var(--sw-accent); box-shadow: 0 10px 28px rgba(99, 102, 241, .45); }
+.swipe-btn:active { transform: scale(.94); }
+.swipe-btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+.swipe-btn--skip { width: 3.9rem; height: 3.9rem; color: var(--red); border-color: rgba(255, 84, 104, .45); box-shadow: 0 8px 22px rgba(255, 84, 104, .18); }
+.swipe-btn--like { width: 4.9rem; height: 4.9rem; color: #fff; background: var(--grad); border: 0; box-shadow: var(--glow); }
 
 /* ---------- "It's a Match!" overlay ---------- */
 .match-overlay {
-  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1rem;
-  background: rgba(10, 11, 18, .92); color: #fff;
+  position: absolute; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1rem; color: #fff;
+  background: radial-gradient(600px 420px at 50% 20%, rgba(255, 61, 129, .55), transparent 70%), rgba(8, 12, 26, .96);
 }
 .match-overlay[hidden] { display: none; }
-.match-overlay__box { width: min(100%, 460px); display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
-.match-overlay__heart { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--sw-accent); }
-.match-overlay h2 { margin: 0; font-size: clamp(2.2rem, 8vw, 3.2rem); font-weight: 900; letter-spacing: -.02em; }
-.match-overlay p { margin: 0; color: #a1a7b8; }
-.match-overlay__pair { display: flex; align-items: center; gap: 1.5rem; margin: .5rem 0; }
-.match-overlay__avatar { display: grid; place-items: center; width: 5.5rem; height: 5.5rem; border-radius: 50%; font-size: 2rem; font-weight: 800; }
-.match-overlay__avatar--you { background: #3b2a7a; border: 2px solid #5b4bb0; }
-.match-overlay__avatar--company { background: #fff; color: var(--sw-accent-text); }
-.match-overlay__fit { display: flex; flex-direction: column; font-size: .75rem; font-weight: 700; letter-spacing: .08em; color: #a5b4fc; }
-.match-overlay__fit strong { font-size: 1.1rem; }
-.match-overlay__role { width: 100%; display: flex; flex-direction: column; gap: .2rem; padding: 1rem; border: 1px solid #2c3040; border-radius: 1rem; }
-.match-overlay__role span { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: #8b91a3; }
-.match-overlay__role strong { font-size: 1.15rem; }
-.match-overlay__role em { font-style: normal; color: #a1a7b8; }
-.match-overlay__actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.match-overlay__box { width: min(100%, 400px); display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+.match-overlay__heart { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--grad); box-shadow: var(--glow); animation: pop .5s ease; }
+.match-overlay h2 { margin: 0; font-size: clamp(2.4rem, 9vw, 3.3rem); font-weight: 900; letter-spacing: -.03em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.match-overlay p { margin: 0; color: var(--muted); }
+.match-overlay__pair { display: flex; align-items: center; gap: 1.25rem; margin: .5rem 0; }
+.match-overlay__avatar { display: grid; place-items: center; width: 5.5rem; height: 5.5rem; border-radius: 50%; font-size: 2rem; font-weight: 850; }
+.match-overlay__avatar--you { background: var(--surface-3); border: 3px solid var(--pink); }
+.match-overlay__avatar--company { background: #fff; color: var(--pink); border: 3px solid var(--orange); }
+.match-overlay__fit { display: flex; flex-direction: column; font-size: .7rem; font-weight: 800; letter-spacing: .1em; color: var(--orange); }
+.match-overlay__fit strong { font-size: 1.15rem; color: #fff; }
+.match-overlay__role { width: 100%; display: flex; flex-direction: column; gap: .2rem; padding: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 1.1rem; }
+.match-overlay__role span { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.match-overlay__role strong { font-size: 1.1rem; }
+.match-overlay__role em { font-style: normal; color: var(--orange); font-weight: 700; }
+.match-overlay__actions { width: 100%; display: grid; gap: .65rem; }
 .match-overlay__primary, .match-overlay__secondary {
-  display: grid; place-items: center; min-height: 3rem; border-radius: .75rem; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none;
+  display: grid; place-items: center; min-height: 3.1rem; border-radius: 999px; font: inherit; font-weight: 750; cursor: pointer; text-decoration: none;
 }
-.match-overlay__primary { background: var(--sw-accent); color: #fff; }
-.match-overlay__secondary { background: transparent; color: #d1d5db; border: 1px solid #3a3f52; }
+.match-overlay__primary { background: var(--grad); color: #fff; box-shadow: var(--glow); }
+.match-overlay__secondary { background: transparent; color: var(--ink); border: 1px solid rgba(255, 255, 255, .25); }
+@keyframes pop { 0% { transform: scale(.4); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
 /* ---------- Empty states ---------- */
-.swipe-empty { text-align: center; }
-.swipe-empty__icon { display: inline-grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 1rem; background: var(--sw-accent-soft); color: var(--sw-accent-text); }
+.swipe-empty { text-align: center; padding: 2.5rem 1.5rem; margin-top: 2rem; }
+.swipe-empty h1 { font-size: 1.5rem; }
+.swipe-empty p { color: var(--muted); }
+.swipe-empty__icon { display: inline-grid; place-items: center; width: 4rem; height: 4rem; margin-bottom: .75rem; border-radius: 1.2rem; background: var(--grad); color: #fff; box-shadow: var(--glow); }
 
-/* ---------- Phone ---------- */
-@media (max-width: 480px) {
-  .swipe-stack { height: 540px; }
-  .job-card__hero { height: 140px; }
-  .job-card__body { padding: 1rem 1.15rem; }
-}
+@media (prefers-reduced-motion: reduce) { .job-card, .swipe-btn, .match-overlay__heart { transition: none; animation: none; } }

@@ -2,18 +2,49 @@
 {% block title %}Profile{% endblock %}
 {% block styles %}<link rel="stylesheet" href="{{ url_for('static', filename='profile/profile.css') }}">{% endblock %}
 {% block content %}
+{% if draft %}
 <section class="panel">
-  <h1>{{ 'Review your new CV' if draft else 'Your profile' }}</h1>
-  {% if draft %}<p>Review changes before replacing your saved profile.</p>{% endif %}
+  <h1>Review your new CV</h1>
+  <p>Review changes before replacing your saved profile.</p>
   {% if error %}<p class="notice error" role="alert">{{ error }}</p>{% endif %}
-  {% if draft %}{% include "profile/review_warnings.html" %}{% endif %}
+  {% include "profile/review_warnings.html" %}
   {% set form_action = url_for('profile.index') %}
   {% set submit_label = 'Save profile' %}
   {% include "profile/form.html" %}
 </section>
-{% include "profile/saved_jobs.html" %}
-<section class="panel">
-  <h2>Update your CV</h2>
-  {% include "profile/cv_upload.html" %}
+{% else %}
+{% if error %}<p class="notice error" role="alert">{{ error }}</p>{% endif %}
+<section class="me">
+  <div class="me__cover"></div>
+  <span class="me__avatar" aria-hidden="true">{{ (profile.position or '?')[0] | upper }}</span>
+  <div class="me__head">
+    <h1>{{ profile.position }} developer</h1>
+    <p class="me__sub">{{ profile.experience_years | round(1) | string | replace('.0', '') }} years · {{ english_levels.get(profile.english_level, profile.english_level) }}{% if profile.remote_only %} · Remote only{% endif %}</p>
+  </div>
+  <dl class="me__stats">
+    <div><dd>{{ profile.skills | length }}</dd><dt>Skills</dt></div>
+    <div><dd>{{ saved_jobs | length }}</dd><dt>Saved</dt></div>
+    <div><dd>{{ profile.experience_years | round(1) | string | replace('.0', '') }}</dd><dt>Years</dt></div>
+  </dl>
+  <h2 class="label">About</h2>
+  <p class="me__about">{% if profile.cv_text %}{{ profile.cv_text | replace('\n', ' ') | replace('\r', ' ') | truncate(230) }}{% else %}Add your CV so recruiters see more than a skill list.{% endif %}</p>
+  <h2 class="label">Stack</h2>
+  <ul class="stack-chips" aria-label="Your skills">
+    {% for skill in profile.skills %}<li>{{ skill }}</li>{% else %}<li class="empty">No skills yet</li>{% endfor %}
+  </ul>
 </section>
+{% include "profile/saved_jobs.html" %}
+<details class="fold"{% if error %} open{% endif %}>
+  <summary>Edit profile</summary>
+  <div class="fold__body">
+    {% set form_action = url_for('profile.index') %}
+    {% set submit_label = 'Save profile' %}
+    {% include "profile/form.html" %}
+  </div>
+</details>
+<details class="fold">
+  <summary>Update your CV</summary>
+  <div class="fold__body">{% include "profile/cv_upload.html" %}</div>
+</details>
+{% endif %}
 {% endblock %}

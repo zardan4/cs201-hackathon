@@ -25,9 +25,10 @@
       {% for match in matches %}
       {% set job = match.job %}
       {% set percent = (match.score * 100) | round | int %}
-      <article class="job-card" data-job-id="{{ job.id }}" style="z-index: {{ loop.revindex }}"
+      <article class="job-card hero-{{ (job.id | int) % 6 }}" data-job-id="{{ job.id }}" style="z-index: {{ loop.revindex }}"
                data-strong-match="{{ 'true' if match.score >= strong_match_score else 'false' }}">
         <header class="job-card__hero">
+          <span class="job-card__match">{{ icon('heart', 12) }} {{ percent }}% match</span>
           <span class="job-card__logo" aria-hidden="true">{{ (job.company.lstrip('«"\' ') or '?')[0] | upper }}</span>
           <ul class="job-card__chips">
             {% if job.is_remote %}<li>{{ icon('globe', 14) }} Remote</li>{% endif %}
@@ -67,7 +68,7 @@
       <button type="button" class="swipe-btn swipe-btn--skip" data-action="skip" aria-label="Skip">{{ icon('x', 26) }}</button>
       <button type="button" class="swipe-btn swipe-btn--like" data-action="like" aria-label="Like and save">{{ icon('heart', 30) }}</button>
     </div>
-    <p class="swipe-hint">Swipe left to skip, right to save.</p>
+    <p class="swipe-hint">Swipe right to save · left to skip</p>
   </section>
 </div>
 

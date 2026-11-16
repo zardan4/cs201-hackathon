@@ -35,26 +35,32 @@ def build_report(profile: UserProfile) -> InsightsReport:
                                         if item["sample_size"] >= 30 and item["skill"] not in profile.skills][:5])
 
 
+MUTED = "#9aa3bf"  # chart text on the dark app theme
+
+
 def salary_chart(profile: UserProfile) -> bytes:
     """Plot the DA histogram without interactive JavaScript or shared pyplot state."""
     from matplotlib.figure import Figure
 
     stats = _salary(profile)
-    figure = Figure(figsize=(9, 3.7), layout="constrained", facecolor="white")
+    figure = Figure(figsize=(7, 3.8), layout="constrained", facecolor="none")
     axes = figure.subplots()
     if stats.histogram:
         labels = [f'${bucket["from"]:,}–{bucket["to"]:,}' for bucket in stats.histogram]
         labels[-1] = f'${stats.histogram[-1]["from"]:,}+'
         axes.bar(range(len(labels)), [bucket["count"] for bucket in stats.histogram],
-                 color="#6751d7", width=.72, zorder=3)
-        axes.set_xticks(range(len(labels)), labels, rotation=25, ha="right", fontsize=9)
-        axes.set_ylabel("Survey responses")
-        axes.set_xlabel("Monthly take-home salary · USD")
-        axes.grid(axis="y", alpha=.2, zorder=0)
+                 color="#ff3d81", edgecolor="none", width=.72, zorder=3)
+        axes.set_xticks(range(len(labels)), labels, rotation=30, ha="right", fontsize=11, color=MUTED)
+        axes.set_ylabel("Survey responses", color=MUTED, fontsize=11)
+        axes.set_xlabel("Monthly take-home salary · USD", color=MUTED, fontsize=11)
+        axes.grid(axis="y", color="#ffffff", alpha=.08, zorder=0)
         axes.spines[["top", "right"]].set_visible(False)
+        axes.spines[["left", "bottom"]].set_color("#ffffff22")
+        axes.tick_params(axis="y", colors=MUTED, labelsize=11)
+        axes.patch.set_alpha(0)
         axes.set_ylim(bottom=0)
     else:
-        axes.text(.5, .5, "No DOU salary responses available", ha="center", va="center")
+        axes.text(.5, .5, "No DOU salary responses available", ha="center", va="center", color=MUTED)
         axes.set_axis_off()
     output = BytesIO()
     figure.savefig(output, format="svg", metadata={"Date": None})
