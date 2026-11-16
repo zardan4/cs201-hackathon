@@ -102,7 +102,7 @@
   {"name": "project management", "aliases": ["project manager", "project management", "delivery manager"], "group": "other"},
   {"name": "scrum/agile", "aliases": ["scrum", "agile", "scrum master", "kanban"], "group": "other"},
   {"name": "crm/erp", "aliases": ["crm", "erp"], "group": "other"},
-  {"name": "technical writing", "aliases": ["technical writer", "technical writing", "технічної документації", "documentation"], "group": "other"},
+  {"name": "technical writing", "aliases": ["technical writer", "technical writing", "технічної документації"], "group": "other"},
   {"name": "technical support", "aliases": ["technical support", "customer support", "технічної підтримки", "служби підтримки", "helpdesk", "l1", "l2"], "group": "other"},
   {"name": "blockchain", "aliases": ["blockchain", "web3", "solidity", "smart contracts"], "group": "other"},
   {"name": "dba", "aliases": ["dba", "database administrator"], "group": "other"},

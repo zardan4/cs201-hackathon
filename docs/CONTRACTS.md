@@ -24,6 +24,7 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 - **Data Analyst (DA)** читає сирі дані з `data/`, чистить їх і **кладе готові таблиці у `cache/`** (`python -m analytics.build`). Також надає Python-функції (розділ 4).
 - **Web Engineers (WE-A, WE-B)** *ніколи не читають `data/` напряму* і не працюють із сирими DataFrame у шаблонах. Вони читають `cache/` та викликають `analytics.*` **лише через шар `app/services/`**, який перетворює результат на **dataclass-сутності** з `app/models.py` (розділ 2).
 - Папка `cache/` у `.gitignore`. Кожен локально збирає її командою `python -m analytics.build` (< 1 хв). **Виняток:** DA комітить маленькі `analytics/fixtures/*.json` (≈20 вакансій, 200 записів зарплат) — щоб веб-інженери могли працювати на моках, не чекаючи на готові дані.
+- `data/dou_vacancy_details/` — одноразовий скрейп повних описів вакансій, розбитий на `part-*.jsonl.xz` (`id`, `url`, `scraped_at`, `description`), який комітить DA. `analytics/jobs.py` використовує його лише для видобування навичок; веб його не читає. Перезбирання: `python -m analytics.scrape_descriptions` (resume) або `--force`.
 
 ## 2. Сутності (`app/models.py`, Python `dataclass`)
 
@@ -41,7 +42,7 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 | `salary_min` / `salary_max` | `int \| None` | USD/міс. `"від X"` → min=X; `"до X"` → max=X; `"A–B"` → обидва; `"X"` → обидва = X. Позадіапазонні викиди (`< 100` погодинні або `> 30000`) → `None` |
 | `salary_mid` | `int \| None` | середина інтервалу (або єдине значення), без викидів (`100..30000`). **Заповнене лише у ≈16 % вакансій; саме вони (і тільки вони) йдуть у свайпи** — див. розділ 0 |
 | `categories` | `list[str]` | з `categories` через `;` (з fallback на `,`): `Python`, `Java`, `QA`, `DevOps`, `AI/ML`, … (це «позиції» DOU) |
-| `skills` | `list[str]` | канонічні навички, витягнуті з `title`+`snippet`+`categories` (розділ 2.2) |
+| `skills` | `list[str]` | канонічні навички, витягнуті з `title`+`snippet`+`categories`+повного опису вакансії з `data/dou_vacancy_details/` (розділ 2.2) |
 | `tags` | `list[str]` | додаткові теги з `title`+`snippet`+`location` (рівень: `senior/middle/junior/lead`, домен/формат: `fintech/miltech/igaming/saas/hybrid/part-time`) |
 | `snippet` | `str` | короткий опис (EN/UK) |
 | `url` | `str` | `link` — оригінал вакансії |

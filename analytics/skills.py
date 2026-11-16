@@ -108,12 +108,18 @@ def all_skills() -> list[dict]:
 
 
 @lru_cache(maxsize=1)
-def _compiled_skill_patterns() -> list[tuple[str, re.Pattern[str]]]:
-    """Compile boundary-safe regex matchers for each canonical skill."""
-    compiled: list[tuple[str, re.Pattern[str]]] = []
+def _compiled_skill_patterns() -> list[tuple[str, re.Pattern[str], tuple[str, ...]]]:
+    """Compile boundary-safe regex matchers for each canonical skill.
+
+    Each entry also carries lowercase hint tokens: a skill regex only runs when
+    one of the hints occurs in the text. This keeps full-description scanning
+    fast (most of the 100+ catalog patterns are skipped per vacancy).
+    """
+    compiled: list[tuple[str, re.Pattern[str], tuple[str, ...]]] = []
     for entry in all_skills():
         name = entry["name"]
         aliases = entry.get("aliases", [name])
+        hints = tuple({alias.strip().lower().split()[0] for alias in aliases if alias.strip()})
         subpatterns: list[str] = []
         # Split aliases into custom-constrained vs standard boundary-safe patterns.
         case_sensitive_subs: list[str] = []
@@ -132,10 +138,10 @@ def _compiled_skill_patterns() -> list[tuple[str, re.Pattern[str]]]:
 
         if case_insensitive_subs:
             combined_ci = "|".join(case_insensitive_subs)
-            compiled.append((name, re.compile(combined_ci, re.IGNORECASE | re.UNICODE)))
+            compiled.append((name, re.compile(combined_ci, re.IGNORECASE | re.UNICODE), hints))
         if case_sensitive_subs:
             combined_cs = "|".join(case_sensitive_subs)
-            compiled.append((name, re.compile(combined_cs, re.UNICODE)))
+            compiled.append((name, re.compile(combined_cs, re.UNICODE), hints))
     return compiled
 
 
@@ -143,10 +149,13 @@ def extract_skills(text: str) -> list[str]:
     """Extract deduplicated canonical lowercase skills from arbitrary text."""
     if not text:
         return []
+    lowered = text.lower()
     found: list[str] = []
     seen: set[str] = set()
-    for skill_name, pattern in _compiled_skill_patterns():
+    for skill_name, pattern, hints in _compiled_skill_patterns():
         if skill_name in seen:
+            continue
+        if hints and not any(hint in lowered for hint in hints):
             continue
         if pattern.search(text):
             seen.add(skill_name)
@@ -154,9 +163,9 @@ def extract_skills(text: str) -> list[str]:
     return found
 
 
-def extract_job_skills(title: str, snippet: str, categories: list[str]) -> list[str]:
-    """Extract canonical skills from job title, snippet, and DOU categories."""
-    combined_text = f"{title or ''}\n{snippet or ''}"
+def extract_job_skills(title: str, snippet: str, categories: list[str], description: str = "") -> list[str]:
+    """Extract canonical skills from job title, description, snippet, and DOU categories."""
+    combined_text = f"{title or ''}\n{description or ''}\n{snippet or ''}"
     skills = extract_skills(combined_text)
     seen = set(skills)
 

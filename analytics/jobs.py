@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import gzip
+import json
+import lzma
 import os
 import re
 from datetime import date, datetime
@@ -16,6 +19,7 @@ from analytics.skills import extract_job_skills, extract_tags
 ANALYTICS_DIR = Path(__file__).resolve().parent
 ROOT_DIR = ANALYTICS_DIR.parent
 DEFAULT_CSV_PATH = ROOT_DIR / "data" / "dou_active_vacancies.csv"
+DEFAULT_DETAILS_PATH = ROOT_DIR / "data" / "dou_vacancy_details"
 CACHE_DIR = ROOT_DIR / "cache"
 DEFAULT_CACHE_PATH = CACHE_DIR / "jobs.parquet"
 
@@ -178,8 +182,56 @@ def _clean_text(value: object) -> str:
     return "" if text.lower() == "nan" else text
 
 
-def _build_dataframe_from_csv(csv_path: Path) -> pd.DataFrame:
+_DETAILS_EXTENSIONS = {".jsonl", ".xz", ".gz"}
+
+
+def _open_details(path: Path):
+    """Open a plain or compressed description file in text mode."""
+    if path.suffix == ".xz":
+        return lzma.open(path, "rt", encoding="utf-8")
+    if path.suffix == ".gz":
+        return gzip.open(path, "rt", encoding="utf-8")
+    return path.open("r", encoding="utf-8")
+
+
+def load_descriptions(details_path: Path = DEFAULT_DETAILS_PATH) -> dict[str, str]:
+    """Return ``{vacancy_id: full_description}`` from the one-time scrape files.
+
+    ``details_path`` may be a single JSONL file or a directory of split parts
+    (``data/dou_vacancy_details/*.jsonl.xz``). Plain, gzip and xz files are
+    supported. A missing path means descriptions were not scraped (yet):
+    callers then fall back to title/snippet/categories only.
+    """
+    if not details_path.exists():
+        return {}
+    if details_path.is_dir():
+        paths = sorted(
+            path for path in details_path.iterdir()
+            if path.is_file() and set(path.suffixes) & _DETAILS_EXTENSIONS
+        )
+    else:
+        paths = [details_path]
+
+    descriptions: dict[str, str] = {}
+    for path in paths:
+        with _open_details(path) as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                text = str(row.get("description") or "").strip()
+                if text:
+                    descriptions[str(row.get("id"))] = text
+    return descriptions
+
+
+def _build_dataframe_from_csv(csv_path: Path, details_path: Path | None = None) -> pd.DataFrame:
     raw_df = pd.read_csv(csv_path, encoding="utf-8-sig", dtype=str, keep_default_na=False)
+    descriptions = load_descriptions(details_path) if details_path else {}
     records: list[dict] = []
 
     for row in raw_df.to_dict(orient="records"):
@@ -192,15 +244,16 @@ def _build_dataframe_from_csv(csv_path: Path) -> pd.DataFrame:
         raw_categories = _clean_text(row.get("categories"))
         raw_date = _clean_text(row.get("date"))
 
+        vacancy_id = extract_job_id(url)
         locations, is_remote = parse_locations(raw_location)
         categories = parse_categories(raw_categories)
         salary_min, salary_max, salary_mid = parse_salary(raw_salary)
-        skills = extract_job_skills(title, snippet, categories)
+        skills = extract_job_skills(title, snippet, categories, descriptions.get(vacancy_id, ""))
         tags = extract_tags(title, snippet, raw_location)
 
         records.append(
             {
-                "id": extract_job_id(url),
+                "id": vacancy_id,
                 "title": title,
                 "company": company,
                 "locations": locations,
@@ -274,18 +327,23 @@ def build_jobs(
     csv_path: Path = DEFAULT_CSV_PATH,
     cache_path: Path = DEFAULT_CACHE_PATH,
     force: bool = False,
+    details_path: Path | None = None,
 ) -> pd.DataFrame:
     """Build cache/jobs.parquet from the raw CSV unless the cache already exists.
 
     When ``force=False`` and ``cache_path`` exists, loads directly from Parquet
-    without reprocessing the CSV.
+    without reprocessing the CSV. The scraped full descriptions
+    (`data/dou_vacancy_details/`) are used automatically for the default
+    CSV, so skills come from the whole vacancy text when available.
     """
     global _MEM_DF, _MEM_RECORDS
 
     if not force and cache_path.exists():
         return load_jobs(refresh=False, require_salary=False, csv_path=csv_path, cache_path=cache_path)
 
-    df = _build_dataframe_from_csv(csv_path)
+    if details_path is None and csv_path.resolve() == DEFAULT_CSV_PATH.resolve():
+        details_path = DEFAULT_DETAILS_PATH
+    df = _build_dataframe_from_csv(csv_path, details_path=details_path)
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = cache_path.with_suffix(".parquet.tmp")
     df.to_parquet(tmp_path, index=False)
