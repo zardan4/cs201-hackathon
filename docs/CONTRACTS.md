@@ -35,13 +35,14 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 | `id` | `str` | ID вакансії з `link`: `…/vacancies/380099/` → `"380099"`. Унікальний |
 | `title` | `str` | з `title` |
 | `company` | `str` | з `company` |
-| `locations` | `list[str]` | `location` розбитий по комах, без `віддалено` (напр. `["Київ","Львів"]`); може бути `[]` |
-| `is_remote` | `bool` | `True`, якщо у `location` є `віддалено` |
+| `locations` | `list[str]` | `location` розбитий по комах, без маркерів віддаленої роботи (`віддалено`, `remote`), напр. `["Київ","Львів"]`; може бути `[]` |
+| `is_remote` | `bool` | `True`, якщо у `location` є `віддалено` або `remote` (case-insensitive) |
 | `salary_text` | `str \| None` | оригінальний `salary` (`"$560–1700"`, `"від $600"`, `"до $2500"`, `"$700"`) |
-| `salary_min` / `salary_max` | `int \| None` | USD/міс. `"від X"` → min=X; `"до X"` → max=X; `"A–B"` → обидва; `"X"` → обидва = X |
-| `salary_mid` | `int \| None` | середина інтервалу (або єдине значення). **Заповнене лише у ≈16 % вакансій; саме вони (і тільки вони) йдуть у свайпи** — див. розділ 0 |
-| `categories` | `list[str]` | з `categories` через кому: `Python`, `Java`, `QA`, `DevOps`, `AI/ML`, … (це «позиції» DOU) |
+| `salary_min` / `salary_max` | `int \| None` | USD/міс. `"від X"` → min=X; `"до X"` → max=X; `"A–B"` → обидва; `"X"` → обидва = X. Позадіапазонні викиди (`< 100` погодинні або `> 30000`) → `None` |
+| `salary_mid` | `int \| None` | середина інтервалу (або єдине значення), без викидів (`100..30000`). **Заповнене лише у ≈16 % вакансій; саме вони (і тільки вони) йдуть у свайпи** — див. розділ 0 |
+| `categories` | `list[str]` | з `categories` через `;` (з fallback на `,`): `Python`, `Java`, `QA`, `DevOps`, `AI/ML`, … (це «позиції» DOU) |
 | `skills` | `list[str]` | канонічні навички, витягнуті з `title`+`snippet`+`categories` (розділ 2.2) |
+| `tags` | `list[str]` | додаткові теги з `title`+`snippet`+`location` (рівень: `senior/middle/junior/lead`, домен/формат: `fintech/miltech/igaming/saas/hybrid/part-time`) |
 | `snippet` | `str` | короткий опис (EN/UK) |
 | `url` | `str` | `link` — оригінал вакансії |
 | `posted_at` | `date` | `date` |
@@ -119,16 +120,29 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 ### 4.1 `analytics/` — пише DA (чисті функції, без Flask)
 ```python
 # analytics/jobs.py
-def load_jobs() -> "pandas.DataFrame"                       # cache/jobs.parquet, колонки Job (лише вакансії з зарплатою)
+def build_jobs(force: bool = False) -> "pandas.DataFrame"       # збирає cache/jobs.parquet (1 раз, якщо немає кешу або force=True)
+def load_jobs(refresh: bool = False, require_salary: bool | None = None) -> "pandas.DataFrame"  # lazy process-once; за замовчуванням бере SWIPE_REQUIRES_SALARY (розділ 0)
+def iter_jobs(categories: list[str] | None = None, locations: list[str] | None = None,
+              remote_only: bool = False, exclude_ids: set[str] | None = None,
+              min_salary: int | None = None, skills: list[str] | None = None,
+              tags: list[str] | None = None, require_salary: bool = False) -> "Iterator[dict]"  # yield відфільтровані Job dict
 # analytics/skills.py
 def extract_skills(text: str) -> list[str]
+def extract_tags(title: str, snippet: str = "", location_text: str = "") -> list[str]
 def all_skills() -> list[dict]                              # skills_catalog.json
 def all_positions() -> list[str]
 # analytics/cv.py
 def parse_cv(text: str) -> dict                             # поля CvParseResult
 # analytics/matching.py
+def iter_ranked_jobs(position: str = "", skills: list[str] = (), exclude_ids: set[str] | None = None,
+                     *, categories: list[str] | None = None, locations: list[str] | None = None,
+                     remote_only: bool = False, min_salary: int | None = None,
+                     tags: list[str] | None = None, min_score: float = 0.0) -> "Iterator[dict]"  # yield JobMatch від найкращих до гірших
 def rank_jobs(position: str, skills: list[str], exclude_ids: set[str],
-              remote_only: bool = False, limit: int = 50) -> list[dict]   # поля JobMatch (+ job як dict); лише вакансії з зарплатою (розділ 0)
+              remote_only: bool = False, limit: int = 50,
+              *, categories: list[str] | None = None, locations: list[str] | None = None,
+              min_salary: int | None = None, tags: list[str] | None = None,
+              min_score: float = 0.0, require_salary: bool | None = None) -> list[dict]  # поля JobMatch (+ job як dict); при SWIPE_REQUIRES_SALARY=True лише вакансії з зарплатою (розділ 0)
 # analytics/salary.py
 def salary_stats(position: str, skills: list[str], experience_years: float | None) -> dict   # SalaryStats
 # analytics/upgrade.py

@@ -1,1 +1,7 @@
 -e ./web
+pandas>=2.2
+pyarrow>=18.0
+flask>=3.0
+matplotlib>=3.9
+pypdf>=5.0
+pytest>=8.0

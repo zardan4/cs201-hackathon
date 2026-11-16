@@ -1,0 +1,8 @@
+{
+  "raw_text": "Python Backend Engineer, 3 years experience, Upper-Intermediate English. Stack: Python, Django, FastAPI, PostgreSQL, Docker, AWS.",
+  "detected_position": "Python",
+  "detected_skills": ["python", "django", "fastapi", "postgresql", "docker", "aws"],
+  "detected_experience_years": 3.0,
+  "detected_english_level": "upper",
+  "warnings": []
+}

@@ -1,0 +1,12 @@
+[
+  {"survey": "2026_june", "salary_usd": 3500.0, "position": "Python", "main_language": "python", "specialization": "Back-end", "experience_years": 4.0, "english_level": "upper", "company_size": "200-1000"},
+  {"survey": "2026_june", "salary_usd": 2200.0, "position": "Python", "main_language": "python", "specialization": "Back-end", "experience_years": 2.0, "english_level": "intermediate", "company_size": "50-200"},
+  {"survey": "2026_june", "salary_usd": 4800.0, "position": "DevOps", "main_language": "bash", "specialization": "DevOps", "experience_years": 5.0, "english_level": "upper", "company_size": "1000+"},
+  {"survey": "2026_june", "salary_usd": 1800.0, "position": "QA", "main_language": "python", "specialization": "Automation QA", "experience_years": 2.5, "english_level": "intermediate", "company_size": "50-200"},
+  {"survey": "2026_june", "salary_usd": 4200.0, "position": "AI/ML", "main_language": "python", "specialization": "ML", "experience_years": 3.5, "english_level": "upper", "company_size": "200-1000"},
+  {"survey": "2026_june", "salary_usd": 2700.0, "position": "Data Engineer", "main_language": "sql", "specialization": "Data", "experience_years": 3.0, "english_level": "intermediate", "company_size": "200-1000"},
+  {"survey": "2026_june", "salary_usd": 3100.0, "position": "Front End", "main_language": "typescript", "specialization": "Front-end", "experience_years": 3.0, "english_level": "upper", "company_size": "50-200"},
+  {"survey": "2026_june", "salary_usd": 1100.0, "position": "Analyst", "main_language": "sql", "specialization": "Data Analyst", "experience_years": 1.0, "english_level": "intermediate", "company_size": "50-200"},
+  {"survey": "2026_june", "salary_usd": 5500.0, "position": ".NET", "main_language": "c#/.net", "specialization": "Back-end", "experience_years": 6.0, "english_level": "fluent", "company_size": "1000+"},
+  {"survey": "2026_june", "salary_usd": 4000.0, "position": "Java", "main_language": "java", "specialization": "Back-end", "experience_years": 4.5, "english_level": "upper", "company_size": "200-1000"}
+]

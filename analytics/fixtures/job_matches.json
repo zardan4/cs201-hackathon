@@ -1,0 +1,312 @@
+[
+  {
+    "job": {
+      "id": "380052",
+      "title": "Програміст НРК",
+      "company": "132 окремий розвідувальний батальйон 7 корпусу ДШВ",
+      "locations": [],
+      "is_remote": false,
+      "salary_text": "$1200–2725",
+      "salary_min": 1200,
+      "salary_max": 2725,
+      "salary_mid": 1962,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "python"
+      ],
+      "tags": [],
+      "snippet": "Обов’язки: -програмувати маршрути руху НРК; -аналіз роботи систем і пошук програмних помилок; -реалізація алгоритмів навігації, планування маршрутів та уникнення перешкод; -участь у тестуванні, польових випробуваннях та оптимізації систем; -взаємодія з операторами та командирами...",
+      "url": "https://jobs.dou.ua/companies/132-okremii-rozviduvalnii-batalion-7-korpusu-dshv/vacancies/380052/",
+      "posted_at": "2026-11-16"
+    },
+    "score": 1.0,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [],
+    "reason": "python · 1 з 1 навичок"
+  },
+  {
+    "job": {
+      "id": "379982",
+      "title": "Backend Developer",
+      "company": "Перший окремий медичний батальйон",
+      "locations": [],
+      "is_remote": false,
+      "salary_text": "від $1000",
+      "salary_min": 1000,
+      "salary_max": null,
+      "salary_mid": 1000,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "python"
+      ],
+      "tags": [],
+      "snippet": "Основні обов‘язки: розробка та підтримка внутрішніх цифрових продуктів підрозділу допомога з проведенням навчань з використання внутрішніх цифрових продуктів особовим складом підрозділу Обов‘язкові вимоги: досвід розробки бекенду на Python не менше 1.5 року...",
+      "url": "https://jobs.dou.ua/companies/pershii-okremii-medichnii-batalion/vacancies/379982/",
+      "posted_at": "2026-11-15"
+    },
+    "score": 1.0,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [],
+    "reason": "python · 1 з 1 навичок"
+  },
+  {
+    "job": {
+      "id": "379566",
+      "title": "Software Engineer — Backend",
+      "company": "NEOTLIX.SPACE",
+      "locations": [],
+      "is_remote": true,
+      "salary_text": "$3000–6000",
+      "salary_min": 3000,
+      "salary_max": 6000,
+      "salary_mid": 4500,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "python"
+      ],
+      "tags": [],
+      "snippet": "About the role Opportunity Snapshot Pay: $50–100 Time per task: 5 hours for trainers and 1.5 hours for reviewers Engagement: Project-based — paid per approved task Commitment: ~15 hours per week Location: Fully remote You’ll need: Hands-on expertise in at least one of...",
+      "url": "https://jobs.dou.ua/companies/neotlix-space/vacancies/379566/",
+      "posted_at": "2026-11-11"
+    },
+    "score": 1.0,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [],
+    "reason": "python · 1 з 1 навичок"
+  },
+  {
+    "job": {
+      "id": "373874",
+      "title": "Backend Developer (Python, Odoo)",
+      "company": "Хартія",
+      "locations": [],
+      "is_remote": false,
+      "salary_text": "$560–1700",
+      "salary_min": 560,
+      "salary_max": 1700,
+      "salary_mid": 1130,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "python"
+      ],
+      "tags": [
+        "miltech"
+      ],
+      "snippet": "ХТО МИ 13-та бригада оперативного призначення НГУ «Хартія» У 2-му корпусі НГУ «Хартія» реалізується масштабний проєкт цифрової трансформації військової логістики.",
+      "url": "https://jobs.dou.ua/companies/13-brigada-operativnogo-priznachennya-hartiya/vacancies/373874/",
+      "posted_at": "2026-11-09"
+    },
+    "score": 1.0,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [],
+    "reason": "python · 1 з 1 навичок"
+  },
+  {
+    "job": {
+      "id": "367184",
+      "title": "Розробник програмного забезпечення",
+      "company": "411 Окрема Бригада БПС \"Яструби\"",
+      "locations": [
+        "Запоріжжя"
+      ],
+      "is_remote": false,
+      "salary_text": "$700–1100",
+      "salary_min": 700,
+      "salary_max": 1100,
+      "salary_mid": 900,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "python"
+      ],
+      "tags": [],
+      "snippet": "Ми з’явилися у 2022 році як відповідь на виклик повномасштабної війни. Зараз ми окрема бригада у складі Сил Безпілотних Систем, яка сьогодні виконує ключові завдання з розвідки, дорозвідки, виявлення та ураження цілей на передовій.",
+      "url": "https://jobs.dou.ua/companies/411-polk-bps-yastrubi/vacancies/367184/",
+      "posted_at": "2026-11-02"
+    },
+    "score": 1.0,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [],
+    "reason": "python · 1 з 1 навичок"
+  },
+  {
+    "job": {
+      "id": "377288",
+      "title": "Founding Python Engineer — Build product from Scratch",
+      "company": "HIRETOP",
+      "locations": [],
+      "is_remote": true,
+      "salary_text": "до $3300",
+      "salary_min": null,
+      "salary_max": 3300,
+      "salary_mid": 3300,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "python"
+      ],
+      "tags": [],
+      "snippet": "Remote | Full-time Important to Know! This opportunity may be particularly attractive to someone who enjoys independence, building from zero, and having a meaningful impact on an early-stage product.",
+      "url": "https://jobs.dou.ua/companies/hiretop/vacancies/377288/",
+      "posted_at": "2026-10-20"
+    },
+    "score": 1.0,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [],
+    "reason": "python · 1 з 1 навичок"
+  },
+  {
+    "job": {
+      "id": "376916",
+      "title": "Middle Full Stack Developer",
+      "company": "Rayton",
+      "locations": [],
+      "is_remote": true,
+      "salary_text": "$2000–2400",
+      "salary_min": 2000,
+      "salary_max": 2400,
+      "salary_mid": 2200,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "python"
+      ],
+      "tags": [
+        "middle"
+      ],
+      "snippet": "We are looking for a Middle strong Full Stack Developer. About RAYTON RAYTON is a leading Ukrainian energy engineering group specializing in commercial solar power plants and Battery Energy Storage Systems (BESS).",
+      "url": "https://jobs.dou.ua/companies/rayton/vacancies/376916/",
+      "posted_at": "2026-10-16"
+    },
+    "score": 1.0,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [],
+    "reason": "python · 1 з 1 навичок"
+  },
+  {
+    "job": {
+      "id": "379553",
+      "title": "Applied AI Engineer (FDE)",
+      "company": "TheTop",
+      "locations": [],
+      "is_remote": true,
+      "salary_text": "від $4000",
+      "salary_min": 4000,
+      "salary_max": null,
+      "salary_mid": 4000,
+      "categories": [
+        "AI/ML",
+        "Python"
+      ],
+      "skills": [
+        "ai/ml",
+        "python"
+      ],
+      "tags": [],
+      "snippet": "TheTop builds TheEngine, an AI product for companies that want clear, cost-efficient and well-governed use of AI. Our core team builds a high-quality, flexible product. Now we’re launching a Forward Deployed Engineering team, with one engineer already on board.",
+      "url": "https://jobs.dou.ua/companies/thetop/vacancies/379553/",
+      "posted_at": "2026-11-10"
+    },
+    "score": 0.6,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [
+      "ai/ml"
+    ],
+    "reason": "python · 1 з 2 навичок"
+  },
+  {
+    "job": {
+      "id": "352923",
+      "title": "Інженер-програміст, військовослужбовець",
+      "company": "17 Полтавська бригада НГУ 2 корпус ХАРТІЯ",
+      "locations": [],
+      "is_remote": false,
+      "salary_text": "$580–2820",
+      "salary_min": 580,
+      "salary_max": 2820,
+      "salary_mid": 1700,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "qa",
+        "python"
+      ],
+      "tags": [
+        "miltech"
+      ],
+      "snippet": "Підрозділ розробки та впровадження (напрям РЕБ), шукає вмотивованих і відповідальних людей для тестування, впровадження та масштабування інновацій у сфері оборони. Основні завдання — перевірка нових ідей, їх реалізація, вдосконалення та інтеграція в роботу підрозділу.",
+      "url": "https://jobs.dou.ua/companies/17-ta-poltavska-brigada-ngu-reid/vacancies/352923/",
+      "posted_at": "2026-11-10"
+    },
+    "score": 0.6,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [
+      "qa"
+    ],
+    "reason": "python · 1 з 2 навичок"
+  },
+  {
+    "job": {
+      "id": "352919",
+      "title": "Мережевий інженер, військовослужбовець",
+      "company": "17 Полтавська бригада НГУ 2 корпус ХАРТІЯ",
+      "locations": [],
+      "is_remote": false,
+      "salary_text": "$580–2820",
+      "salary_min": 580,
+      "salary_max": 2820,
+      "salary_mid": 1700,
+      "categories": [
+        "Python"
+      ],
+      "skills": [
+        "qa",
+        "python"
+      ],
+      "tags": [
+        "miltech"
+      ],
+      "snippet": "Підрозділ розробки та впровадження (напрям РЕБ), шукає вмотивованих і відповідальних людей для тестування, впровадження та масштабування інновацій у сфері оборони. Основні завдання — перевірка нових ідей, їх реалізація, вдосконалення та інтеграція в роботу підрозділу.",
+      "url": "https://jobs.dou.ua/companies/17-ta-poltavska-brigada-ngu-reid/vacancies/352919/",
+      "posted_at": "2026-11-10"
+    },
+    "score": 0.6,
+    "matched_skills": [
+      "python"
+    ],
+    "missing_skills": [
+      "qa"
+    ],
+    "reason": "python · 1 з 2 навичок"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "median": 3300.0,
+  "mean": 3480.0,
+  "p25": 2400.0,
+  "p75": 4500.0,
+  "count": 142,
+  "basis": "survey",
+  "filters": {
+    "position": "Python",
+    "skills": ["python", "sql"],
+    "experience_years": 3.0
+  },
+  "histogram": [
+    {"from": 1000, "to": 2000, "count": 18},
+    {"from": 2000, "to": 3000, "count": 41},
+    {"from": 3000, "to": 4000, "count": 44},
+    {"from": 4000, "to": 5000, "count": 26},
+    {"from": 5000, "to": 6000, "count": 13}
+  ]
+}

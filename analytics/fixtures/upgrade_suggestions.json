@@ -1,0 +1,42 @@
+[
+  {
+    "skill": "kubernetes",
+    "salary_gain_usd": 750.0,
+    "salary_gain_pct": 22.7,
+    "new_jobs_count": 28,
+    "example_job_ids": ["380099", "380025"],
+    "sample_size": 84
+  },
+  {
+    "skill": "aws",
+    "salary_gain_usd": 600.0,
+    "salary_gain_pct": 18.2,
+    "new_jobs_count": 35,
+    "example_job_ids": ["359906"],
+    "sample_size": 112
+  },
+  {
+    "skill": "docker",
+    "salary_gain_usd": 450.0,
+    "salary_gain_pct": 13.6,
+    "new_jobs_count": 42,
+    "example_job_ids": [],
+    "sample_size": 96
+  },
+  {
+    "skill": "llm",
+    "salary_gain_usd": 520.0,
+    "salary_gain_pct": 15.8,
+    "new_jobs_count": 19,
+    "example_job_ids": [],
+    "sample_size": 45
+  },
+  {
+    "skill": "postgresql",
+    "salary_gain_usd": 300.0,
+    "salary_gain_pct": 9.1,
+    "new_jobs_count": 24,
+    "example_job_ids": [],
+    "sample_size": 78
+  }
+]

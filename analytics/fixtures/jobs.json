@@ -1,0 +1,491 @@
+[
+  {
+    "id": "336348",
+    "title": "Аналітик BI, Data Analyst (Power BI), розробник систем цифрової логістики",
+    "company": "Хартія",
+    "locations": [],
+    "is_remote": false,
+    "salary_text": "$560–1700",
+    "salary_min": 560,
+    "salary_max": 1700,
+    "salary_mid": 1130,
+    "categories": [
+      "Analyst"
+    ],
+    "skills": [
+      "power bi",
+      "data analysis"
+    ],
+    "tags": [],
+    "snippet": "ХТО МИ 13-та бригада оперативного призначення НГУ «Хартія» «Хартія» — бригада оперативного призначення Національної гвардії України. У бригаді працюють бойові, інженерні, технічні, логістичні, медичні та управлінські команди.",
+    "url": "https://jobs.dou.ua/companies/13-brigada-operativnogo-priznachennya-hartiya/vacancies/336348/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "334903",
+    "title": "Бізнес-аналітик",
+    "company": "ЦМТР",
+    "locations": [],
+    "is_remote": false,
+    "salary_text": "$700",
+    "salary_min": 700,
+    "salary_max": 700,
+    "salary_mid": 700,
+    "categories": [
+      "Analyst"
+    ],
+    "skills": [
+      "business analysis"
+    ],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "Центр масштабування технологічних рішень шукає бізнес-аналітика. Прийом цивільних на військову службу за контрактом.",
+    "url": "https://jobs.dou.ua/companies/tscafu/vacancies/334903/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "359654",
+    "title": "Архітектор рішень, керівник технічного напряму",
+    "company": "Хартія",
+    "locations": [],
+    "is_remote": false,
+    "salary_text": "$560–1700",
+    "salary_min": 560,
+    "salary_max": 1700,
+    "salary_mid": 1130,
+    "categories": [
+      "Architect"
+    ],
+    "skills": [
+      "architecture"
+    ],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "ХТО МИ 13-та бригада оперативного призначення НГУ «Хартія» Ми розвиваємо цифрові рішення для управління військовими процесами та логістикою. Для цього потрібні не лише розробники, а й люди, які здатні побачити систему цілком, визначити її архітектуру та вести технічну команду.",
+    "url": "https://jobs.dou.ua/companies/13-brigada-operativnogo-priznachennya-hartiya/vacancies/359654/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "326945",
+    "title": "UAV Systems Engineer (RF & Video Links)",
+    "company": "NDA Recruitment",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "$2000–3500",
+    "salary_min": 2000,
+    "salary_max": 3500,
+    "salary_mid": 2750,
+    "categories": [
+      "Embedded"
+    ],
+    "skills": [
+      "hardware",
+      "uav/robotics",
+      "embedded"
+    ],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "Шукаємо інженера-інтегратора БпЛА для налаштування відео- та радіозв’язку дронів: аналогові й цифрові FPV-системи, ELRS, TBS Crossfire, LoRa, ретранслятори та наземні станції.",
+    "url": "https://jobs.dou.ua/companies/nda-recruitment/vacancies/326945/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "365611",
+    "title": "Junior Python Engineer (Embedded Linux / SDR)",
+    "company": "DarkCore",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "від $600",
+    "salary_min": 600,
+    "salary_max": null,
+    "salary_mid": 600,
+    "categories": [
+      "Embedded",
+      "Python"
+    ],
+    "skills": [
+      "python",
+      "linux",
+      "embedded",
+      "hardware"
+    ],
+    "tags": [
+      "junior"
+    ],
+    "snippet": "Про команду Шукаємо молодого інженера, який хоче професійно розвиватися у сфері Python, Embedded Linux, SDR та цифрової обробки сигналів.",
+    "url": "https://jobs.dou.ua/companies/ua-technology/vacancies/365611/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "365605",
+    "title": "Middle Python Engineer (Embedded Linux / SDR)",
+    "company": "DarkCore",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "$1000–2000",
+    "salary_min": 1000,
+    "salary_max": 2000,
+    "salary_mid": 1500,
+    "categories": [
+      "Embedded",
+      "Python"
+    ],
+    "skills": [
+      "python",
+      "linux",
+      "embedded",
+      "hardware"
+    ],
+    "tags": [
+      "middle"
+    ],
+    "snippet": "Про команду Наші системи працюють у реальному часі, аналізують радіоспектр, виявляють потенційні загрози та допомагають безпілотним системам діяти автономно. Ми — невелика R&D-команда, яка швидко перевіряє нові технічні ідеї та доводить їх до реальних польових випробувань.",
+    "url": "https://jobs.dou.ua/companies/ua-technology/vacancies/365605/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "364468",
+    "title": "CRM Manager",
+    "company": "Diamond Partners",
+    "locations": [],
+    "is_remote": true,
+    "salary_text": "від $2000",
+    "salary_min": 2000,
+    "salary_max": null,
+    "salary_mid": 2000,
+    "categories": [
+      "ERP/CRM"
+    ],
+    "skills": [
+      "crm/erp"
+    ],
+    "tags": [
+      "middle",
+      "igaming"
+    ],
+    "snippet": "We are looking for an experienced middle CRM Manager to strengthen and further develop the CRM function within our growing iGaming business. This is not a role focused only on launching email or push campaigns.",
+    "url": "https://jobs.dou.ua/companies/diamond-partners/vacancies/364468/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "363132",
+    "title": "Hardware RF Engineer (R&D)",
+    "company": "Vyriy Industries",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "$3300–6700",
+    "salary_min": 3300,
+    "salary_max": 6700,
+    "salary_mid": 5000,
+    "categories": [
+      "Hardware"
+    ],
+    "skills": [
+      "hardware",
+      "uav/robotics"
+    ],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "Vyriy Industries — українська defense-tech компанія, яка перетворює бойовий досвід на асиметричну перевагу для Сил оборони України. Ми створюємо повний спектр рішень для поля бою: FPV-платформи, системи розвідки, ураження та зв’язку.",
+    "url": "https://jobs.dou.ua/companies/vyriy-drone/vacancies/363132/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "371413",
+    "title": "Innovation Tech Lead (R&D)",
+    "company": "Vyriy Industries",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "$2700–4500",
+    "salary_min": 2700,
+    "salary_max": 4500,
+    "salary_mid": 3600,
+    "categories": [
+      "Hardware"
+    ],
+    "skills": [
+      "uav/robotics",
+      "hardware"
+    ],
+    "tags": [
+      "lead",
+      "miltech"
+    ],
+    "snippet": "Vyriy Industries — українська defense-tech компанія, яка перетворює бойовий досвід на асиметричну перевагу для Сил оборони України. Ми створюємо повний спектр рішень для поля бою: FPV-платформи, системи розвідки, ураження та зв’язку.",
+    "url": "https://jobs.dou.ua/companies/vyriy-drone/vacancies/371413/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "380044",
+    "title": "Full Stack Developer",
+    "company": "Sednor Holdings Limited",
+    "locations": [],
+    "is_remote": true,
+    "salary_text": "до $2500",
+    "salary_min": null,
+    "salary_max": 2500,
+    "salary_mid": 2500,
+    "categories": [
+      "Node.js"
+    ],
+    "skills": [
+      "node.js"
+    ],
+    "tags": [],
+    "snippet": "We are looking for an experienced and proactive Full Stack Developer to join our growing team and play a key role in the development of the software company.",
+    "url": "https://jobs.dou.ua/companies/sednor-holdings-limited/vacancies/380044/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "380001",
+    "title": "Senior Full-Stack Engineer (Liebscher & Bracht)",
+    "company": "uSoftware",
+    "locations": [],
+    "is_remote": true,
+    "salary_text": "до $4700",
+    "salary_min": null,
+    "salary_max": 4700,
+    "salary_mid": 4700,
+    "categories": [
+      "Node.js"
+    ],
+    "skills": [
+      "node.js"
+    ],
+    "tags": [
+      "senior"
+    ],
+    "snippet": "About the project We are a German pain-therapy and movement company with a successful B2C subscription app (mobile + web, 50,000+ paying members, a large library of exercise videos grouped by pain area and body region).",
+    "url": "https://jobs.dou.ua/companies/usoftware/vacancies/380001/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "380097",
+    "title": "Системний Адміністратор",
+    "company": "Д.Ж.Е.Т.",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "від $1000",
+    "salary_min": 1000,
+    "salary_max": null,
+    "salary_mid": 1000,
+    "categories": [
+      "Other",
+      "SysAdmin"
+    ],
+    "skills": [
+      "sysadmin"
+    ],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "Ми — інноваційна miltech-компанія, яка спеціалізується на розробці та виробництві безпілотних літальних апаратів. У зв’язку з розширенням команди шукаємо Системного адміністратора, який допоможе забезпечувати стабільну роботу ІТ-інфраструктури.",
+    "url": "https://jobs.dou.ua/companies/d-zh-e-t/vacancies/380097/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "380094",
+    "title": "Інженер-конструктор БпЛА",
+    "company": "Д.Ж.Е.Т.",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "$1100–1300",
+    "salary_min": 1100,
+    "salary_max": 1300,
+    "salary_mid": 1200,
+    "categories": [
+      "Other"
+    ],
+    "skills": [
+      "hardware",
+      "uav/robotics"
+    ],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "Ми — українська оборонно-промислова компанія, яка займається розробкою та виробництвом безпілотних авіаційних систем.",
+    "url": "https://jobs.dou.ua/companies/d-zh-e-t/vacancies/380094/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "380090",
+    "title": "Інженер з налаштування (ArduPilot&Betaflight)",
+    "company": "Д.Ж.Е.Т.",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "$1500–2600",
+    "salary_min": 1500,
+    "salary_max": 2600,
+    "salary_mid": 2050,
+    "categories": [
+      "Other"
+    ],
+    "skills": [
+      "ardupilot"
+    ],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "Ми — українська оборонно-промислова компанія, яка розробляє та виробляє сучасні безпілотні авіаційні системи.",
+    "url": "https://jobs.dou.ua/companies/d-zh-e-t/vacancies/380090/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "376229",
+    "title": "Operations Manager for Technical Department",
+    "company": "Vyriy Industries",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "$1000–1400",
+    "salary_min": 1000,
+    "salary_max": 1400,
+    "salary_mid": 1200,
+    "categories": [
+      "Other"
+    ],
+    "skills": [],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "Vyriy Industries — українська Defense Tech компанія, що розробляє та серійно виробляє автономні системи для роботи в реальних бойових умовах для понад 200 підрозділів Сил оборони України.",
+    "url": "https://jobs.dou.ua/companies/vyriy-drone/vacancies/376229/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "380028",
+    "title": "RF інженер",
+    "company": "Lavriv, Sole Proprietor (Ukraine)",
+    "locations": [
+      "Івано-Франківськ"
+    ],
+    "is_remote": false,
+    "salary_text": "$2000–4000",
+    "salary_min": 2000,
+    "salary_max": 4000,
+    "salary_mid": 3000,
+    "categories": [
+      "Other"
+    ],
+    "skills": [
+      "hardware"
+    ],
+    "tags": [],
+    "snippet": "Вимоги: Досвід роботи інженером від 3 років. Глибокі знання проєктування ВЧ діапазону до 6 ГГц. Вміння працювати з ANSYS HFSS, CST, AWR або іншими САПР для моделювання. Досвід проєктування радіоприймачів та радіопередавачів потужністю до 50 Вт.",
+    "url": "https://jobs.dou.ua/companies/fop-lavriv/vacancies/380028/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "376399",
+    "title": "Контролер відділу якості (виробництво дронів)",
+    "company": "Frontline Robotics",
+    "locations": [
+      "Київ"
+    ],
+    "is_remote": false,
+    "salary_text": "від $700",
+    "salary_min": 700,
+    "salary_max": null,
+    "salary_mid": 700,
+    "categories": [
+      "Other"
+    ],
+    "skills": [
+      "uav/robotics"
+    ],
+    "tags": [
+      "miltech"
+    ],
+    "snippet": "Frontline Robotics — українська defence tech компанія, що займається розробкою та виробництвом роботизованих систем для Сил безпеки та оборони України. Наша місія — створити інтегровану роботизовану екосистему для наступу й оборони.",
+    "url": "https://jobs.dou.ua/companies/frontline/vacancies/376399/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "326092",
+    "title": "Backend Developer (PHP, Laravel)",
+    "company": "Хартія",
+    "locations": [],
+    "is_remote": false,
+    "salary_text": "$560–1700",
+    "salary_min": 560,
+    "salary_max": 1700,
+    "salary_mid": 1130,
+    "categories": [
+      "PHP"
+    ],
+    "skills": [
+      "php",
+      "laravel"
+    ],
+    "tags": [],
+    "snippet": "ХТО МИ 13-та бригада оперативного призначення НГУ «Хартія» «Хартія» — бригада оперативного призначення Національної гвардії України. Ми розвиваємо не лише бойові спроможності, а й сучасні системи управління та забезпечення.",
+    "url": "https://jobs.dou.ua/companies/13-brigada-operativnogo-priznachennya-hartiya/vacancies/326092/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "380030",
+    "title": "WordPress Developer, Site Care Specialist",
+    "company": "Serious Software",
+    "locations": [],
+    "is_remote": true,
+    "salary_text": "до $2900",
+    "salary_min": null,
+    "salary_max": 2900,
+    "salary_mid": 2900,
+    "categories": [
+      "PHP"
+    ],
+    "skills": [
+      "wordpress/shopify",
+      "php"
+    ],
+    "tags": [
+      "middle"
+    ],
+    "snippet": "About the client Our client is a US-based digital agency that designs, builds and runs websites for mid-size and large US companies on WordPress and HubSpot.",
+    "url": "https://jobs.dou.ua/companies/serious-software/vacancies/380030/",
+    "posted_at": "2026-11-16"
+  },
+  {
+    "id": "380052",
+    "title": "Програміст НРК",
+    "company": "132 окремий розвідувальний батальйон 7 корпусу ДШВ",
+    "locations": [],
+    "is_remote": false,
+    "salary_text": "$1200–2725",
+    "salary_min": 1200,
+    "salary_max": 2725,
+    "salary_mid": 1962,
+    "categories": [
+      "Python"
+    ],
+    "skills": [
+      "python"
+    ],
+    "tags": [],
+    "snippet": "Обов’язки: -програмувати маршрути руху НРК; -аналіз роботи систем і пошук програмних помилок; -реалізація алгоритмів навігації, планування маршрутів та уникнення перешкод; -участь у тестуванні, польових випробуваннях та оптимізації систем; -взаємодія з операторами та командирами...",
+    "url": "https://jobs.dou.ua/companies/132-okremii-rozviduvalnii-batalion-7-korpusu-dshv/vacancies/380052/",
+    "posted_at": "2026-11-16"
+  }
+]
