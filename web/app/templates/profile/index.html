@@ -3,14 +3,18 @@
 {% block content %}
 <section class="panel">
   <p class="eyebrow">Your career, your direction</p>
-  <h1>Your profile</h1>
-  <dl>
-    <dt>Position</dt><dd>{{ profile.position or 'Not set yet' }}</dd>
-    <dt>Skills</dt><dd>{{ profile.skills | join(', ') or 'No skills added yet' }}</dd>
-    <dt>Experience</dt><dd>{{ profile.experience_years }} years</dd>
-    <dt>English</dt><dd>{{ profile.english_level }}</dd>
-  </dl>
-  <p>Profile editing and CV upload will be available soon.</p>
+  <h1>{{ 'Review your new CV' if draft else 'Your profile' }}</h1>
+  <p>{{ 'Your saved profile stays active until you confirm these changes.' if draft else 'Keep your details up to date for your next job search.' }}</p>
+  {% if error %}<p class="notice error" role="alert">{{ error }}</p>{% endif %}
+  {% if draft %}{% include "profile/review_warnings.html" %}{% endif %}
+  {% set form_action = url_for('profile.index') %}
+  {% set submit_label = 'Save profile' %}
+  {% include "profile/form.html" %}
+</section>
+<section class="panel">
+  <h2>Update your CV</h2>
+  <p>Upload a new version to review the details before replacing your saved profile.</p>
+  {% include "profile/cv_upload.html" %}
 </section>
 <section class="panel"><h2>Saved jobs</h2><p>Your liked jobs will appear here.</p></section>
 {% endblock %}

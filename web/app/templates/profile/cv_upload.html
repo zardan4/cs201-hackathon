@@ -1,0 +1,8 @@
+<form method="post" action="{{ url_for('profile.upload_cv') }}" enctype="multipart/form-data" class="cv-upload">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label for="cv">Your CV <span class="field-hint">TXT or PDF · up to 5 MiB</span></label>
+  <input type="file" id="cv" name="cv" accept=".txt,.pdf,text/plain,application/pdf" required aria-describedby="cv-help">
+  <p id="cv-help" class="field-hint">Use a PDF with selectable text or a UTF-8 TXT file. Scanned images and password-protected PDFs aren’t supported.</p>
+  <p class="field-hint">CV text is sent to Google Gemini to identify your profile details. You can edit the results before saving.</p>
+  <button type="submit" class="button">Upload and analyse CV</button>
+</form>

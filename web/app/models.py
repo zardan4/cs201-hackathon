@@ -36,6 +36,7 @@ class UserProfile:
     english_level: str = "none"
     remote_only: bool = False
     cv_text: str | None = None
+    onboarding_completed: bool = False
     created_at: datetime = field(default_factory=utc_now)
     updated_at: datetime = field(default_factory=utc_now)
 

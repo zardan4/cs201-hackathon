@@ -1,0 +1,3 @@
+{% if draft.warnings %}
+<div class="notice" role="status"><p>Please check these details:</p><ul>{% for warning in draft.warnings %}<li>{{ warning }}</li>{% endfor %}</ul></div>
+{% endif %}

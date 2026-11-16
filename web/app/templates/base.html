@@ -9,11 +9,21 @@
 </head>
 <body>
   <header class="site-header"><a href="{{ url_for('profile.home') }}">SwipeJob<span>Find your next move.</span></a></header>
-  <main id="main-content">{% block content %}{% endblock %}</main>
+  <main id="main-content">
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <p class="notice {{ category }}" role="status">{{ message }}</p>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
   <nav class="tab-bar" aria-label="Main navigation">
     {% for endpoint, label in [('swipe.index', 'Swipe'), ('profile.index', 'Profile'), ('insights.index', 'Insights')] %}
       {% set active = request.blueprint == endpoint.split('.')[0] %}
-      <a href="{{ url_for(endpoint) }}"{% if active %} aria-current="page"{% endif %}>{{ label }}</a>
+      {% if not g.onboarding_complete | default(false) and endpoint != 'profile.index' %}
+        <span class="locked-tab" aria-disabled="true" title="Upload your CV and confirm your profile first">{{ label }} <small>Locked</small></span>
+      {% else %}
+        {% set target = 'profile.onboarding' if endpoint == 'profile.index' and not g.onboarding_complete | default(false) else endpoint %}
+        <a href="{{ url_for(target) }}"{% if active %} aria-current="page"{% endif %}>{{ label }}</a>
+      {% endif %}
     {% endfor %}
   </nav>
   {% block scripts %}{% endblock %}

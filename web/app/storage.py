@@ -11,7 +11,7 @@ from uuid import UUID
 
 from flask import current_app
 
-from app.models import SwipeAction, UserProfile
+from app.models import CvParseResult, SwipeAction, UserProfile
 
 _lock = RLock()
 
@@ -25,7 +25,7 @@ def _user_path(user_id: str) -> Path:
 def _read(user_id: str) -> dict:
     path = _user_path(user_id)
     if not path.exists():
-        return {"profile": None, "swipes": []}
+        return {"profile": None, "swipes": [], "cv_draft": None}
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -85,3 +85,19 @@ def append_swipe(swipe: SwipeAction) -> None:
         raw["created_at"] = swipe.created_at.isoformat()
         document["swipes"].append(raw)
         _write(swipe.user_id, document)
+
+
+def load_cv_draft(user_id: str) -> CvParseResult | None:
+    with _lock:
+        raw = _read(user_id).get("cv_draft")
+    return CvParseResult(**raw) if raw is not None else None
+
+
+def save_cv_draft(user_id: str, result: CvParseResult | None) -> None:
+    """Keep unconfirmed CV data on the server, separate from the active profile."""
+    with _lock:
+        document = _read(user_id)
+        if document["profile"] is None:
+            raise ValueError("Create a profile before importing a CV.")
+        document["cv_draft"] = asdict(result) if result is not None else None
+        _write(user_id, document)

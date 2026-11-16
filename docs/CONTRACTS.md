@@ -62,6 +62,7 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 | `english_level` | `str` | `none/basic/pre/intermediate/upper/fluent` (як у Djinni `English Level`) |
 | `remote_only` | `bool` | фільтр у свайпах (за замовчуванням `False`) |
 | `cv_text` | `str \| None` | сирий текст резюме (якщо завантажено) |
+| `onboarding_completed` | `bool` | `False` до завантаження CV та підтвердження валідної форми; `True` після збереження |
 | `created_at` / `updated_at` | `datetime` | |
 
 ### 2.4 `CvParseResult` — результат аналізу резюме (вихід DA, вхід WE-A)
@@ -153,7 +154,7 @@ def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list
 ### 4.2 `app/services/` — пишуть Web Engineers (єдиний шар між `analytics` і роутами)
 | Модуль | Власник | Функції |
 |---|---|---|
-| `app/services/catalog_service.py` | WE-A | `all_skills() -> list[str]`, `all_positions() -> list[str]` |
+| `app/services/catalog_service.py` | WE-A | `all_skills() -> list[str]`, `all_positions() -> list[str]`, `skill_entries() -> list[dict]` (канонічні назви + aliases для Gemini) |
 | `app/services/profile_service.py` | WE-A | `get_or_create_profile(user_id) -> UserProfile`, `save_profile(profile)`, `import_cv(user_id, file) -> CvParseResult` |
 | `app/services/jobs_service.py` | WE-B | `next_matches(profile, limit=10) -> list[JobMatch]`, `record_swipe(user_id, job_id, action)`, `saved_jobs(user_id) -> list[Job]` |
 | `app/services/insights_service.py` | WE-A | `build_report(profile) -> InsightsReport` |
@@ -164,8 +165,8 @@ def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list
 | Метод + URL | Власник | Призначення |
 |---|---|---|
 | `GET /` | WE-A | редірект: немає профілю → `/onboarding`, інакше → `/swipe` |
-| `GET/POST /onboarding` | WE-A | вибір позиції, навичок, (опц.) CV |
-| `POST /profile/cv` | WE-A | завантаження резюме → `CvParseResult` |
+| `GET/POST /onboarding` | WE-A | обов'язковий CV → перегляд/редагування знайдених полів → підтвердження профілю |
+| `POST /profile/cv` | WE-A | multipart `cv` (TXT/PDF, до 5 MiB запиту) → серверна чернетка `CvParseResult` → HTTP 303 на форму перегляду |
 | `GET /profile` | WE-A | профіль, редагування, **список вподобаних вакансій** (з `jobs_service.saved_jobs`) |
 | `POST /profile` | WE-A | збереження змін профілю |
 | `GET /swipe` | WE-B | вкладка свайпів (перші картки рендеряться на сервері) |
@@ -181,9 +182,14 @@ def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list
   Поки DA не додав `analytics.build`, каркас працює без даних і показує порожні сторінки.
 - Фабрика: `app.main.create_app(config: dict | None = None) -> Flask`.
   `USER_STORAGE_DIR` у Flask config за замовчуванням — абсолютний `cache/users/` у корені.
-  У cookie-сесії зберігається лише `user_id` (UUID), а не текст CV чи історія свайпів.
-  Перед кожним запитом `g.profile` містить `UserProfile`; порожня `position` означає,
-  що онбординг ще не завершено. Кореневий `/` враховує саме це.
+  У cookie-сесії зберігається `user_id` (UUID) та службові flash-повідомлення,
+  а не текст CV, чернетка чи історія свайпів. Ключ підпису сесії береться з
+  `SWIPEJOB_SECRET_KEY` або з приватного `cache/.session-key`, щоб сесія переживала перезапуск.
+  Перед кожним запитом `g.profile` містить `UserProfile`;
+  `g.onboarding_complete` = підтверджений профіль із непорожніми CV та позицією.
+  До підтвердження дозволені лише onboarding, upload CV, `/` та static;
+  решта сторінок редіректять на onboarding, `/api/*` повертають HTTP 403
+  `{"error": "onboarding_required", "redirect": "/onboarding"}`.
 - Blueprint-и / endpoint-и: `profile_bp` має ім'я `profile` і endpoint-и
   `profile.onboarding`, `profile.index`, `profile.upload_cv`; `insights_bp` —
   `insights`, endpoint `insights.index`; WE-B створює `swipe_bp = Blueprint("swipe", __name__)`
@@ -192,8 +198,7 @@ def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list
   (потрібен перезапуск). Помилки всередині наявного модуля не приховуються.
 - Шаблони наслідують `base.html`; блоки: `title`, `styles`, `content`, `scripts`.
   Навігація: Swipe → Profile → Insights. Спільні стилі — `static/profile/base.css`.
-- `POST /onboarding`, `POST /profile`, `POST /profile/cv` у початковому каркасі
-  повертають HTTP 501 до реалізації A1–A3; це не завершені функції.
+- Форми WE-A використовують прихований `csrf_token`, прив'язаний до user_id та ключа сесії.
   API свайпів реалізує WE-B, каркас їх не імітує.
 
 ### 5.1 `app.storage` (виклики всередині Flask application context)
@@ -203,9 +208,11 @@ def load_profile(user_id: str) -> UserProfile | None: ...
 def save_profile(profile: UserProfile) -> None: ...
 def list_swipes(user_id: str) -> list[SwipeAction]: ...
 def append_swipe(swipe: SwipeAction) -> None: ...
+def load_cv_draft(user_id: str) -> CvParseResult | None: ...
+def save_cv_draft(user_id: str, result: CvParseResult | None) -> None: ...
 ```
 
-Файл `cache/users/<user_id>.json` має форму `{"profile": {...}, "swipes": [...]}`;
+Файл `cache/users/<user_id>.json` має форму `{"profile": {...}, "swipes": [...], "cv_draft": {...} | null}`;
 часові мітки — ISO 8601 (UTC), при читанні відновлюються як `datetime`.
 Оновлення профілю зберігає свайпи, додавання свайпу зберігає профіль.
 Повторний свайп одного `job_id` ігнорується (перша дія залишається).
@@ -213,3 +220,43 @@ def append_swipe(swipe: SwipeAction) -> None: ...
 Запис — через тимчасовий файл + atomic replace; read-modify-write захищений
 lock у межах одного процесу (локальний Flask-сервер для демо).
 Для кількох worker-процесів потрібне інше сховище або міжпроцесне блокування.
+
+### 5.2 CV та підтвердження профілю (A1–A3)
+
+- `profile_service.import_cv(user_id, file)` читає TXT (UTF-8/UTF-16 з BOM) або PDF
+  (`pypdf`, до 30 сторінок), надсилає текст у Google Gemini через серверний API,
+  валідує структурований JSON і зберігає `CvParseResult` у `cv_draft`.
+  Оригінальні файли не зберігаються; витягнутий текст — максимум 100 000 символів.
+  Парольні PDF, PDF без тексту, бінарні TXT та порожні файли відхиляються.
+  Помилки файлу → `ValueError` → форма з повідомленням HTTP 400; завеликий запит → 413.
+- Gemini використовує `GEMINI_API_KEY` (або `GOOGLE_API_KEY`), `GEMINI_MODEL`
+  (за замовчуванням `gemini-3.5-flash-lite`) та timeout 30 секунд. Коренева `.env`
+  завантажується сервером і не комітиться. Токен не передається браузеру, у промпт
+  або сховище профілів. CV-текст передається Google — це зазначено біля upload.
+- Навички беруться з `analytics/skills_catalog.json` (підтверджений шлях):
+  список `[{"name": "python", "aliases": [...], "group": "language"}, ...]`;
+  також підтримується простий список канонічних рядків. За наявності файлу він
+  є авторитетним джерелом для Gemini, форми та валідації; інакше можливий каталог
+  із DA `analytics.skills.all_skills()`. Немає каталогу → extraction недоступний,
+  без тихої заміни regex-парсером чи вигаданим списком.
+- Позиції беруться з DA `all_positions()` з розбиттям `;`/`,`; поки модуля немає,
+  використовується знімок 43 категорій фактичного DOU CSV у `catalog_service`
+  (напр. `Golang`, `Data Science`). Runtime вебкод не читає сирий CSV.
+- JSON Schema обмежує навички канонічним каталогом, позиції — категоріями DOU,
+  English — enum профілю, стаж — 0–80 років. Python повторно перевіряє типи,
+  нормалізує відомі aliases до канонічних ключів, відкидає невідомі навички
+  з попередженням і не дозволяє відповіді моделі змінювати session/user_id.
+  Для відсутніх даних — `null`/порожній список та ручне редагування у формі.
+- Налаштування/мережа/ліміт Gemini → контрольована помилка 503;
+  некоректна відповідь моделі → 502. Поточний профіль і чернетка зберігаються.
+  `analytics.cv.parse_cv` залишається DA API для інших споживачів;
+  CV upload тепер явно використовує Gemini за запитом користувача.
+- Додаткові функції `profile_service`: `is_profile_ready(profile) -> bool`,
+  `confirm_profile(user_id, form) -> UserProfile`. `form` — Flask/Werkzeug MultiDict;
+  поля: `position`, повторюване `skills`, `experience_years`, `english_level`,
+  опційний checkbox `remote_only`. Невалідні значення → `ValueError`.
+- Перше підтвердження потребує серверної чернетки CV. Форма не приймає `user_id`,
+  `cv_text` чи `onboarding_completed` від браузера: вони беруться із сесії/сховища.
+  Після перевірки позиції, канонічних навичок, стажу 0–80 та рівня англійської
+  профіль зберігається, `onboarding_completed=True`, чернетка очищується.
+  Завантаження нового CV не перезаписує підтверджений профіль до збереження форми.

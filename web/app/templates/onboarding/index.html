@@ -1,10 +1,31 @@
 {% extends "base.html" %}
-{% block title %}Welcome{% endblock %}
+{% block title %}Set up your profile{% endblock %}
 {% block content %}
+<ol class="setup-steps" aria-label="Profile setup">
+  <li{% if not draft %} aria-current="step"{% endif %}>1. Upload CV</li>
+  <li{% if draft %} aria-current="step"{% endif %}>2. Review your profile</li>
+  <li>3. Explore jobs</li>
+</ol>
 <section class="panel">
-  <p class="eyebrow">Your next move starts here</p>
-  <h1>Find work that fits you.</h1>
-  <p>Profile setup will let you choose your role, skills, experience and English level.</p>
-  <a class="button" href="{{ url_for('profile.index') }}">View profile</a>
+  {% if draft %}
+    <p class="eyebrow">Your CV has been analysed</p>
+    <h1>Make sure it sounds like you.</h1>
+    <p>We found the details below in your CV. Review and correct them, then save your profile to unlock swipe and insights.</p>
+  {% else %}
+    <p class="eyebrow">Your next move starts here</p>
+    <h1>Start with your CV.</h1>
+    <p>Upload your CV and Gemini will identify your role, skills, experience and English level. You’ll review everything before saving.</p>
+  {% endif %}
+  {% if error %}<p class="notice error" role="alert">{{ error }}</p>{% endif %}
+  {% if draft %}
+    {% include "profile/review_warnings.html" %}
+    {% set form_action = url_for('profile.onboarding') %}
+    {% set submit_label = 'Save profile and unlock jobs' %}
+    {% include "profile/form.html" %}
+    <details class="replace-cv"><summary>Use a different CV</summary>{% include "profile/cv_upload.html" %}</details>
+  {% else %}
+    {% include "profile/cv_upload.html" %}
+  {% endif %}
 </section>
+<p class="privacy-note">Your CV text is sent to Google Gemini for analysis. Your profile is stored on this server and accessed through this browser’s session. We don’t send applications or share your CV with employers.</p>
 {% endblock %}

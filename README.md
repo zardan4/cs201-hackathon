@@ -51,7 +51,7 @@ Maximum score: **15 points**. 34 teams, 5 groups. The most important thing: the 
 
 ⚠️ **Важливі особливості даних:**
 - У `dou_active_vacancies.csv` зарплата вказана лише у **~16 %** вакансій (≈550 з 3 512), формати різні: `$700`, `$560–1700`, `від $600`, `до $2500`. Потрібен парсер → поля `salary_min`, `salary_max`, `salary_mid` (USD). Вакансії без зарплати все одно показуємо, але для статистики використовуємо лише ті, де вона є (+ історичні датасети).
-- Колонка `categories` — це категорії DOU (Python, Java, QA, DevOps, AI/ML, Hardware, Analyst, Design, Project Manager…); багато вакансій мають кілька категорій через кому. Файл має BOM (`encoding="utf-8-sig"`).
+- Колонка `categories` — це категорії DOU (Python, Java, QA, DevOps, AI/ML, Hardware, Analyst, Design, Project Manager…); у фактичному CSV кілька категорій розділені `;` (парсер має підтримувати і `;`, і `,`). Файл має BOM (`encoding="utf-8-sig"`).
 - `location` може бути порожнім або містити кілька значень (`Київ, Львів, віддалено`) → з нього виводимо `is_remote`.
 - `snippet` — короткий опис (англійською або українською): із нього + `title` витягуємо навички за словником ключових слів.
 - **Перед стартом розробки** перевірте колонки parquet-датасетів Djinni та DOU salaries (`pd.read_parquet(...).columns`) — вони описані лише в маніфестах, у README не гарантовані.
