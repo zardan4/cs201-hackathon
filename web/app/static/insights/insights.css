@@ -16,7 +16,20 @@
   grid-column: 1 / -1; position: relative; overflow: hidden; padding: 1.35rem; border: 0;
   background: var(--pink); box-shadow: var(--glow);
 }
-.metric.featured::after { content: ""; position: absolute; width: 130px; height: 130px; right: -30px; top: -36px; border-radius: 1.6rem; background: rgba(255, 255, 255, .15); transform: rotate(24deg); }
+/* The square in the background drifts slowly from the right edge to the left edge while it
+   turns a little, 8 s per pass, looping forever (it fades at both ends so the restart is invisible). */
+.metric.featured::after {
+  content: ""; position: absolute; width: 130px; height: 130px; left: calc(100% - 70px); top: -36px; border-radius: 1.6rem;
+  background: rgba(255, 255, 255, .15); transform: rotate(24deg); pointer-events: none;
+  animation: featured-square-drift 8s ease-in-out infinite;
+}
+@keyframes featured-square-drift {
+  0%   { left: calc(100% - 70px); transform: rotate(24deg);  opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { left: -90px;             transform: rotate(-26deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .metric.featured::after { animation: none; left: calc(100% - 100px); } }
 .metric.featured p, .metric.featured small { position: relative; z-index: 1; color: rgba(255, 255, 255, .85); }
 .metric.featured strong { position: relative; z-index: 1; font-size: 2.6rem; color: #fff; }
 .metric:nth-child(4) { grid-column: 1 / -1; }
