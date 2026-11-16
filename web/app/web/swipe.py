@@ -1,5 +1,6 @@
 """Swipe tab routes (WE-B): card stack page and the JSON swipe API."""
 
+import re
 from dataclasses import asdict
 
 from flask import Blueprint, g, jsonify, render_template, request
@@ -10,6 +11,9 @@ swipe_bp = Blueprint("swipe", __name__)
 
 CARDS_PER_PAGE = 10
 MAX_API_LIMIT = 50
+# DOU vacancy IDs are numbers taken from the vacancy URL; anything else is rejected
+# so a client cannot store arbitrary (or huge) values in the user's swipe history.
+JOB_ID_PATTERN = re.compile(r"\d{1,12}")
 
 
 @swipe_bp.get("/swipe")
@@ -30,8 +34,10 @@ def index():
 @swipe_bp.get("/api/next-jobs")
 def next_jobs():
     """JSON list of JobMatch for the next portion of cards."""
-    limit = min(request.args.get("limit", CARDS_PER_PAGE, type=int) or CARDS_PER_PAGE,
-                MAX_API_LIMIT)
+    limit = request.args.get("limit", CARDS_PER_PAGE, type=int)
+    if limit is None or limit < 1:  # a negative limit would slice from the end of the list
+        limit = CARDS_PER_PAGE
+    limit = min(limit, MAX_API_LIMIT)
     matches = jobs_service.next_matches(g.profile, limit)
     # jsonify serialises the posted_at date as an HTTP date string; ISO is clearer.
     payload = [asdict(match) for match in matches]
@@ -43,11 +49,14 @@ def next_jobs():
 @swipe_bp.post("/api/swipe")
 def swipe():
     """Body {"job_id": "...", "action": "like"|"skip"} -> {"ok": true}."""
-    body = request.get_json(silent=True) or {}
-    job_id = str(body.get("job_id", "")).strip()
+    body = request.get_json(silent=True)
+    if not isinstance(body, dict):  # e.g. a JSON list or a non-JSON body
+        body = {}
+    job_id = body.get("job_id")
+    job_id = str(job_id).strip() if isinstance(job_id, (str, int)) else ""
     action = body.get("action")
-    if not job_id or action not in jobs_service.VALID_ACTIONS:
-        return jsonify(ok=False, error="Expected job_id and action 'like' or 'skip'."), 400
+    if not JOB_ID_PATTERN.fullmatch(job_id) or action not in jobs_service.VALID_ACTIONS:
+        return jsonify(ok=False, error="Expected a numeric job_id and action 'like' or 'skip'."), 400
     try:
         jobs_service.record_swipe(g.profile.user_id, job_id, action)
     except ValueError as error:
