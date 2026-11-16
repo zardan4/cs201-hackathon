@@ -5,6 +5,39 @@
   const stack = document.getElementById("swipe-stack");
   const THRESHOLD = 100; // px of horizontal drag that counts as a swipe
 
+  // Confetti on a like (canvas-confetti, vendored in static/vendor, ISC license).
+  // The canvas lives inside the app frame so the confetti never spills outside it.
+  const confettiCanvas = document.getElementById("confetti-canvas");
+  const fireConfetti = window.confetti && confettiCanvas
+    ? window.confetti.create(confettiCanvas, { resize: true, useWorker: false })
+    : null;
+
+  // Confetti rises from the bottom edge across the whole screen (three staggered volleys).
+  const CONFETTI_COLORS = ["#ff3d81", "#ff8a3d", "#ffffff", "#ffd166", "#7b5cff"];
+
+  function celebrate() {
+    if (!fireConfetti) return;
+    const volley = (x, angle, delay) =>
+      setTimeout(() => {
+        fireConfetti({
+          particleCount: 55,
+          angle,
+          spread: 75,
+          startVelocity: 58,
+          decay: 0.92,
+          gravity: 0.95,
+          ticks: 230,
+          scalar: 1,
+          origin: { x, y: 1.02 },
+          colors: CONFETTI_COLORS,
+          disableForReducedMotion: true,
+        });
+      }, delay);
+    volley(0.5, 90, 0);
+    volley(0.12, 65, 120);
+    volley(0.88, 115, 120);
+  }
+
   const topCard = () => stack.querySelector(".job-card:not(.is-gone)");
 
   function reloadIfEmpty() {
@@ -14,6 +47,7 @@
   function sendSwipe(card, action) {
     card.classList.add("is-gone", action === "like" ? "is-liked" : "is-skipped");
     card.style.transform = "";
+    if (action === "like") celebrate();
     fetch("/api/swipe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
