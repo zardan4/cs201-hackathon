@@ -73,6 +73,29 @@ def all_skills() -> list[str]:
     return [entry["name"] for entry in _skill_entries(required=False)]
 
 
+SKILL_GROUPS = [("language", "Languages"), ("framework", "Frameworks"), ("tool", "Tools"),
+                ("cloud", "Cloud"), ("other", "Other")]
+
+
+def skill_groups() -> list[dict]:
+    """Catalogue skills grouped for the profile picker: [{"label", "skills": [...]}].
+
+    Uses the optional ``group`` field of skills_catalog.json; anything unknown goes
+    to "Other". Every name from all_skills() appears exactly once.
+    """
+    names = all_skills()
+    grouped = {key: [] for key, _ in SKILL_GROUPS}
+    try:
+        raw = json.loads(Path(current_app.config["SKILLS_CATALOG_PATH"]).read_text(encoding="utf-8-sig"))
+        by_name = {item["name"].strip().casefold(): item.get("group") for item in raw if isinstance(item, dict) and isinstance(item.get("name"), str)}
+    except (OSError, ValueError, TypeError):
+        by_name = {}
+    for name in names:
+        group = by_name.get(name)
+        grouped[group if group in grouped else "other"].append(name)
+    return [{"label": label, "skills": grouped[key]} for key, label in SKILL_GROUPS if grouped[key]]
+
+
 def detected_skills(text: str) -> list[str]:
     """Find every supported CV keyword using the same extractor as vacancies."""
     entries = skill_entries()

@@ -76,14 +76,48 @@
     const search = box.querySelector("[data-skills-search]");
     const count = box.querySelector("[data-skills-count]");
     const empty = box.querySelector("[data-skills-empty]");
+    const selectedBox = box.querySelector("[data-skills-selected]");
+    const catalog = box.querySelector("[data-skills-catalog]");
+    const toggle = box.querySelector("[data-skills-toggle]");
+    const groups = Array.from(box.querySelectorAll("[data-skill-group]"));
     const options = Array.from(box.querySelectorAll(".skill-option"));
 
-    function refreshCount() {
-      const selected = options.filter((option) => option.querySelector("input").checked).length;
-      count.textContent = selected + " selected";
+    function setExpanded(expanded) {
+      catalog.classList.toggle("is-collapsed", !expanded);
+      toggle.setAttribute("aria-expanded", String(expanded));
+      toggle.textContent = expanded ? "Hide catalogue" : "Browse catalogue";
     }
 
-    search.addEventListener("input", () => {
+    // Selected skills as removable chips above the catalogue.
+    function renderSelected() {
+      const checked = options.filter((option) => option.querySelector("input").checked);
+      count.textContent = checked.length + " selected";
+      selectedBox.replaceChildren();
+      if (!checked.length) {
+        const none = document.createElement("span");
+        none.className = "skills-selected__none";
+        none.textContent = "Nothing selected yet";
+        selectedBox.append(none);
+      }
+      checked.forEach((option) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "skill-chip";
+        chip.setAttribute("aria-label", "Remove " + option.dataset.skill);
+        chip.append(option.dataset.skill + " ");
+        const cross = document.createElement("span");
+        cross.textContent = "×";
+        cross.setAttribute("aria-hidden", "true");
+        chip.append(cross);
+        chip.addEventListener("click", () => {
+          option.querySelector("input").checked = false;
+          renderSelected();
+        });
+        selectedBox.append(chip);
+      });
+    }
+
+    function filter() {
       const query = search.value.trim().toLowerCase();
       let shown = 0;
       options.forEach((option) => {
@@ -91,13 +125,24 @@
         option.hidden = !match;
         if (match) shown += 1;
       });
+      groups.forEach((group) => {
+        const any = Array.from(group.querySelectorAll(".skill-option")).some((option) => !option.hidden);
+        group.hidden = !any;
+        if (query && any) group.open = true;
+      });
       empty.hidden = shown > 0;
-    });
-    box.addEventListener("change", refreshCount);
+      if (query) setExpanded(true);
+    }
+
+    toggle.hidden = false;
+    toggle.addEventListener("click", () => setExpanded(toggle.getAttribute("aria-expanded") !== "true"));
+    setExpanded(false);
+    search.addEventListener("input", filter);
     search.addEventListener("keydown", (event) => {
       if (event.key === "Enter") event.preventDefault(); // Enter in search must not submit the form
     });
-    refreshCount();
+    box.addEventListener("change", renderSelected);
+    renderSelected();
   }
 
   document.querySelectorAll("[data-cv-upload]").forEach(initCvUpload);

@@ -23,15 +23,29 @@
     </div>
   </div>
   <fieldset class="form-card skills-card" data-skills>
-    <legend class="skills-head"><span>Skills</span> <span class="skills-count" data-skills-count aria-live="polite"></span></legend>
-    <input type="search" class="skills-search" placeholder="Search skills" aria-label="Search skills" autocomplete="off" data-skills-search>
-    <div class="skill-options">
-      {# Selected skills first, so the user sees what is already chosen. #}
-      {% for skill in skills if skill in values.skills %}
-        <label class="skill-option" data-skill="{{ skill }}"><input type="checkbox" name="skills" value="{{ skill }}" checked> <span>{{ skill }}</span></label>
-      {% endfor %}
-      {% for skill in skills if skill not in values.skills %}
-        <label class="skill-option" data-skill="{{ skill }}"><input type="checkbox" name="skills" value="{{ skill }}"> <span>{{ skill }}</span></label>
+    <legend class="skills-head">
+      <span class="skills-title"><span class="skills-title__icon" aria-hidden="true">+</span>Skills</span>
+      <span class="skills-count" data-skills-count aria-live="polite"></span>
+    </legend>
+    <div class="skills-selected" data-skills-selected aria-label="Selected skills"></div>
+    <div class="skills-tools">
+      <input type="search" class="skills-search" placeholder="Search…" aria-label="Search skills" autocomplete="off" data-skills-search>
+      <button type="button" class="skills-toggle" aria-expanded="false" hidden data-skills-toggle>Browse catalogue</button>
+    </div>
+    <div class="skills-catalog" data-skills-catalog>
+      {% for group in skill_groups %}
+      <details class="skill-group" open data-skill-group>
+        <summary><span>{{ group.label }}</span><small>{{ group.skills | length }}</small></summary>
+        <div class="skill-options">
+          {% for skill in group.skills %}
+            <label class="skill-option" data-skill="{{ skill }}"><input type="checkbox" name="skills" value="{{ skill }}"{% if skill in values.skills %} checked{% endif %}> <span>{{ skill }}</span></label>
+          {% endfor %}
+        </div>
+      </details>
+      {% else %}
+        {% for skill in skills %}
+          <label class="skill-option" data-skill="{{ skill }}"><input type="checkbox" name="skills" value="{{ skill }}"{% if skill in values.skills %} checked{% endif %}> <span>{{ skill }}</span></label>
+        {% endfor %}
       {% endfor %}
       <p class="skills-empty" hidden data-skills-empty>No skills match.</p>
     </div>

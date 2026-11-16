@@ -53,8 +53,10 @@ def _view_context(form=None, error=None) -> dict:
                       remote_only=form.get("remote_only") == "on")
     try:
         skills = catalog_service.all_skills()
+        skill_groups = catalog_service.skill_groups()
     except catalog_service.CatalogUnavailable:
         skills = []
+        skill_groups = []
         error = error or "The skills list is temporarily unavailable. Please try again later."
     saved_jobs = []
     saved_jobs_error = False
@@ -65,7 +67,7 @@ def _view_context(form=None, error=None) -> dict:
             current_app.logger.exception("Saved jobs could not be loaded")
             saved_jobs_error = True
     return dict(profile=profile, draft=draft, values=values, error=error,
-                positions=catalog_service.all_positions(), skills=skills,
+                positions=catalog_service.all_positions(), skills=skills, skill_groups=skill_groups,
                 saved_jobs=saved_jobs, saved_jobs_error=saved_jobs_error,
                 english_levels=profile_service.ENGLISH_LEVELS)
 
