@@ -1,4 +1,4 @@
-/* Swipe tab (WE-B). Look follows the JobSwipe design PDF: indigo accent, soft cards. */
+/* Swipe tab (WE-B). Look follows the BlowMyJob design PDF: indigo accent, soft cards. */
 .feed, .match-overlay, .swipe-empty, .liked {
   --sw-accent: #6366f1;
   --sw-accent-text: #4f46e5;

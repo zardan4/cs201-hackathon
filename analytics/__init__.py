@@ -1,4 +1,4 @@
-"""SwipeJob analytics library: data loading, skill extraction, and job matching."""
+"""BlowMyJob analytics library: data loading, skill extraction, and job matching."""
 
 from analytics.config import SWIPE_REQUIRES_SALARY
 from analytics.cv import parse_cv

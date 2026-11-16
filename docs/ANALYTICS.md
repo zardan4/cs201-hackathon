@@ -1,12 +1,12 @@
 # `analytics` — Library Documentation
 
-The `analytics` package is BlowMyJob's pure-Python data-access, normalization, skill-extraction, and job-ranking library. It reads open data from [`data/`](file:///home/artiekra/personal/kse/cs201-hackathon/data/), caches normalized tables in `cache/`, and exposes generator-based and DataFrame APIs for the web service layer (`app/services/`).
+The `analytics` package is BlowMyJob's pure-Python data-access, normalization, skill-extraction, and job-ranking library. It reads open data from [`data/`](../data/), caches normalized tables in `cache/`, and exposes generator-based and DataFrame APIs for the web service layer (`app/services/`).
 
 ---
 
 ## 1. Process-Once Caching Lifecycle
 
-Reading and parsing [`data/dou_active_vacancies.csv`](file:///home/artiekra/personal/kse/cs201-hackathon/data/dou_active_vacancies.csv) happens **only once**:
+Reading and parsing [`data/dou_active_vacancies.csv`](../data/dou_active_vacancies.csv) happens **only once**:
 
 1. **First access** (`load_jobs()`, `iter_jobs()`, `iter_ranked_jobs()`, or `rank_jobs()`):
    - Checks the in-memory process cache.
@@ -75,7 +75,7 @@ top_matches = rank_jobs(
 ### `analytics.jobs`
 
 - **`load_jobs(refresh: bool = False, require_salary: bool | None = None) -> pandas.DataFrame`**
-  Returns the normalized vacancies DataFrame with columns defined in [`docs/CONTRACTS.md`](file:///home/artiekra/personal/kse/cs201-hackathon/docs/CONTRACTS.md) §2.1 (`id`, `title`, `company`, `locations`, `is_remote`, `salary_text`, `salary_min`, `salary_max`, `salary_mid`, `categories`, `skills`, `tags`, `snippet`, `url`, `posted_at`). Builds `cache/jobs.parquet` lazily on first access. When `require_salary` is `None`, follows `SWIPE_REQUIRES_SALARY` from [`analytics/config.py`](file:///home/artiekra/personal/kse/cs201-hackathon/analytics/config.py) (default `True` → salaried vacancies only; pass `require_salary=False` to access all 3,512 vacancies).
+  Returns the normalized vacancies DataFrame with columns defined in [`docs/CONTRACTS.md`](./CONTRACTS.md) §2.1 (`id`, `title`, `company`, `locations`, `is_remote`, `salary_text`, `salary_min`, `salary_max`, `salary_mid`, `categories`, `skills`, `tags`, `snippet`, `url`, `posted_at`). Builds `cache/jobs.parquet` lazily on first access. When `require_salary` is `None`, follows `SWIPE_REQUIRES_SALARY` from [`analytics/config.py`](../analytics/config.py) (default `True` → salaried vacancies only; pass `require_salary=False` to access all 3,512 vacancies).
 - **`build_jobs(force: bool = False) -> pandas.DataFrame`**
   Reads `cache/jobs.parquet` if present (unless `force=True`), otherwise builds and persists it atomically.
 - **`iter_jobs(categories=None, locations=None, remote_only=False, exclude_ids=None, min_salary=None, skills=None, tags=None, require_salary=False) -> Iterator[dict]`**
@@ -94,7 +94,7 @@ top_matches = rank_jobs(
 ### `analytics.skills`
 
 - **`all_skills() -> list[dict]`**
-  Loads canonical skill definitions from [`analytics/skills_catalog.json`](file:///home/artiekra/personal/kse/cs201-hackathon/analytics/skills_catalog.json) (`{"name", "aliases", "group"}`).
+  Loads canonical skill definitions from [`analytics/skills_catalog.json`](../analytics/skills_catalog.json) (`{"name", "aliases", "group"}`).
 - **`all_positions() -> list[str]`**
   Returns sorted DOU category/position strings from the vacancies dataset.
 - **`extract_skills(text: str) -> list[str]`**
@@ -112,7 +112,7 @@ top_matches = rank_jobs(
 - **`iter_ranked_jobs(position="", skills=(), exclude_ids=None, *, categories=None, locations=None, remote_only=False, min_salary=None, tags=None, min_score=0.0, require_salary=None) -> Iterator[dict]`**
   Filters via `iter_jobs(...)` (respecting `SWIPE_REQUIRES_SALARY` when `require_salary is None`), scores every candidate, and yields `JobMatch` dicts (`job`, `score`, `matched_skills`, `missing_skills`, `reason`) ordered strictly **best-to-worst**.
 - **`rank_jobs(position, skills, exclude_ids, remote_only=False, limit=50, *, categories=None, locations=None, min_salary=None, tags=None, min_score=0.0, require_salary=None) -> list[dict]`**
-  Returns the top `limit` items from `iter_ranked_jobs(...)` matching [`docs/CONTRACTS.md`](file:///home/artiekra/personal/kse/cs201-hackathon/docs/CONTRACTS.md) §4.1.
+  Returns the top `limit` items from `iter_ranked_jobs(...)` matching [`docs/CONTRACTS.md`](./CONTRACTS.md) §4.1.
 - **`score_job(job, position="", user_skills=frozenset(), target_categories=frozenset(), target_tags=frozenset()) -> tuple[float, list[str], list[str], str]`**
   Computes the match score for a single job.
 

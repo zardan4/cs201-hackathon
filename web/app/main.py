@@ -33,7 +33,7 @@ def create_app(config: dict | None = None) -> Flask:
     load_dotenv(REPOSITORY_ROOT / ".env")
     app = Flask(__name__)
     app.config.from_mapping(
-        SECRET_KEY=os.environ.get("SWIPEJOB_SECRET_KEY"),
+        SECRET_KEY=os.environ.get("BLOWMYJOB_SECRET_KEY"),
         USER_STORAGE_DIR=REPOSITORY_ROOT / "cache" / "users",
         MAX_CONTENT_LENGTH=5 * 1024 * 1024,
         SESSION_COOKIE_HTTPONLY=True,

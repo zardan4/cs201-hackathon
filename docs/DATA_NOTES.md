@@ -1,6 +1,6 @@
 # DATA_NOTES — Open Data Audit & Citations
 
-## 1. Active Vacancies ([`data/dou_active_vacancies.csv`](file:///home/artiekra/personal/kse/cs201-hackathon/data/dou_active_vacancies.csv))
+## 1. Active Vacancies ([`data/dou_active_vacancies.csv`](../data/dou_active_vacancies.csv))
 
 - **Source:** DOU Jobs (`https://jobs.dou.ua/`).
 - **Encoding & Size:** UTF-8 with BOM (`encoding="utf-8-sig"`), **3,512** active vacancies spanning `2026-09-30` to `2026-11-16`, all with unique numeric IDs extracted from `link`.
@@ -10,7 +10,7 @@
 - **Salaried Swipe Pool by Position (`SWIPE_REQUIRES_SALARY = True`):**
   - `Hardware`: 85, `Analyst`: 44, `Other`: 41, `Support`: 40, `QA`: 39, `SysAdmin`: 37, `Embedded`: 33, `Design`: 31, `AI/ML`: 29, `Security`: 26, `Project Manager`: 25, `DevOps`: 23, `Python`: 17, `Product Manager`: 15, `Node.js`: 14, `C-level`: 14, `ERP/CRM`: 13, `C++`: 11, `Data Engineer`: 10, `Front End`: 10, `PHP`: 9, `.NET`: 9, `Technical Writer`: 7, `Java`: 5, `Data Science`: 4, `Android`: 4, `DBA`: 3, `Architect`: 2, `No-code`: 2, `SAP`: 1, `Unity`: 1, `Ruby`: 1, `Salesforce`: 1, `Engineering Manager`: 1.
   - Note: 9 categories (`Golang`, `Big Data`, `Unreal Engine`, `Flutter`, `Rust`, `Scrum Master`, `Blockchain`, `Scala`, `React Native`) currently have `0` salaried postings; setting `SWIPE_REQUIRES_SALARY = False` in `analytics/config.py` (or `require_salary=False`) expands the feed to all 3,512 active vacancies.
-- **Snippets & Extraction Coverage:** Snippets are 18–292 characters (DOU listing excerpts). Combining `title + snippet + categories` with [`analytics/skills_catalog.json`](file:///home/artiekra/personal/kse/cs201-hackathon/analytics/skills_catalog.json) extracts ≥ 1 skill on **3,236 / 3,512 (92.1%)** vacancies and ≥ 1 secondary tag on **2,242 / 3,512 (63.8%)** vacancies.
+- **Snippets & Extraction Coverage:** Snippets are 18–292 characters (DOU listing excerpts). Combining `title + snippet + categories` with [`analytics/skills_catalog.json`](../analytics/skills_catalog.json) extracts ≥ 1 skill on **3,236 / 3,512 (92.1%)** vacancies and ≥ 1 secondary tag on **2,242 / 3,512 (63.8%)** vacancies.
 
 ---
 
@@ -29,5 +29,5 @@
 
 ## 3. Djinni Recruitment Dataset (`data/datasets/jobs*`, `candidates*`)
 
-- **Source & License:** [lang-uk/djinni-recruitment-dataset](https://huggingface.co/collections/lang-uk/djinni-recruitment-dataset) — **MIT License** (see [`data/sources.json`](file:///home/artiekra/personal/kse/cs201-hackathon/data/sources.json)).
-- **Inspected Columns (`jobs-en` 141,897 rows / `jobs-uk` 27,461 rows):** `Position`, `Long Description`, `Company Name`, `Exp Years`, `Primary Keyword`, `English Level`, `Published`, `Long Description_lang`, `id`. Contains **no salary data**; used to align `Primary Keyword` values and skill aliases in [`analytics/skills_catalog.json`](file:///home/artiekra/personal/kse/cs201-hackathon/analytics/skills_catalog.json).
+- **Source & License:** [lang-uk/djinni-recruitment-dataset](https://huggingface.co/collections/lang-uk/djinni-recruitment-dataset) — **MIT License** (see [`data/sources.json`](../data/sources.json)).
+- **Inspected Columns (`jobs-en` 141,897 rows / `jobs-uk` 27,461 rows):** `Position`, `Long Description`, `Company Name`, `Exp Years`, `Primary Keyword`, `English Level`, `Published`, `Long Description_lang`, `id`. Contains **no salary data**; used to align `Primary Keyword` values and skill aliases in [`analytics/skills_catalog.json`](../analytics/skills_catalog.json).

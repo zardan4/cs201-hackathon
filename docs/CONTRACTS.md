@@ -184,7 +184,7 @@ def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list
   `USER_STORAGE_DIR` у Flask config за замовчуванням — абсолютний `cache/users/` у корені.
   У cookie-сесії зберігається `user_id` (UUID) та службові flash-повідомлення,
   а не текст CV, чернетка чи історія свайпів. Ключ підпису сесії береться з
-  `SWIPEJOB_SECRET_KEY` або з приватного `cache/.session-key`, щоб сесія переживала перезапуск.
+  `BLOWMYJOB_SECRET_KEY` або з приватного `cache/.session-key`, щоб сесія переживала перезапуск.
   Перед кожним запитом `g.profile` містить `UserProfile`;
   `g.onboarding_complete` = підтверджений профіль із непорожніми CV та позицією.
   До підтвердження дозволені лише onboarding, upload CV, `/` та static;

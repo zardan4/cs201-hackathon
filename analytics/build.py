@@ -9,7 +9,7 @@ from analytics.salary_records import build_salary_records
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Build SwipeJob analytics cache tables.")
+    parser = argparse.ArgumentParser(description="Build BlowMyJob analytics cache tables.")
     parser.add_argument(
         "--force",
         action="store_true",

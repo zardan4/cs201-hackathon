@@ -1,4 +1,4 @@
-# SwipeJob Flask app
+# BlowMyJob Flask app
 
 Python 3.11+. Run these commands from the repository root:
 
@@ -49,7 +49,7 @@ For automatic reload during development:
 python -m flask --app app.main:create_app run --debug
 ```
 
-Set `SWIPEJOB_SECRET_KEY` to supply your own private signing key. Otherwise the
+Set `BLOWMYJOB_SECRET_KEY` to supply your own private signing key. Otherwise the
 server generates and reuses a private key in ignored `cache/.session-key`, keeping
 existing browser sessions valid across restarts. `PORT` changes the port for `python -m app.main`.
 Runtime profiles and swipes live in the repository's ignored `cache/users/`.
