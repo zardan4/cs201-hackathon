@@ -32,8 +32,7 @@
       {% for match in matches %}
       {% set job = match.job %}
       {% set percent = (match.score * 100) | round | int %}
-      <article class="job-card hero-{{ (job.id | int) % 6 }}" data-job-id="{{ job.id }}" style="z-index: {{ loop.revindex }}"
-               data-strong-match="{{ 'true' if match.score >= strong_match_score else 'false' }}">
+      <article class="job-card hero-{{ (job.id | int) % 6 }}" data-job-id="{{ job.id }}" style="z-index: {{ loop.revindex }}">
         <header class="job-card__hero">
           <span class="job-card__match">{{ icon('heart', 12) }} {{ percent }}% match</span>
           <span class="job-card__logo" aria-hidden="true">{{ (job.company.lstrip('«"\' ') or '?')[0] | upper }}</span>
@@ -110,28 +109,6 @@
     <span class="job-sheet__grip" aria-hidden="true"></span>
     <button type="button" class="job-sheet__close" aria-label="Close" data-sheet-close>{{ icon('x', 20) }}</button>
     <div class="job-sheet__content" id="job-sheet-content"></div>
-  </div>
-</div>
-
-<div class="match-overlay" id="match-overlay" hidden>
-  <div class="match-overlay__box" role="dialog" aria-modal="true" aria-labelledby="match-title">
-    <span class="match-overlay__heart">{{ icon('heart', 30) }}</span>
-    <h2 id="match-title">It's a Match!</h2>
-    <p>Saved to your profile.</p>
-    <div class="match-overlay__pair">
-      <span class="match-overlay__avatar match-overlay__avatar--you">{{ (profile.position or 'Y')[0] | upper }}</span>
-      <span class="match-overlay__fit"><strong data-match="percent"></strong>FIT</span>
-      <span class="match-overlay__avatar match-overlay__avatar--company" data-match="logo"></span>
-    </div>
-    <div class="match-overlay__role">
-      <span>Role</span>
-      <strong data-match="title"></strong>
-      <em data-match="salary"></em>
-    </div>
-    <div class="match-overlay__actions">
-      <a class="match-overlay__primary" href="{{ url_for('profile.index') }}">View saved jobs</a>
-      <button type="button" class="match-overlay__secondary" id="match-close">Keep swiping</button>
-    </div>
   </div>
 </div>
 {% endif %}

@@ -4,13 +4,16 @@ Analytics modules are imported inside the functions so the web app still starts
 while the DA's `analytics` package is being built.
 """
 
+import random
 from datetime import date, datetime
 
 from app import storage
 from app.models import Job, JobMatch, SwipeAction, UserProfile
 
 VALID_ACTIONS = ("like", "skip")
-STRONG_MATCH_SCORE = 0.7  # a like at or above this score shows the "It's a match!" overlay
+MIN_FEED_SCORE = 0.2  # weaker matches (usually 0%) are not worth a card
+FEED_POOL_SIZE = 200  # candidates drawn from the ranking before the random pick
+SCORE_BIAS = 0.25  # added to a score to get its pick weight: 100% ~1.25x, 40% ~0.65x, 20% ~0.45x
 
 
 def _as_list(value) -> list[str]:
@@ -72,8 +75,20 @@ def swiped_job_ids(user_id: str) -> set[str]:
     return {swipe.job_id for swipe in storage.list_swipes(user_id)}
 
 
+def weighted_shuffle(rows: list[dict], limit: int, rng: random.Random | None = None) -> list[dict]:
+    """Random order where better matches come up more often but do not always come first.
+
+    Weighted sampling without replacement (Efraimidis-Spirakis): each row gets the key
+    u ** (1 / weight) with u uniform in (0, 1); the largest keys win.
+    """
+    rng = rng or random
+    keyed = [(rng.random() ** (1.0 / (SCORE_BIAS + row["score"])), index) for index, row in enumerate(rows)]
+    keyed.sort(reverse=True)
+    return [rows[index] for _, index in keyed[:limit]]
+
+
 def next_matches(profile: UserProfile, limit: int = 10) -> list[JobMatch]:
-    """Best-matching salaried jobs the user has not swiped yet."""
+    """A varied mix of decent salaried matches (e.g. 100%, 60%, 40%) the user has not swiped yet."""
     from analytics.matching import rank_jobs
 
     rows = rank_jobs(
@@ -81,9 +96,10 @@ def next_matches(profile: UserProfile, limit: int = 10) -> list[JobMatch]:
         skills=profile.skills,
         exclude_ids=swiped_job_ids(profile.user_id),
         remote_only=profile.remote_only,
-        limit=limit,
+        limit=FEED_POOL_SIZE,
+        min_score=MIN_FEED_SCORE,
     )
-    return [_match_from_dict(row) for row in rows]
+    return [_match_from_dict(row) for row in weighted_shuffle(rows, limit)]
 
 
 def record_swipe(user_id: str, job_id: str, action: str) -> None:

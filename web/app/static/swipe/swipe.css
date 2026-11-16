@@ -124,41 +124,13 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .swipe-btn--skip { width: 3.9rem; height: 3.9rem; color: var(--red); border-color: rgba(255, 84, 104, .45); }
 .swipe-btn--like { width: 4.9rem; height: 4.9rem; color: #fff; background: var(--grad); border: 0; }
 
-/* ---------- "It's a Match!" overlay ---------- */
-.match-overlay {
-  position: absolute; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1rem; color: #fff;
-  background: rgba(8, 12, 26, .96);
-}
-.match-overlay[hidden] { display: none; }
-.match-overlay__box { width: min(100%, 400px); display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
-.match-overlay__heart { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--grad); animation: pop .5s ease; }
-.match-overlay h2 { margin: 0; font-size: clamp(2.4rem, 9vw, 3.3rem); font-weight: 900; letter-spacing: -.03em; color: var(--pink); }
-.match-overlay p { margin: 0; color: var(--muted); }
-.match-overlay__pair { display: flex; align-items: center; gap: 1.25rem; margin: .5rem 0; }
-.match-overlay__avatar { display: grid; place-items: center; width: 5.5rem; height: 5.5rem; border-radius: 50%; font-size: 2rem; font-weight: 850; }
-.match-overlay__avatar--you { background: var(--surface-3); border: 3px solid var(--pink); }
-.match-overlay__avatar--company { background: #fff; color: var(--pink); border: 3px solid var(--orange); }
-.match-overlay__fit { display: flex; flex-direction: column; font-size: .7rem; font-weight: 800; letter-spacing: .1em; color: var(--orange); }
-.match-overlay__fit strong { font-size: 1.15rem; color: #fff; }
-.match-overlay__role { width: 100%; display: flex; flex-direction: column; gap: .2rem; padding: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 1.1rem; }
-.match-overlay__role span { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.match-overlay__role strong { font-size: 1.1rem; }
-.match-overlay__role em { font-style: normal; color: var(--orange); font-weight: 700; }
-.match-overlay__actions { width: 100%; display: grid; gap: .65rem; }
-.match-overlay__primary, .match-overlay__secondary {
-  display: grid; place-items: center; min-height: 3.1rem; border-radius: 999px; font: inherit; font-weight: 750; cursor: pointer; text-decoration: none;
-}
-.match-overlay__primary { background: var(--grad); color: #fff; }
-.match-overlay__secondary { background: transparent; color: var(--ink); border: 1px solid rgba(255, 255, 255, .25); }
-@keyframes pop { 0% { transform: scale(.4); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
-
 /* ---------- Empty states ---------- */
 .swipe-empty { text-align: center; padding: 2.5rem 1.5rem; margin-top: 2rem; }
 .swipe-empty h1 { font-size: 1.5rem; }
 .swipe-empty p { color: var(--muted); }
 .swipe-empty__icon { display: inline-grid; place-items: center; width: 4rem; height: 4rem; margin-bottom: .75rem; border-radius: 1.2rem; background: var(--grad); color: #fff; }
 
-@media (prefers-reduced-motion: reduce) { .job-card, .swipe-btn, .match-overlay__heart, .job-sheet__panel { transition: none; animation: none; } }
+@media (prefers-reduced-motion: reduce) { .job-card, .swipe-btn, .job-sheet__panel { transition: none; animation: none; } }
 
 .swipe-empty__action { margin: 0 0 .75rem; }
 .swipe-empty .button { margin: 0 .25rem; }

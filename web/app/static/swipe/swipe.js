@@ -1,35 +1,19 @@
-// Swipe tab UI only (no business logic): gestures, card animation and the
-// match overlay (shown when the server flagged the card as a strong match).
+// Swipe tab UI only (no business logic): gestures and card animation.
 // Swipes go to POST /api/swipe. When the stack is empty the page reloads and
 // the server renders the next cards.
 (function () {
   const stack = document.getElementById("swipe-stack");
-  const overlay = document.getElementById("match-overlay");
   const THRESHOLD = 100; // px of horizontal drag that counts as a swipe
 
   const topCard = () => stack.querySelector(".job-card:not(.is-gone)");
 
-  function showMatch(card) {
-    const copy = (name, selector) => {
-      overlay.querySelector(`[data-match="${name}"]`).textContent =
-        card.querySelector(selector).textContent;
-    };
-    copy("title", ".job-card__title");
-    copy("salary", ".job-card__salary");
-    copy("percent", ".job-card__percent");
-    copy("logo", ".job-card__logo");
-    overlay.hidden = false;
-    document.getElementById("match-close").focus();
-  }
-
   function reloadIfEmpty() {
-    if (!topCard() && overlay.hidden) window.location.reload();
+    if (!topCard()) window.location.reload();
   }
 
   function sendSwipe(card, action) {
     card.classList.add("is-gone", action === "like" ? "is-liked" : "is-skipped");
     card.style.transform = "";
-    if (action === "like" && card.dataset.strongMatch === "true") showMatch(card);
     fetch("/api/swipe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,11 +28,6 @@
       const card = topCard();
       if (card) sendSwipe(card, button.dataset.action);
     });
-  });
-
-  document.getElementById("match-close").addEventListener("click", () => {
-    overlay.hidden = true;
-    reloadIfEmpty();
   });
 
   // "Full description" bottom sheet: content is rendered by the server in a <template> per card.
