@@ -1,8 +1,16 @@
-<form method="post" action="{{ url_for('profile.upload_cv') }}" enctype="multipart/form-data" class="cv-upload">
+{# CV upload: the real <input type="file"> is hidden and driven by profile.js (click or drag & drop). #}
+<form method="post" action="{{ url_for('profile.upload_cv') }}" enctype="multipart/form-data" class="cv-upload" data-cv-upload>
   <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-  <label for="cv">Your CV <span class="field-hint">TXT or PDF · up to 5 MiB</span></label>
-  <input type="file" id="cv" name="cv" accept=".txt,.pdf,text/plain,application/pdf" required aria-describedby="cv-help">
-  <p id="cv-help" class="field-hint">Text-based PDF or UTF-8 TXT. No scans or passwords.</p>
-  <p class="field-hint">Google Gemini analyses your CV text. Review the results before saving.</p>
-  <button type="submit" class="button">Analyse CV</button>
+  <input type="file" name="cv" accept=".txt,.pdf,text/plain,application/pdf" hidden data-cv-input>
+  <div class="dropzone" role="button" tabindex="0" aria-label="Choose a CV file or drop it here" data-cv-drop>
+    <span class="dropzone__icon" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+    </span>
+    <strong class="dropzone__title" data-cv-title>Drop your CV here</strong>
+    <span class="dropzone__sub" data-cv-sub>or tap to browse · PDF or TXT, up to 5 MB</span>
+  </div>
+  <p class="cv-error" role="alert" hidden data-cv-error></p>
+  <button type="submit" class="button" disabled data-cv-submit>Analyse CV</button>
+  <p class="field-hint cv-note">Analysed with Google Gemini. You review the result before saving.</p>
+  <noscript><style>.cv-upload [data-cv-input]{display:block}.cv-upload [data-cv-drop]{display:none}.cv-upload [data-cv-submit]{opacity:1;pointer-events:auto}</style></noscript>
 </form>

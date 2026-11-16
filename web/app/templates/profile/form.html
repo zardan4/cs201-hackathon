@@ -1,34 +1,41 @@
 <form method="post" action="{{ form_action }}" class="profile-form">
   <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-  <div class="form-grid">
-    <div>
-      <label for="position">Your role</label>
+  <div class="form-card">
+    <div class="field">
+      <label for="position">Role</label>
       <select id="position" name="position" required>
         <option value="">Choose your role</option>
         {% for position in positions %}<option value="{{ position }}"{% if position == values.position %} selected{% endif %}>{{ position }}</option>{% endfor %}
       </select>
     </div>
-    <div>
-      <label for="experience_years">Years of experience</label>
-      <input id="experience_years" name="experience_years" type="number" min="0" max="80" step="0.1" value="{{ values.experience_years }}" placeholder="e.g. 2.5" required>
-    </div>
-    <div>
-      <label for="english_level">English level</label>
-      <select id="english_level" name="english_level" required>
-        <option value="">Choose your English level</option>
-        {% for value, label in english_levels.items() %}<option value="{{ value }}"{% if value == values.english_level %} selected{% endif %}>{{ label }}</option>{% endfor %}
-      </select>
+    <div class="field-row">
+      <div class="field">
+        <label for="experience_years">Experience, years</label>
+        <input id="experience_years" name="experience_years" type="number" inputmode="decimal" min="0" max="80" step="0.1" value="{{ values.experience_years }}" placeholder="2.5" required>
+      </div>
+      <div class="field">
+        <label for="english_level">English</label>
+        <select id="english_level" name="english_level" required>
+          <option value="">Level</option>
+          {% for value, label in english_levels.items() %}<option value="{{ value }}"{% if value == values.english_level %} selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      </div>
     </div>
   </div>
-  <fieldset>
-    <legend>Your skills</legend>
-    <p class="field-hint">Detected skills are selected. Adjust as needed; select at least one.</p>
+  <fieldset class="form-card skills-card" data-skills>
+    <legend class="skills-head"><span>Skills</span> <span class="skills-count" data-skills-count aria-live="polite"></span></legend>
+    <input type="search" class="skills-search" placeholder="Search skills" aria-label="Search skills" autocomplete="off" data-skills-search>
     <div class="skill-options">
-      {% for skill in skills %}
-        <label class="skill-option"><input type="checkbox" name="skills" value="{{ skill }}"{% if skill in values.skills %} checked{% endif %}> <span>{{ skill }}</span></label>
+      {# Selected skills first, so the user sees what is already chosen. #}
+      {% for skill in skills if skill in values.skills %}
+        <label class="skill-option" data-skill="{{ skill }}"><input type="checkbox" name="skills" value="{{ skill }}" checked> <span>{{ skill }}</span></label>
       {% endfor %}
+      {% for skill in skills if skill not in values.skills %}
+        <label class="skill-option" data-skill="{{ skill }}"><input type="checkbox" name="skills" value="{{ skill }}"> <span>{{ skill }}</span></label>
+      {% endfor %}
+      <p class="skills-empty" hidden data-skills-empty>No skills match.</p>
     </div>
   </fieldset>
-  <label class="checkbox-label"><input type="checkbox" name="remote_only"{% if values.remote_only %} checked{% endif %}> Show remote jobs only</label>
+  <label class="switch"><input type="checkbox" name="remote_only"{% if values.remote_only %} checked{% endif %}><span class="switch__track" aria-hidden="true"></span><span>Remote jobs only</span></label>
   <button type="submit" class="button">{{ submit_label }}</button>
 </form>
