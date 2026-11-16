@@ -36,7 +36,9 @@
       <article class="job-card hero-{{ (job.id | int) % 6 }}" data-job-id="{{ job.id }}" style="z-index: {{ loop.revindex }}">
         <header class="job-card__hero">
           <span class="job-card__match">{{ icon('heart', 12) }} {{ percent }}% match</span>
-          <span class="job-card__logo" aria-hidden="true">{{ (job.company.lstrip('«"\' ') or '?')[0] | upper }}</span>
+          {% set level = job_level(job.title) %}
+          {% if level %}<span class="job-card__level job-card__level--{{ level | lower }}">{{ level }}</span>{% endif %}
+          <span class="job-card__logo" aria-hidden="true">{{ icon(category_icon(job.categories), 38) }}</span>
           <ul class="job-card__chips">
             {% if job.is_remote %}<li>{{ icon('globe', 14) }} Remote</li>{% endif %}
             {% for city in job.locations[:2] %}<li>{{ city }}</li>{% endfor %}
@@ -75,6 +77,7 @@
           <p class="job-sheet__company">{{ job.company }}</p>
           <ul class="job-sheet__facts">
             <li class="job-sheet__salary">{{ job.salary_text or 'Salary not specified' }}</li>
+            {% if level %}<li>{{ level }}</li>{% endif %}
             {% if job.is_remote %}<li>{{ icon('globe', 14) }} Remote</li>{% endif %}
             {% for city in job.locations %}<li>{{ city }}</li>{% endfor %}
             {% if not job.is_remote and not job.locations %}<li>Location not specified</li>{% endif %}

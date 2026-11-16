@@ -8,6 +8,7 @@ from uuid import UUID, uuid4
 from dotenv import load_dotenv
 from flask import Flask, g, jsonify, redirect, render_template, request, session, url_for
 
+from app.job_display import category_icon, job_level
 from app.mascot import mascot_url
 from app.services.profile_service import get_or_create_profile, is_profile_ready
 from app.web import register_swipe_blueprint
@@ -86,6 +87,8 @@ def create_app(config: dict | None = None) -> Flask:
                                message="Please upload a CV smaller than 5 MiB."), 413
 
     app.jinja_env.globals["mascot_url"] = mascot_url
+    app.jinja_env.globals["category_icon"] = category_icon
+    app.jinja_env.globals["job_level"] = job_level
     app.register_blueprint(profile_bp)
     app.register_blueprint(insights_bp)
     register_swipe_blueprint(app)

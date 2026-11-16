@@ -47,7 +47,7 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 }
 .job-card__logo {
   position: relative; z-index: 1; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 1.3rem;
-  background: #fff; color: var(--h1); font-size: 2.1rem; font-weight: 850;
+  background: #fff; color: var(--h1);
 }
 .job-card__chips { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; list-style: none; margin: 0; padding: 0 1rem; }
 .job-card__chips li {
@@ -153,3 +153,15 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
   100% { transform: translate(-50%, 140%); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .like-mascot.is-popping { animation: none; } }
+
+/* Seniority pill, top-right of the card header (mirrors the match pill on the left). */
+.job-card__level {
+  position: absolute; top: .9rem; right: .9rem; z-index: 1; display: inline-flex; align-items: center; gap: .4rem;
+  padding: .3rem .75rem; border-radius: 999px; background: rgba(13, 20, 39, .72); backdrop-filter: blur(8px);
+  color: #fff; font-size: .75rem; font-weight: 750;
+}
+.job-card__level::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: #ffd166; }
+.job-card__level--intern::before, .job-card__level--junior::before { background: #3ddc97; }
+.job-card__level--middle::before { background: #ffd166; }
+.job-card__level--senior::before { background: #ff8a3d; }
+.job-card__level--lead::before { background: #b794ff; }
