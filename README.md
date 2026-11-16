@@ -5,6 +5,22 @@ Maximum score: **15 points**. 34 teams, 5 groups. The most important thing: the 
 
 > Project idea: see the **Ідея проєкту (UA)** section below (BlowMyJob). Hackathon rules are in English, the idea is in Ukrainian.
 
+## 🚀 Запуск (Run)
+
+Потрібен Python 3.11+. Усі команди виконуються з кореня репозиторію.
+
+```bash
+python -m venv web/.venv
+source web/.venv/bin/activate          # Windows: web\.venv\Scripts\activate
+pip install -r requirements.txt
+python -m analytics.build              # один раз: будує cache/ з даних у data/ (~30 с)
+cp web/.env.example .env               # вписати GEMINI_API_KEY (потрібен для аналізу резюме)
+python -m app.main                     # відкрити http://127.0.0.1:5000
+```
+
+Наступні запуски: `source web/.venv/bin/activate && python -m app.main`.
+Тести: `python -m pytest tests`. Детальніше про вебчастину — [`web/README.md`](web/README.md); демо-сценарій — [`docs/DEMO.md`](docs/DEMO.md).
+
 ## 💡 Ідея проєкту (UA)
 
 **Назва:** *BlowMyJob* — «Tinder для IT-вакансій».
