@@ -42,17 +42,17 @@
     {% if report.jobs_available %}<a class="button" href="{{ url_for('swipe.index') }}">Browse jobs</a>{% else %}<p>No matches at this threshold. Try updating your skills or location preference.</p><a class="button" href="{{ url_for('profile.index') }}">Edit profile</a>{% endif %}
   </section>
   <section class="upgrade-section" aria-labelledby="upgrade-title">
-    <h2 id="upgrade-title">Skills to explore</h2>
+    <h2 id="upgrade-title">Skills to learn next</h2>
     <div class="upgrade-grid">
     {% for upgrade in report.top_upgrades %}
       <article class="panel upgrade-card"><span class="recommendation-rank">{{ '{:02d}'.format(loop.index) }}</span><h3>{{ upgrade.skill }}</h3>
-        {% if upgrade.salary_gain_usd > 0 %}<p class="upgrade-gain">+${{ '{:,.0f}'.format(upgrade.salary_gain_usd) }} <small>/ month</small></p><p class="field-hint">+{{ '{:,.1f}'.format(upgrade.salary_gain_pct) }}% median cohort difference</p>{% else %}<p class="flat-gain">No positive salary difference</p>{% endif %}
-        <dl><div><dt>Additional salaried jobs</dt><dd>+{{ upgrade.new_jobs_count }}</dd></div><div><dt>Survey comparison sample</dt><dd>{{ '{:,}'.format(upgrade.sample_size) }} responses</dd></div></dl>
+        {% if upgrade.salary_gain_usd > 0 %}<p class="upgrade-gain">+${{ '{:,.0f}'.format(upgrade.salary_gain_usd) }} <small>more per month</small></p><p class="field-hint">about {{ '{:,.0f}'.format(upgrade.salary_gain_pct) }}% more than people like you</p>{% else %}<p class="flat-gain">No clear salary boost</p>{% endif %}
+        <dl><div><dt>New jobs for you</dt><dd>+{{ upgrade.new_jobs_count }}</dd></div><div><dt>Based on</dt><dd>{{ '{:,}'.format(upgrade.sample_size) }} people</dd></div></dl>
       </article>
-    {% else %}<div class="panel"><h3>No supported upgrades</h3><p>Not enough DOU evidence for further recommendations.</p></div>{% endfor %}
+    {% else %}<div class="panel"><h3>No tips yet</h3><p>Not enough survey data to suggest more skills.</p></div>{% endfor %}
     </div>
-    <p class="field-hint methodology">Cohort differences, not guaranteed raises. Upgrade counts cover all locations.</p>
-    <details class="data-details"><summary>How recommendations work</summary><p class="field-hint">Salary comparisons use your role/skills baseline across all experience levels. Some tools map to broader role cohorts. Additional jobs cross a 65% match threshold across all locations, independently of your remote preference.</p></details>
+    <p class="field-hint methodology">These are averages from real surveys, not a promise of a raise.</p>
+    <details class="data-details"><summary>How this works</summary><p class="field-hint">We compare what people with this skill typically earn (DOU salary survey) with what people like you earn. “New jobs for you” are open vacancies that would fit you well (65%+ match) if you learned the skill.</p></details>
   </section>
 {% endif %}
 <footer class="panel insights-source"><p>Sources: <a href="https://dou.ua/lenta/tags/зарплати/">DOU salary surveys</a> · <a href="https://jobs.dou.ua/">DOU vacancies</a>. Salaries are monthly take-home USD.</p><details><summary>Dataset details</summary><p>Survey waves: June 2025, December 2025 and June 2026, from the <a href="https://github.com/devua/csv">DOU survey archive</a>. People may appear in multiple waves. Job counts use the supplied salaried-vacancy snapshot and may differ from current availability.</p></details></footer>
