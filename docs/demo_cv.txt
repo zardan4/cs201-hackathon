@@ -1,0 +1,24 @@
+Demo Candidate (fictional CV for the BlowMyJob demo)
+Kyiv, Ukraine · open to remote work
+
+Python Backend Developer with 3 years of commercial experience.
+
+Experience
+2023 – present · Backend Developer, product company
+- Built REST APIs with Python, Django and Django REST Framework.
+- Designed PostgreSQL schemas and optimised SQL queries.
+- Packaged services with Docker and deployed them to AWS.
+- Wrote unit tests with pytest; set up CI/CD in GitHub Actions.
+
+2022 – 2023 · Junior Python Developer, outsourcing company
+- Developed internal tools with Flask and pandas.
+- Integrated third-party REST APIs; worked with Git and Linux.
+
+Skills
+Python, Django, Flask, FastAPI, PostgreSQL, SQL, Docker, AWS, Git, Linux, pandas, REST API
+
+Education
+Bachelor of Computer Science, 2022
+
+Languages
+English: Upper-Intermediate · Ukrainian: native
