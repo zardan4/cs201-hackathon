@@ -87,6 +87,21 @@ def append_swipe(swipe: SwipeAction) -> None:
         _write(swipe.user_id, document)
 
 
+def remove_swipes(user_id: str, *, action: str | None = None, job_id: str | None = None) -> int:
+    """Undo swipes (the jobs return to the feed). Filters by action and/or job; returns how many were removed."""
+    if action is None and job_id is None:
+        raise ValueError("Say which swipes to remove: an action, a job, or both.")
+    with _lock:
+        document = _read(user_id)
+        kept = [row for row in document["swipes"]
+                if not ((action is None or row["action"] == action) and (job_id is None or row["job_id"] == job_id))]
+        removed = len(document["swipes"]) - len(kept)
+        if removed:
+            document["swipes"] = kept
+            _write(user_id, document)
+    return removed
+
+
 def load_cv_draft(user_id: str) -> CvParseResult | None:
     with _lock:
         raw = _read(user_id).get("cv_draft")

@@ -23,6 +23,7 @@ def index():
         profile=profile,
         matches=matches,
         needs_onboarding=needs_onboarding,
+        skipped_count=0 if needs_onboarding else jobs_service.skipped_count(profile.user_id),
         strong_match_score=jobs_service.STRONG_MATCH_SCORE,
     )
 

@@ -52,3 +52,12 @@
 .fold > summary::after { content: "+"; display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--surface-3); color: var(--orange); font-size: 1.2rem; line-height: 1; }
 .fold[open] > summary::after { content: "–"; }
 .fold__body { padding: 0 1.25rem 1.25rem; }
+
+/* ---------- Saved jobs: remove / clear, skipped-jobs reset ---------- */
+.link-button { padding: 0; border: 0; background: none; color: var(--orange); font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
+.link-button:hover { text-decoration: underline; }
+.link-button--danger { color: var(--red); }
+.saved-remove { grid-column: 1 / -1; display: flex; justify-content: flex-end; margin: .1rem 0 0; }
+.feed-reset { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.feed-reset h2 { margin: 0 0 .15rem; font-size: 1.05rem; }
+.feed-reset p { margin: 0; }

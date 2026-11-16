@@ -66,7 +66,8 @@ def _view_context(form=None, error=None) -> dict:
         except (OSError, ValueError, KeyError):
             current_app.logger.exception("Saved jobs could not be loaded")
             saved_jobs_error = True
-    return dict(profile=profile, draft=draft, values=values, error=error,
+    skipped_count = jobs_service.skipped_count(profile.user_id) if g.onboarding_complete else 0
+    return dict(profile=profile, draft=draft, values=values, error=error, skipped_count=skipped_count,
                 positions=catalog_service.all_positions(), skills=skills, skill_groups=skill_groups,
                 saved_jobs=saved_jobs, saved_jobs_error=saved_jobs_error,
                 english_levels=profile_service.ENGLISH_LEVELS)
@@ -106,6 +107,33 @@ def index():
     if request.method == "POST":
         return _save_form()
     return _render_page()
+
+
+def _back_to():
+    """Return to the page the form was posted from (only known pages, never a free-form URL)."""
+    return redirect(url_for("swipe.index" if request.form.get("next") == "swipe" else "profile.index"), code=303)
+
+
+@profile_bp.post("/profile/saved/remove")
+def remove_saved_job():
+    job_id = request.form.get("job_id", "").strip()
+    if job_id and jobs_service.unsave_job(g.profile.user_id, job_id):
+        flash("Removed from saved jobs.", "success")
+    return _back_to()
+
+
+@profile_bp.post("/profile/saved/clear")
+def clear_saved_jobs():
+    count = jobs_service.clear_saved(g.profile.user_id)
+    flash(f"Removed {count} saved job{'s' if count != 1 else ''}." if count else "No saved jobs to remove.", "success")
+    return _back_to()
+
+
+@profile_bp.post("/profile/feed/reset")
+def reset_feed():
+    count = jobs_service.reset_skipped(g.profile.user_id)
+    flash(f"{count} skipped job{'s are' if count != 1 else ' is'} back in your feed." if count else "No skipped jobs to bring back.", "success")
+    return _back_to()
 
 
 @profile_bp.post("/profile/cv")

@@ -93,6 +93,25 @@ def record_swipe(user_id: str, job_id: str, action: str) -> None:
     storage.append_swipe(SwipeAction(user_id=user_id, job_id=job_id, action=action))
 
 
+def skipped_count(user_id: str) -> int:
+    return sum(1 for swipe in storage.list_swipes(user_id) if swipe.action == "skip")
+
+
+def reset_skipped(user_id: str) -> int:
+    """Bring every skipped job back into the feed; saved (liked) jobs stay saved."""
+    return storage.remove_swipes(user_id, action="skip")
+
+
+def unsave_job(user_id: str, job_id: str) -> bool:
+    """Remove one job from Saved jobs; it returns to the feed."""
+    return storage.remove_swipes(user_id, action="like", job_id=job_id) > 0
+
+
+def clear_saved(user_id: str) -> int:
+    """Remove all saved jobs; they return to the feed."""
+    return storage.remove_swipes(user_id, action="like")
+
+
 def saved_jobs(user_id: str) -> list[Job]:
     """Liked jobs, newest like first (shown in the profile's Saved jobs block)."""
     from analytics.jobs import load_jobs

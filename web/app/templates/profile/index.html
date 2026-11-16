@@ -34,6 +34,18 @@
   </ul>
 </section>
 {% include "profile/saved_jobs.html" %}
+{% if skipped_count %}
+<section class="panel feed-reset">
+  <div>
+    <h2>Skipped jobs</h2>
+    <p class="field-hint">{{ skipped_count }} job{{ 's' if skipped_count != 1 else '' }} you swiped left on. Bring them back to see them again.</p>
+  </div>
+  <form method="post" action="{{ url_for('profile.reset_feed') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" class="button button--ghost">Bring back skipped jobs</button>
+  </form>
+</section>
+{% endif %}
 <details class="fold" id="edit-profile"{% if error %} open{% endif %}>
   <summary>Edit profile</summary>
   <div class="fold__body">

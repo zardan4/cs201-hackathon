@@ -159,3 +159,6 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .swipe-empty__icon { display: inline-grid; place-items: center; width: 4rem; height: 4rem; margin-bottom: .75rem; border-radius: 1.2rem; background: var(--grad); color: #fff; }
 
 @media (prefers-reduced-motion: reduce) { .job-card, .swipe-btn, .match-overlay__heart, .job-sheet__panel { transition: none; animation: none; } }
+
+.swipe-empty__action { margin: 0 0 .75rem; }
+.swipe-empty .button { margin: 0 .25rem; }

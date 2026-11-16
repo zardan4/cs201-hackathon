@@ -14,9 +14,16 @@
 {% elif not matches %}
 <section class="panel swipe-empty">
   <span class="swipe-empty__icon">{{ icon('briefcase', 28) }}</span>
-  <h1>No more jobs for now</h1>
-  <p>No unseen matches{% if profile.remote_only %} with remote work{% endif %}. Update your profile to broaden results.</p>
-  <a class="button" href="{{ url_for('profile.index') }}">Edit profile</a>
+  <h1>You're all caught up</h1>
+  <p>No new matches{% if profile.remote_only %} with remote work{% endif %} right now.{% if skipped_count %} {{ skipped_count }} job{{ 's' if skipped_count != 1 else '' }} you skipped can come back.{% endif %}</p>
+  {% if skipped_count %}
+  <form method="post" action="{{ url_for('profile.reset_feed') }}" class="swipe-empty__action">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="next" value="swipe">
+    <button type="submit" class="button">Show skipped jobs again</button>
+  </form>
+  {% endif %}
+  <a class="button button--ghost" href="{{ url_for('profile.index') }}">Edit profile</a>
 </section>
 {% else %}
 <div class="feed">

@@ -1,5 +1,12 @@
 <section class="panel" aria-labelledby="saved-jobs-title">
-  <div class="saved-heading"><h2 id="saved-jobs-title">Saved jobs{% if not saved_jobs_error %} <span class="saved-count">{{ saved_jobs | length }}</span>{% endif %}</h2></div>
+  <div class="saved-heading"><h2 id="saved-jobs-title">Saved jobs{% if not saved_jobs_error %} <span class="saved-count">{{ saved_jobs | length }}</span>{% endif %}</h2>
+    {% if saved_jobs %}
+    <form method="post" action="{{ url_for('profile.clear_saved_jobs') }}" onsubmit="return confirm('Remove all saved jobs?')">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit" class="link-button">Clear all</button>
+    </form>
+    {% endif %}
+  </div>
   {% if saved_jobs_error %}
     <p role="alert">Saved jobs couldn’t be loaded. Your likes are preserved.</p>
     <a href="{{ url_for('profile.index') }}">Try again</a>
@@ -13,6 +20,11 @@
           <strong class="saved-salary">{{ job.salary_text or 'Salary not specified' }}</strong>
           <p class="saved-location">{% if job.is_remote %}Remote{% if job.locations %} · {% endif %}{% endif %}{{ job.locations | join(', ') }}{% if not job.is_remote and not job.locations %}Location not specified{% endif %}</p>
           {% if job.skills %}<ul class="saved-skills" aria-label="Job skills">{% for skill in job.skills %}<li>{{ skill }}</li>{% endfor %}</ul>{% endif %}
+          <form class="saved-remove" method="post" action="{{ url_for('profile.remove_saved_job') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <input type="hidden" name="job_id" value="{{ job.id }}">
+            <button type="submit" class="link-button link-button--danger" aria-label="Remove {{ job.title }} from saved jobs">Remove</button>
+          </form>
         </article>
       </li>
       {% endfor %}
