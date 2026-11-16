@@ -1,42 +1,62 @@
 [
   {
-    "skill": "kubernetes",
-    "salary_gain_usd": 750.0,
-    "salary_gain_pct": 22.7,
-    "new_jobs_count": 28,
-    "example_job_ids": ["380099", "380025"],
-    "sample_size": 84
+    "skill": "devops",
+    "salary_gain_usd": 700.0,
+    "salary_gain_pct": 20.0,
+    "new_jobs_count": 9,
+    "example_job_ids": [
+      "318932",
+      "360283",
+      "367183"
+    ],
+    "sample_size": 1562
   },
   {
-    "skill": "aws",
-    "salary_gain_usd": 600.0,
-    "salary_gain_pct": 18.2,
-    "new_jobs_count": 35,
-    "example_job_ids": ["359906"],
-    "sample_size": 112
+    "skill": "data engineering",
+    "salary_gain_usd": 394.0,
+    "salary_gain_pct": 11.3,
+    "new_jobs_count": 4,
+    "example_job_ids": [
+      "369385",
+      "379401",
+      "374773"
+    ],
+    "sample_size": 492
   },
   {
-    "skill": "docker",
-    "salary_gain_usd": 450.0,
-    "salary_gain_pct": 13.6,
-    "new_jobs_count": 42,
-    "example_job_ids": [],
-    "sample_size": 96
+    "skill": "c#/.net",
+    "salary_gain_usd": 100.0,
+    "salary_gain_pct": 2.9,
+    "new_jobs_count": 7,
+    "example_job_ids": [
+      "363384",
+      "253063",
+      "338601"
+    ],
+    "sample_size": 2524
   },
   {
-    "skill": "llm",
-    "salary_gain_usd": 520.0,
-    "salary_gain_pct": 15.8,
-    "new_jobs_count": 19,
-    "example_job_ids": [],
-    "sample_size": 45
+    "skill": "java",
+    "salary_gain_usd": 200.0,
+    "salary_gain_pct": 5.7,
+    "new_jobs_count": 4,
+    "example_job_ids": [
+      "378275",
+      "378257",
+      "364458"
+    ],
+    "sample_size": 2483
   },
   {
-    "skill": "postgresql",
-    "salary_gain_usd": 300.0,
-    "salary_gain_pct": 9.1,
-    "new_jobs_count": 24,
-    "example_job_ids": [],
-    "sample_size": 78
+    "skill": "c++",
+    "salary_gain_usd": 100.0,
+    "salary_gain_pct": 2.9,
+    "new_jobs_count": 3,
+    "example_job_ids": [
+      "378917",
+      "374238",
+      "370577"
+    ],
+    "sample_size": 701
   }
 ]

@@ -14,7 +14,7 @@ from analytics.jobs import (
 )
 from analytics.matching import iter_ranked_jobs, rank_jobs, score_job
 from analytics.salary import salary_stats, vacancy_salary_stats
-from analytics.salary_records import load_salary_records
+from analytics.salary_records import build_salary_records, clear_salary_cache, load_salary_records
 from analytics.skills import (
     all_positions,
     all_skills,
@@ -29,7 +29,9 @@ __all__ = [
     "all_positions",
     "all_skills",
     "build_jobs",
+    "build_salary_records",
     "clear_cache",
+    "clear_salary_cache",
     "extract_job_id",
     "extract_job_skills",
     "extract_skills",
