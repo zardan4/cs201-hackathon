@@ -14,7 +14,7 @@
   <div class="metrics" aria-label="Your DOU market benchmarks">
     <section class="metric featured"><p>Median monthly salary</p><strong>{{ '${:,.0f}'.format(salary.median) if salary.count else 'No data' }}</strong><small>DOU survey · take-home USD</small></section>
     <section class="metric"><p>Average monthly salary</p><strong>{{ '${:,.0f}'.format(salary.mean) if salary.count else 'No data' }}</strong><small>{{ '{:,}'.format(salary.count) }} survey responses</small></section>
-    <section class="metric"><p>Middle 50% of salaries</p><strong class="salary-range">{{ '${:,.0f}–${:,.0f}'.format(salary.p25, salary.p75) if salary.count else 'No data' }}</strong><small>25th to 75th percentile</small></section>
+    <section class="metric"><p>Typical salary range</p><strong class="salary-range">{{ '${:,.0f}–${:,.0f}'.format(salary.p25, salary.p75) if salary.count else 'No data' }}</strong><small>Half of people earn in this range</small></section>
     <section class="metric"><p>Matching salaried jobs</p><strong>{{ report.jobs_available }}</strong><small>65%+ match · {{ 'remote only' if profile.remote_only else 'all locations' }}</small></section>
   </div>
   {% if not salary.count %}
