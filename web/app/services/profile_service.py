@@ -3,6 +3,7 @@
 import json
 import math
 import re
+import time
 from io import BytesIO
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -20,6 +21,8 @@ from app.services import catalog_service
 MAX_FILE_BYTES = 5 * 1024 * 1024
 MAX_TEXT_CHARACTERS = 100_000
 MAX_PDF_PAGES = 30
+GEMINI_ATTEMPTS_ON_503 = 2  # first try + one retry; after that import_cv uses the offline parser
+GEMINI_RETRY_DELAY_SECONDS = 1.5
 ENGLISH_LEVELS = {
     "none": "Not specified / none", "basic": "Basic (A1)", "pre": "Pre-intermediate (A2)",
     "intermediate": "Intermediate (B1)", "upper": "Upper-intermediate (B2)",
@@ -222,16 +225,22 @@ def _request_gemini(payload: dict, key: str, model: str) -> dict:
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
         headers={"Content-Type": "application/json", "x-goog-api-key": key}, method="POST",
     )
-    try:
-        with urlopen(request, timeout=current_app.config["GEMINI_TIMEOUT_SECONDS"]) as response:
-            content = response.read(512_001)
-    except HTTPError as error:
-        current_app.logger.warning("Gemini CV analysis failed with HTTP %s.", error.code)
-        error.close()
-        raise CvAnalysisError("CV analysis is unavailable right now. Please try again later.") from None
-    except (URLError, TimeoutError, OSError) as error:
-        current_app.logger.warning("Gemini CV analysis could not reach the provider (%s).", type(error).__name__)
-        raise CvAnalysisError("CV analysis could not connect. Please try again shortly.") from None
+    for attempt in range(1, GEMINI_ATTEMPTS_ON_503 + 1):
+        try:
+            with urlopen(request, timeout=current_app.config["GEMINI_TIMEOUT_SECONDS"]) as response:
+                content = response.read(512_001)
+            break
+        except HTTPError as error:
+            current_app.logger.warning("Gemini CV analysis failed with HTTP %s (attempt %s).", error.code, attempt)
+            error.close()
+            # 503 = Gemini temporarily overloaded: wait briefly and try once more.
+            if error.code == 503 and attempt < GEMINI_ATTEMPTS_ON_503:
+                time.sleep(GEMINI_RETRY_DELAY_SECONDS)
+                continue
+            raise CvAnalysisError("CV analysis is unavailable right now. Please try again later.") from None
+        except (URLError, TimeoutError, OSError) as error:
+            current_app.logger.warning("Gemini CV analysis could not reach the provider (%s).", type(error).__name__)
+            raise CvAnalysisError("CV analysis could not connect. Please try again shortly.") from None
     if len(content) > 512_000:
         raise CvAnalysisError("CV analysis returned an unreadable result. Please try again.", 502)
     try:
