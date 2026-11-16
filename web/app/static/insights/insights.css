@@ -70,3 +70,8 @@ td { font-variant-numeric: tabular-nums; text-align: right; }
 .insights-source { font-size: .78rem; color: var(--muted); background: transparent; border: 0; padding: .5rem .25rem; }
 .insights-source a { color: #c9cee2; }
 @media (min-width: 400px) { .cohort-details { grid-template-columns: repeat(2, 1fr); } }
+
+/* Mascot peeks out from behind the top-left edge of the median card. */
+.metrics { position: relative; }
+.metric.featured { z-index: 1; }
+.insights-peek { position: absolute; z-index: 0; top: -48px; left: 1.4rem; pointer-events: none; }

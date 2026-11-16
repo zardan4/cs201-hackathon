@@ -10,6 +10,7 @@
   {% block styles %}{% endblock %}
 </head>
 <body>
+  {% from "_mascot.html" import mascot %}
   {# Tab icons: decorative (aria-hidden); the visible label names the tab. #}
   {% macro tab_icon(name) -%}
   {% if name == 'profile' -%}
@@ -47,6 +48,7 @@
       {% endfor %}
     </nav>
   </div>
+  <div class="splash" hidden data-splash>{{ mascot('splash', 150) }}<span class="splash__word"><span class="brand__blow">Blow</span><span class="brand__my">My</span><span class="brand__job">Job</span></span></div>
   <script src="{{ url_for('static', filename='profile/profile.js') }}" defer></script>
   {% block scripts %}{% endblock %}
 </body>

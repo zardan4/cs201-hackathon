@@ -86,10 +86,13 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .job-sheet { position: absolute; inset: 0; z-index: 90; display: flex; align-items: flex-end; }
 .job-sheet[hidden] { display: none; }
 .job-sheet__backdrop { position: absolute; inset: 0; background: rgba(5, 7, 15, .62); }
-.job-sheet__panel {
-  position: relative; width: 100%; max-height: 86%; overflow-y: auto; padding: 1.5rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
-  background: var(--surface); border-radius: 1.75rem 1.75rem 0 0; border-top: 1px solid var(--line); animation: sheet-up .25s ease;
+.job-sheet__panel { position: relative; display: flex; flex-direction: column; width: 100%; max-height: 86%; animation: sheet-up .25s ease; }
+.job-sheet__scroll {
+  position: relative; z-index: 1; min-height: 0; overflow-y: auto; padding: 1.5rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+  background: var(--surface); border-radius: 1.75rem 1.75rem 0 0; border-top: 1px solid var(--line);
 }
+/* The mascot sits behind the sheet edge, right above the close button, and peeks out. */
+.job-sheet__peek { position: absolute; z-index: 0; top: -46px; right: .6rem; pointer-events: none; }
 .job-sheet__grip { display: block; width: 2.5rem; height: 4px; margin: -.6rem auto .9rem; border-radius: 99px; background: var(--surface-3); }
 .job-sheet__close { position: absolute; top: .9rem; right: .9rem; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border: 0; border-radius: 50%; background: var(--surface-2); color: var(--ink); cursor: pointer; }
 .job-sheet__title { margin: 0 2.4rem .2rem 0; font-size: 1.3rem; line-height: 1.25; }
@@ -138,3 +141,15 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 /* Confetti layer (test): covers the app frame, never blocks taps. */
 .confetti-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 60; pointer-events: none; }
 .swipe-empty__mascot { margin: 0 auto .5rem; }
+
+/* Mascot pops up from the bottom when a job is liked (together with the confetti). */
+.like-mascot { position: absolute; z-index: 61; left: 50%; bottom: 5.2rem; pointer-events: none; opacity: 0; transform: translate(-50%, 140%); }
+.like-mascot.is-popping { animation: mascot-pop 1.5s ease-out; }
+@keyframes mascot-pop {
+  0%   { transform: translate(-50%, 140%); opacity: 0; }
+  18%  { opacity: 1; }
+  34%, 66% { transform: translate(-50%, -6%) rotate(-4deg); opacity: 1; }
+  50%  { transform: translate(-50%, -6%) rotate(4deg); opacity: 1; }
+  100% { transform: translate(-50%, 140%); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .like-mascot.is-popping { animation: none; } }

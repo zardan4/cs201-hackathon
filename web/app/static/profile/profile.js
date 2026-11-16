@@ -68,6 +68,8 @@
       } else {
         submit.disabled = true;
         submit.textContent = "Analysing…";
+        const busy = form.querySelector("[data-cv-busy]");
+        if (busy) busy.hidden = false;
       }
     });
   }
@@ -174,6 +176,25 @@
       ask.focus();
     });
   });
+
+  // Short splash with the mascot, once per browser tab session (skipped for reduced motion).
+  const splash = document.querySelector("[data-splash]");
+  let seen = true;
+  try {
+    seen = sessionStorage.getItem("splash-seen") === "1";
+    sessionStorage.setItem("splash-seen", "1");
+  } catch (error) {
+    seen = true; // storage blocked: never show it
+  }
+  if (splash && !seen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const hide = () => {
+      splash.classList.add("is-leaving");
+      setTimeout(() => (splash.hidden = true), 350);
+    };
+    splash.hidden = false;
+    splash.addEventListener("click", hide);
+    setTimeout(hide, 1100);
+  }
 
   document.querySelectorAll("[data-cv-upload]").forEach(initCvUpload);
   document.querySelectorAll("[data-skills]").forEach(initSkills);

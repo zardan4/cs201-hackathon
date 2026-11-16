@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_mascot.html" import mascot %}
 {% block title %}Insights{% endblock %}
 {% block styles %}<link rel="stylesheet" href="{{ url_for('static', filename='insights/insights.css') }}">{% endblock %}
 {% block content %}
@@ -8,7 +9,7 @@
   <div class="profile-summary"><span>{{ profile.experience_years }} years of experience</span><span>{{ profile.skills | length }} skills</span><span>{{ 'Remote only' if profile.remote_only else 'All locations' }}</span><a href="{{ url_for('profile.index') }}">Edit profile</a></div>
 </header>
 {% if report is none %}
-  <section class="panel" role="alert"><h2>Insights unavailable</h2><p>Couldn’t load DOU data. Please try again.</p><a class="button" href="{{ url_for('insights.index') }}">Try again</a></section>
+  <section class="panel" role="alert">{{ mascot('sad', 72) }}<h2>Insights unavailable</h2><p>Couldn’t load DOU data. Please try again.</p><a class="button" href="{{ url_for('insights.index') }}">Try again</a></section>
 {% else %}
   {% set salary = report.profile_salary %}
   <div class="metrics" aria-label="Your DOU market benchmarks">
@@ -16,6 +17,7 @@
     <section class="metric"><p>Average monthly salary</p><strong>{{ '${:,.0f}'.format(salary.mean) if salary.count else 'No data' }}</strong><small>{{ '{:,}'.format(salary.count) }} survey responses</small></section>
     <section class="metric"><p>Typical salary range</p><strong class="salary-range">{{ '${:,.0f}–${:,.0f}'.format(salary.p25, salary.p75) if salary.count else 'No data' }}</strong><small>Half of people earn in this range</small></section>
     <section class="metric"><p>Matching salaried jobs</p><strong>{{ report.jobs_available }}</strong><small>65%+ match · {{ 'remote only' if profile.remote_only else 'all locations' }}</small></section>
+    {{ mascot('peek', 84, 'insights-peek') }}
   </div>
   {% if not salary.count %}
     <section class="panel"><h2>No salary data</h2><p>No usable DOU survey responses for this comparison.</p></section>

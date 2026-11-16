@@ -74,6 +74,12 @@ def create_app(config: dict | None = None) -> Flask:
             response.headers["Cache-Control"] = "no-store"
         return response
 
+    @app.errorhandler(404)
+    def page_not_found(error):
+        if request.path.startswith("/api/"):
+            return jsonify(error="not_found"), 404
+        return render_template("error404.html"), 404
+
     @app.errorhandler(413)
     def upload_too_large(error):
         return render_template("profile/error.html", title="File too large",

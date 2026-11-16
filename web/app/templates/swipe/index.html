@@ -105,13 +105,17 @@
 </div>
 
 <canvas class="confetti-canvas" id="confetti-canvas" aria-hidden="true"></canvas>
+{{ mascot('blow', 120, 'like-mascot') }}
 
 <div class="job-sheet" id="job-sheet" hidden>
   <div class="job-sheet__backdrop" data-sheet-close></div>
   <div class="job-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="job-sheet-title">
+    {{ mascot('peek-close', 68, 'job-sheet__peek') }}
+    <div class="job-sheet__scroll">
     <span class="job-sheet__grip" aria-hidden="true"></span>
     <button type="button" class="job-sheet__close" aria-label="Close" data-sheet-close>{{ icon('x', 20) }}</button>
     <div class="job-sheet__content" id="job-sheet-content"></div>
+    </div>
   </div>
 </div>
 {% endif %}

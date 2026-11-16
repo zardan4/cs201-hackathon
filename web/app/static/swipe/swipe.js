@@ -33,6 +33,12 @@
           disableForReducedMotion: true,
         });
       }, delay);
+    const pop = document.querySelector(".like-mascot");
+    if (pop) {
+      pop.classList.remove("is-popping");
+      void pop.offsetWidth; // restart the animation
+      pop.classList.add("is-popping");
+    }
     volley(0.5, 90, 0);
     volley(0.12, 65, 120);
     volley(0.88, 115, 120);
@@ -74,7 +80,7 @@
     if (!template) return;
     sheetContent.replaceChildren(template.content.cloneNode(true));
     sheet.hidden = false;
-    sheet.querySelector(".job-sheet__panel").scrollTop = 0;
+    sheet.querySelector(".job-sheet__scroll").scrollTop = 0;
     sheetOpener = opener;
     sheet.querySelector(".job-sheet__close").focus();
   }

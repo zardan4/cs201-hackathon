@@ -47,7 +47,7 @@
           <label class="skill-option" data-skill="{{ skill }}"><input type="checkbox" name="skills" value="{{ skill }}"{% if skill in values.skills %} checked{% endif %}> <span>{{ skill }}</span></label>
         {% endfor %}
       {% endfor %}
-      <p class="skills-empty" hidden data-skills-empty>No skills match.</p>
+      <p class="skills-empty" hidden data-skills-empty>{% from "_mascot.html" import mascot %}{{ mascot('sad', 40) }}No skills match.</p>
     </div>
   </fieldset>
   <label class="switch"><input type="checkbox" name="remote_only"{% if values.remote_only %} checked{% endif %}><span class="switch__track" aria-hidden="true"></span><span>Remote jobs only</span></label>
