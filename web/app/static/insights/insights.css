@@ -1,4 +1,4 @@
-/* Insights tab: dark dashboard, featured gradient metric, salary chart, upgrade cards. */
+/* Insights tab: dark dashboard, featured metric, salary chart, upgrade cards. */
 .insights-heading { margin: .25rem 0 1.25rem; }
 .insights-heading h1 { margin-bottom: .15rem; }
 .insights-heading > p { color: var(--muted); margin-bottom: .75rem; }
@@ -14,7 +14,7 @@
 .metric small { display: block; margin-top: .4rem; color: var(--muted); font-size: .7rem; }
 .metric.featured {
   grid-column: 1 / -1; position: relative; overflow: hidden; padding: 1.35rem; border: 0;
-  background: linear-gradient(135deg, #e0116a 0%, #ff6b3d 100%); box-shadow: var(--glow);
+  background: var(--pink); box-shadow: var(--glow);
 }
 .metric.featured::after { content: ""; position: absolute; width: 130px; height: 130px; right: -30px; top: -36px; border-radius: 1.6rem; background: rgba(255, 255, 255, .15); transform: rotate(24deg); }
 .metric.featured p, .metric.featured small { position: relative; z-index: 1; color: rgba(255, 255, 255, .85); }
@@ -45,7 +45,7 @@ td { font-variant-numeric: tabular-nums; text-align: right; }
 .upgrade-card { margin: 0; padding: 1.1rem 1.2rem; }
 .recommendation-rank { display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: .7rem; background: var(--grad); color: #fff; font-size: .8rem; font-weight: 800; float: right; }
 .upgrade-card h3 { font-size: 1.2rem; margin: .1rem 0 .4rem; overflow-wrap: anywhere; }
-.upgrade-gain { font-size: 1.8rem; font-weight: 850; letter-spacing: -.02em; margin: .2rem 0 0; background: linear-gradient(135deg, #3ddc97, #b8f35a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.upgrade-gain { font-size: 1.8rem; font-weight: 850; letter-spacing: -.02em; margin: .2rem 0 0; color: var(--green); }
 .upgrade-gain small { font-size: .8rem; font-weight: 600; -webkit-text-fill-color: var(--muted); }
 .upgrade-card dl { margin: .75rem 0 0; font-size: .85rem; }
 .upgrade-card dl div { display: flex; justify-content: space-between; gap: .75rem; padding: .35rem 0; border-top: 1px solid var(--line); }

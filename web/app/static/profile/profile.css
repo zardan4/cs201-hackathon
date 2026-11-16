@@ -1,6 +1,6 @@
 /* Profile tab: Tinder-style profile card (cover, avatar, About, Stack) + saved jobs. */
 .me { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 1.75rem; overflow: hidden; margin-bottom: 1.25rem; padding-bottom: 1.25rem; }
-.me__cover { position: relative; height: 130px; background: linear-gradient(135deg, #e0116a 0%, #ff6b3d 100%); overflow: hidden; }
+.me__cover { position: relative; height: 130px; background: var(--pink); overflow: hidden; }
 .me__cover::before, .me__cover::after { content: ""; position: absolute; border-radius: 1.2rem; background: rgba(255, 255, 255, .15); }
 .me__cover::before { width: 110px; height: 110px; right: -24px; top: -34px; transform: rotate(22deg); }
 .me__cover::after { width: 70px; height: 70px; left: 22px; bottom: -30px; transform: rotate(-16deg); background: rgba(0, 0, 0, .14); }
@@ -14,7 +14,7 @@
 .me__sub { margin: .25rem 0 0; color: var(--muted); font-size: .9rem; }
 .me__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin: 1.1rem 1.25rem 0; }
 .me__stats div { display: flex; flex-direction: column-reverse; align-items: center; padding: .65rem .25rem; background: var(--surface-2); border-radius: 1rem; }
-.me__stats dd { margin: 0; font-size: 1.35rem; font-weight: 850; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.me__stats dd { margin: 0; font-size: 1.35rem; font-weight: 850; color: var(--pink); }
 .me__stats dt { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .label { margin: 1.35rem 1.25rem .4rem; font-size: .72rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .me__about { margin: 0 1.25rem; color: #d3d8ea; font-size: .95rem; overflow-wrap: anywhere; }
@@ -37,7 +37,7 @@
 .profile-saved-job h3 a { color: var(--ink); text-decoration: none; }
 .profile-saved-job h3 a:hover { color: var(--orange); }
 .saved-company, .saved-location { color: var(--muted); font-size: .8rem; margin: 0; }
-.saved-salary { grid-column: 3; grid-row: 1; font-size: .88rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; white-space: nowrap; }
+.saved-salary { grid-column: 3; grid-row: 1; font-size: .88rem; font-weight: 800; color: var(--pink); white-space: nowrap; }
 .saved-location { grid-column: 2 / -1; }
 .saved-skills { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .3rem; list-style: none; padding: 0; margin: .3rem 0 0; }
 .saved-skills li { padding: .12rem .55rem; background: rgba(255, 255, 255, .07); border-radius: 99px; font-size: .72rem; font-weight: 650; color: #c3c9de; }
