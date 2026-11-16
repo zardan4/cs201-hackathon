@@ -54,10 +54,40 @@ def save_profile(profile: UserProfile) -> None:
 def import_cv(user_id: str, file: FileStorage) -> CvParseResult:
     """Extract text and persist a review draft; never overwrite a confirmed profile."""
     text = _extract_text(file)
-    result = _parse_with_gemini(text)
+    try:
+        result = _parse_with_gemini(text)
+    except CvAnalysisError as error:
+        # Gemini is down, rate-limited or not configured: fall back to the offline parser
+        # so onboarding (and the demo) keeps working without the external service.
+        current_app.logger.warning("Gemini CV analysis unavailable (%s); using the offline parser.", error)
+        result = _parse_offline(text)
     result.detected_skills = sorted(set(result.detected_skills) | set(catalog_service.detected_skills(text)))
     storage.save_cv_draft(user_id, result)
     return result
+
+
+def _parse_offline(text: str) -> CvParseResult:
+    """Offline fallback: the DA's rule-based parser, limited to the same catalogue as Gemini."""
+    from analytics.cv import parse_cv
+
+    raw = parse_cv(text)
+    try:
+        known_skills = set(catalog_service.all_skills())
+        known_positions = set(catalog_service.all_positions())
+    except catalog_service.CatalogUnavailable as error:
+        raise CvAnalysisError("CV analysis is temporarily unavailable. Please try again later.") from error
+    experience = raw.get("detected_experience_years")
+    english = raw.get("detected_english_level")
+    position = raw.get("detected_position")
+    return CvParseResult(
+        raw_text=text,
+        detected_position=position if position in known_positions else None,
+        detected_skills=sorted(skill for skill in raw.get("detected_skills", []) if skill in known_skills),
+        detected_experience_years=float(experience) if isinstance(experience, (int, float)) and 0 <= experience <= 80 else None,
+        detected_english_level=english if english in ENGLISH_LEVELS else None,
+        warnings=["AI analysis is unavailable right now, so the CV was read by the offline parser. "
+                  "Please check the fields below.", *raw.get("warnings", [])],
+    )
 
 
 def get_cv_draft(user_id: str) -> CvParseResult | None:
