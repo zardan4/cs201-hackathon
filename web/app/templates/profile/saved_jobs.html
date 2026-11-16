@@ -1,0 +1,23 @@
+<section class="panel" aria-labelledby="saved-jobs-title">
+  <div class="saved-heading"><h2 id="saved-jobs-title">Saved jobs{% if not saved_jobs_error %} <span class="saved-count">{{ saved_jobs | length }}</span>{% endif %}</h2><a href="{{ url_for('swipe.liked') }}">View in Liked</a></div>
+  {% if saved_jobs_error %}
+    <p role="alert">Saved jobs couldn’t be loaded. Your likes are preserved.</p>
+    <a href="{{ url_for('profile.index') }}">Try again</a>
+  {% elif saved_jobs %}
+    <ul class="profile-saved-jobs">
+      {% for job in saved_jobs %}
+      <li>
+        <article class="profile-saved-job">
+          <div><h3><a href="{{ job.url }}" target="_blank" rel="noopener noreferrer">{{ job.title }}</a></h3><p class="saved-company">{{ job.company }}</p></div>
+          <strong class="saved-salary">{{ job.salary_text or 'Salary not specified' }}</strong>
+          <p class="saved-location">{% if job.is_remote %}Remote{% if job.locations %} · {% endif %}{% endif %}{{ job.locations | join(', ') }}{% if not job.is_remote and not job.locations %}Location not specified{% endif %}</p>
+          {% if job.skills %}<ul class="saved-skills" aria-label="Job skills">{% for skill in job.skills %}<li>{{ skill }}</li>{% endfor %}</ul>{% endif %}
+        </article>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No saved jobs yet.</p>
+    <a class="button" href="{{ url_for('swipe.index') }}">Browse jobs</a>
+  {% endif %}
+</section>

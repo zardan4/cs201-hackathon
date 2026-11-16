@@ -192,6 +192,13 @@ Skills: Python, Django, SQL, PostgreSQL, Docker
 English: B2
 ```
 
+## Profile saved jobs (A2)
+
+The profile page also completes A2: it lists the current session's liked vacancies
+through `jobs_service.saved_jobs()`, newest first, with company, salary, location,
+skills and original DOU links. Profile edits preserve likes. Empty and unavailable
+saved-job lists have separate states; the Liked page remains available for filtering.
+
 ## DOU insights (A4–A5)
 
 `/insights` uses the DA library exclusively through `insights_service`:

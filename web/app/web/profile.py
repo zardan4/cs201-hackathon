@@ -5,7 +5,7 @@ import hmac
 
 from flask import Blueprint, abort, current_app, flash, g, redirect, render_template, request, url_for
 
-from app.services import catalog_service, profile_service
+from app.services import catalog_service, jobs_service, profile_service
 
 profile_bp = Blueprint("profile", __name__)
 
@@ -56,8 +56,17 @@ def _view_context(form=None, error=None) -> dict:
     except catalog_service.CatalogUnavailable:
         skills = []
         error = error or "The skills list is temporarily unavailable. Please try again later."
+    saved_jobs = []
+    saved_jobs_error = False
+    if g.onboarding_complete:
+        try:
+            saved_jobs = jobs_service.saved_jobs(profile.user_id)
+        except (OSError, ValueError, KeyError):
+            current_app.logger.exception("Saved jobs could not be loaded")
+            saved_jobs_error = True
     return dict(profile=profile, draft=draft, values=values, error=error,
                 positions=catalog_service.all_positions(), skills=skills,
+                saved_jobs=saved_jobs, saved_jobs_error=saved_jobs_error,
                 english_levels=profile_service.ENGLISH_LEVELS)
 
 

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{{ url_for('static', filename='profile/profile.css') }}">{% endblock %}
 {% block content %}
 <section class="panel">
   <h1>{{ 'Review your new CV' if draft else 'Your profile' }}</h1>
@@ -10,9 +11,9 @@
   {% set submit_label = 'Save profile' %}
   {% include "profile/form.html" %}
 </section>
+{% include "profile/saved_jobs.html" %}
 <section class="panel">
   <h2>Update your CV</h2>
   {% include "profile/cv_upload.html" %}
 </section>
-<section class="panel"><h2>Saved jobs</h2><a href="{{ url_for('swipe.liked') }}">View liked jobs</a></section>
 {% endblock %}
