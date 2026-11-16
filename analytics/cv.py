@@ -131,6 +131,25 @@ def _detect_experience(raw: str) -> float | None:
     return None
 
 
+# "English: Upper-Intermediate" up to the next separator, so "· Ukrainian: native" is not included.
+_ENGLISH_FRAGMENT_RE = re.compile(r"(?:english|англ\w*)[^·•,;|\n]*", re.IGNORECASE)
+
+
+def _detect_english(raw: str) -> str | None:
+    """English level, preferring the text right after the word "English".
+
+    Otherwise "Ukrainian: native" elsewhere in the CV would be read as fluent English.
+    """
+    english_fragments = "\n".join(_ENGLISH_FRAGMENT_RE.findall(raw))
+    for text in (english_fragments, raw):
+        if not text:
+            continue
+        for level, pattern in _ENGLISH_PATTERNS:
+            if pattern.search(text):
+                return level
+    return None
+
+
 def parse_cv(text: str) -> dict:
     """Parse CV text into CvParseResult dict (position, skills, experience, english, warnings)."""
     raw = (text or "").strip()
@@ -148,11 +167,7 @@ def parse_cv(text: str) -> dict:
     detected_position = _detect_position(raw, skills)
     exp_years = _detect_experience(raw)
 
-    english_level: str | None = None
-    for level, pat in _ENGLISH_PATTERNS:
-        if pat.search(raw):
-            english_level = level
-            break
+    english_level = _detect_english(raw)
 
     warnings: list[str] = []
     if not skills:
