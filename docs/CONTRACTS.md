@@ -4,6 +4,11 @@
 > Усі сутності виведені з реальних даних у `data/` (див. «Звідки беруться поля»).
 > Ролі й таски: [`TEAM.md`](TEAM.md). Ідея: [`../README.md`](../README.md).
 
+> Каркас Flask розміщено в окремій папці `web/`: усі шляхи `app/...` у документації
+> означають `web/app/...`. Python-імпорти залишаються `app.*` після
+> `python -m pip install -r requirements.txt` з кореня репозиторію.
+> `analytics/`, `data/` та `cache/` залишаються в корені репозиторію.
+
 ## 0. Рішення щодо зарплат (зафіксовано)
 
 - **Вкладка свайпів показує лише вакансії, де зарплата вказана** (`salary_mid` не `None`): у `dou_active_vacancies.csv` це ≈550 із 3 512 (≈16 %). Вакансії без зарплати в стрічку **не потрапляють**.
@@ -155,3 +160,42 @@ def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list
 | `GET /insights` | WE-A | вкладка 3: дашборд + «що підкачати» |
 
 Файли роутів: `app/web/profile.py` (WE-A, `profile_bp`), `app/web/swipe.py` (WE-B, `swipe_bp`), `app/web/insights.py` (WE-A, `insights_bp`). `app/main.py` лише реєструє blueprint-и (пише WE-A у A0). Шаблони й статика — **у підпапках кожної вкладки**: `templates/swipe/…`, `templates/profile/…`, `static/swipe/…`, щоб не було конфліктів у Git.
+
+## 5. Спільний каркас WE-A → WE-B (A0)
+
+- Запуск каркаса з кореня: `python -m pip install -r requirements.txt && python -m app.main`.
+  Поки DA не додав `analytics.build`, каркас працює без даних і показує порожні сторінки.
+- Фабрика: `app.main.create_app(config: dict | None = None) -> Flask`.
+  `USER_STORAGE_DIR` у Flask config за замовчуванням — абсолютний `cache/users/` у корені.
+  У cookie-сесії зберігається лише `user_id` (UUID), а не текст CV чи історія свайпів.
+  Перед кожним запитом `g.profile` містить `UserProfile`; порожня `position` означає,
+  що онбординг ще не завершено. Кореневий `/` враховує саме це.
+- Blueprint-и / endpoint-и: `profile_bp` має ім'я `profile` і endpoint-и
+  `profile.onboarding`, `profile.index`, `profile.upload_cv`; `insights_bp` —
+  `insights`, endpoint `insights.index`; WE-B створює `swipe_bp = Blueprint("swipe", __name__)`
+  у `app/web/swipe.py`, з endpoint `swipe.index` для `GET /swipe`.
+  Після появи цього модуля фабрика реєструє його замість спільної порожньої сторінки
+  (потрібен перезапуск). Помилки всередині наявного модуля не приховуються.
+- Шаблони наслідують `base.html`; блоки: `title`, `styles`, `content`, `scripts`.
+  Навігація: Swipe → Profile → Insights. Спільні стилі — `static/profile/base.css`.
+- `POST /onboarding`, `POST /profile`, `POST /profile/cv` у початковому каркасі
+  повертають HTTP 501 до реалізації A1–A3; це не завершені функції.
+  API свайпів реалізує WE-B, каркас їх не імітує.
+
+### 5.1 `app.storage` (виклики всередині Flask application context)
+
+```python
+def load_profile(user_id: str) -> UserProfile | None: ...
+def save_profile(profile: UserProfile) -> None: ...
+def list_swipes(user_id: str) -> list[SwipeAction]: ...
+def append_swipe(swipe: SwipeAction) -> None: ...
+```
+
+Файл `cache/users/<user_id>.json` має форму `{"profile": {...}, "swipes": [...]}`;
+часові мітки — ISO 8601 (UTC), при читанні відновлюються як `datetime`.
+Оновлення профілю зберігає свайпи, додавання свайпу зберігає профіль.
+Повторний свайп одного `job_id` ігнорується (перша дія залишається).
+`append_swipe` потребує існуючого профілю; невідомий профіль → `ValueError`.
+Запис — через тимчасовий файл + atomic replace; read-modify-write захищений
+lock у межах одного процесу (локальний Flask-сервер для демо).
+Для кількох worker-процесів потрібне інше сховище або міжпроцесне блокування.

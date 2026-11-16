@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<section class="panel">
+  <p class="eyebrow">Your next move starts here</p>
+  <h1>Find work that fits you.</h1>
+  <p>Profile setup will let you choose your role, skills, experience and English level.</p>
+  <a class="button" href="{{ url_for('profile.index') }}">View profile</a>
+</section>
+{% endblock %}

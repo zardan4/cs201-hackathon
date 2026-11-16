@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swipejob-web"
+version = "0.1.0"
+description = "Flask web application for SwipeJob"
+requires-python = ">=3.11"
+dependencies = ["Flask>=3.1,<4"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+app = ["templates/*.html", "templates/**/*.html", "static/**/*"]

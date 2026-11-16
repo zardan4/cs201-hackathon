@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SwipeJob{% endblock %} · SwipeJob</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='profile/base.css') }}">
+  {% block styles %}{% endblock %}
+</head>
+<body>
+  <header class="site-header"><a href="{{ url_for('profile.home') }}">SwipeJob<span>Find your next move.</span></a></header>
+  <main id="main-content">{% block content %}{% endblock %}</main>
+  <nav class="tab-bar" aria-label="Main navigation">
+    {% for endpoint, label in [('swipe.index', 'Swipe'), ('profile.index', 'Profile'), ('insights.index', 'Insights')] %}
+      {% set active = request.blueprint == endpoint.split('.')[0] %}
+      <a href="{{ url_for(endpoint) }}"{% if active %} aria-current="page"{% endif %}>{{ label }}</a>
+    {% endfor %}
+  </nav>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
