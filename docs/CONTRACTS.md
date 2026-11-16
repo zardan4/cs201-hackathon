@@ -106,6 +106,16 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 ### 2.10 `InsightsReport` — усе для вкладки 3
 `profile_salary: SalaryStats` (опитування DOU), `jobs_available: int` (вакансій із зарплатою, що підходять профілю), `top_upgrades: list[UpgradeSuggestion]`.
 
+A4–A5: `jobs_available` рахується через `analytics.matching.iter_ranked_jobs`
+із `min_score=0.65`, `require_salary=True`, `remote_only` з профілю, без виключення
+вже свайпнутих вакансій. Це кількість у всьому поточному датасеті, не довжина черги.
+Upgrade counts із DA — для всіх локацій; salary gains порівнюють когорти без
+фільтра стажу. UI пояснює відмінність від персональної salary_stats зі стажем.
+Відсутні/нечислові salary stats показуються як «немає даних», не як $0.
+`insights_service.salary_chart(profile) -> bytes` рендерить SVG з histogram DA
+через matplotlib. `GET /insights/salary-distribution.svg` — захищений сесією графік.
+Останній bucket включає всю верхню частину розподілу й підписується `from+`.
+
 ## 3. Артефакти `cache/` (контракт DA → WE)
 
 | Файл | Створює | Схема |

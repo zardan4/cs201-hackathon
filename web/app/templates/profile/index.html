@@ -2,9 +2,8 @@
 {% block title %}Profile{% endblock %}
 {% block content %}
 <section class="panel">
-  <p class="eyebrow">Your career, your direction</p>
   <h1>{{ 'Review your new CV' if draft else 'Your profile' }}</h1>
-  <p>{{ 'Your saved profile stays active until you confirm these changes.' if draft else 'Keep your details up to date for your next job search.' }}</p>
+  {% if draft %}<p>Review changes before replacing your saved profile.</p>{% endif %}
   {% if error %}<p class="notice error" role="alert">{{ error }}</p>{% endif %}
   {% if draft %}{% include "profile/review_warnings.html" %}{% endif %}
   {% set form_action = url_for('profile.index') %}
@@ -13,8 +12,7 @@
 </section>
 <section class="panel">
   <h2>Update your CV</h2>
-  <p>Upload a new version to review the details before replacing your saved profile.</p>
   {% include "profile/cv_upload.html" %}
 </section>
-<section class="panel"><h2>Saved jobs</h2><p>Your liked jobs will appear here.</p></section>
+<section class="panel"><h2>Saved jobs</h2><a href="{{ url_for('swipe.liked') }}">View liked jobs</a></section>
 {% endblock %}

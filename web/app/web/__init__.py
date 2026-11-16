@@ -17,7 +17,7 @@ def register_swipe_blueprint(app: Flask) -> None:
 
     @placeholder.get("/swipe")
     def index():
-        return render_template("placeholder.html", title="Find your next role",
-                               message="Your job feed will appear here.")
+        return render_template("placeholder.html", title="Job feed unavailable",
+                               message="Please try again later.")
 
     app.register_blueprint(placeholder)

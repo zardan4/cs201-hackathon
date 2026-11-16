@@ -71,7 +71,7 @@ def _save_form():
         profile_service.confirm_profile(g.profile.user_id, request.form)
     except ValueError as error:
         return _render_page(form=request.form, error=str(error), status=400)
-    flash("Your profile is saved. Swipe and insights are now available.", "success")
+    flash("Profile saved.", "success")
     return redirect(url_for("profile.index"), code=303)
 
 

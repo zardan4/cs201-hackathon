@@ -8,16 +8,14 @@
 {% if needs_onboarding %}
 <section class="panel swipe-empty">
   <span class="swipe-empty__icon">{{ icon('heart', 28) }}</span>
-  <h1>Let's set up your profile</h1>
-  <p>Pick your position and skills so we can match you with salaried IT jobs.</p>
-  <a class="button" href="{{ url_for('profile.onboarding') }}">Start onboarding</a>
+  <h1>Set up your profile</h1>
+  <a class="button" href="{{ url_for('profile.onboarding') }}">Upload CV</a>
 </section>
 {% elif not matches %}
 <section class="panel swipe-empty">
   <span class="swipe-empty__icon">{{ icon('briefcase', 28) }}</span>
   <h1>No more jobs for now</h1>
-  <p>You've seen every salaried vacancy that matches your profile{% if profile.remote_only %} (remote only){% endif %}.
-     Add more skills to unlock new matches.</p>
+  <p>No unseen matches{% if profile.remote_only %} with remote work{% endif %}. Update your profile to broaden results.</p>
   <a class="button" href="{{ url_for('profile.index') }}">Edit profile</a>
 </section>
 {% else %}
@@ -113,15 +111,7 @@
       {% endfor %}
     </section>
 
-    <section class="side-card">
-      <h2 class="side-card__label">Swipe guide</h2>
-      <ul class="guide">
-        <li><span class="why__icon why__icon--red">{{ icon('x', 16) }}</span> Skip — not interested</li>
-        <li><span class="why__icon why__icon--indigo">{{ icon('heart', 16) }}</span> Like — save to your profile</li>
-        <li><span class="why__icon why__icon--blue">{{ icon('external', 16) }}</span> Open the original vacancy on DOU</li>
-      </ul>
-      <p class="guide__hint">Drag the card left or right, or use the buttons.</p>
-    </section>
+    <p class="guide__hint">Swipe left to skip, right to save.</p>
   </aside>
 </div>
 
@@ -129,7 +119,7 @@
   <div class="match-overlay__box" role="dialog" aria-modal="true" aria-labelledby="match-title">
     <span class="match-overlay__heart">{{ icon('heart', 30) }}</span>
     <h2 id="match-title">It's a Match!</h2>
-    <p>This job fits your profile well. We saved it to your profile.</p>
+    <p>Saved to Liked.</p>
     <div class="match-overlay__pair">
       <span class="match-overlay__avatar match-overlay__avatar--you">{{ (profile.position or 'Y')[0] | upper }}</span>
       <span class="match-overlay__fit"><strong data-match="percent"></strong>FIT</span>
@@ -141,7 +131,7 @@
       <em data-match="salary"></em>
     </div>
     <div class="match-overlay__actions">
-      <a class="match-overlay__primary" href="{{ url_for('profile.index') }}">View saved jobs</a>
+      <a class="match-overlay__primary" href="{{ url_for('swipe.liked') }}">View liked jobs</a>
       <button type="button" class="match-overlay__secondary" id="match-close">Keep swiping</button>
     </div>
   </div>

@@ -22,7 +22,7 @@
   </div>
   <fieldset>
     <legend>Your skills</legend>
-    <p class="field-hint">Detected skills are selected. Add or remove skills to match what you know. Select at least one.</p>
+    <p class="field-hint">Detected skills are selected. Adjust as needed; select at least one.</p>
     <div class="skill-options">
       {% for skill in skills %}
         <label class="skill-option"><input type="checkbox" name="skills" value="{{ skill }}"{% if skill in values.skills %} checked{% endif %}> <span>{{ skill }}</span></label>

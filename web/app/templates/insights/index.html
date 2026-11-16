@@ -1,10 +1,59 @@
 {% extends "base.html" %}
 {% block title %}Insights{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{{ url_for('static', filename='insights/insights.css') }}">{% endblock %}
 {% block content %}
-<section class="panel">
-  <p class="eyebrow">Plan your next step</p>
-  <h1>Your market insights</h1>
-  <p>Salary insights and skill recommendations will appear here once the data is connected.</p>
-  <p>Salary statistics source: <a href="https://dou.ua/">DOU salary surveys</a>.</p>
-</section>
+<header class="insights-heading">
+  <h1>Insights</h1>
+  <p>{{ profile.position }} · DOU salary benchmarks</p>
+  <div class="profile-summary"><span>{{ profile.experience_years }} years of experience</span><span>{{ profile.skills | length }} skills</span><span>{{ 'Remote only' if profile.remote_only else 'All locations' }}</span><a href="{{ url_for('profile.index') }}">Edit profile</a></div>
+</header>
+{% if report is none %}
+  <section class="panel" role="alert"><h2>Insights unavailable</h2><p>Couldn’t load DOU data. Please try again.</p><a class="button" href="{{ url_for('insights.index') }}">Try again</a></section>
+{% else %}
+  {% set salary = report.profile_salary %}
+  <div class="metrics" aria-label="Your DOU market benchmarks">
+    <section class="metric featured"><p>Median monthly salary</p><strong>{{ '${:,.0f}'.format(salary.median) if salary.count else 'No data' }}</strong><small>DOU survey · take-home USD</small></section>
+    <section class="metric"><p>Average monthly salary</p><strong>{{ '${:,.0f}'.format(salary.mean) if salary.count else 'No data' }}</strong><small>{{ '{:,}'.format(salary.count) }} survey responses</small></section>
+    <section class="metric"><p>Middle 50% of salaries</p><strong class="salary-range">{{ '${:,.0f}–${:,.0f}'.format(salary.p25, salary.p75) if salary.count else 'No data' }}</strong><small>25th to 75th percentile</small></section>
+    <section class="metric"><p>Matching salaried jobs</p><strong>{{ report.jobs_available }}</strong><small>65%+ match · {{ 'remote only' if profile.remote_only else 'all locations' }}</small></section>
+  </div>
+  {% if not salary.count %}
+    <section class="panel"><h2>No salary data</h2><p>No usable DOU survey responses for this comparison.</p></section>
+  {% else %}
+    <section class="panel">
+      <div class="section-heading"><h2>Salary distribution</h2><span class="sample-badge">{{ '{:,}'.format(salary.count) }} responses</span></div>
+      {% if salary.filters.get('widened') or salary.count < 30 %}<p class="notice" role="status">{{ 'The comparison group was broadened because the exact profile had too few responses.' if salary.filters.get('widened') else 'This comparison has fewer than 30 responses. Treat the figures as a limited sample.' }}</p>{% endif %}
+      <img class="salary-chart" src="{{ url_for('insights.distribution') }}" alt="Monthly salary distribution for the applied DOU survey comparison group; exact bucket counts are in the table below." width="900" height="370">
+      <details class="data-details"><summary>View distribution counts</summary>
+        <table><caption>DOU survey salaries in USD per month; the last bucket includes the upper tail.</caption><thead><tr><th scope="col">Salary range</th><th scope="col">Responses</th></tr></thead><tbody>
+          {% for bucket in salary.histogram %}<tr><th scope="row">${{ '{:,}'.format(bucket['from']) }}{{ '+' if loop.last else '–${:,}'.format(bucket['to']) }}</th><td>{{ '{:,}'.format(bucket['count']) }}</td></tr>{% endfor %}
+        </tbody></table>
+      </details>
+      <details class="data-details"><summary>Comparison filters</summary><dl class="cohort-details">
+        <div><dt>Role</dt><dd>{{ salary.filters.get('position') or 'All survey roles' }}</dd></div>
+        <div><dt>Main programming language</dt><dd>{{ salary.filters.get('skills', []) | join(', ') or 'All reported languages' }}</dd></div>
+        <div><dt>Experience</dt><dd>{% if salary.filters.get('experience_years') is not none %}{{ salary.filters.experience_years }} years ± {{ salary.filters.experience_window }} years{% else %}All experience levels{% endif %}</dd></div>
+      </dl><p class="field-hint">Survey filters cover role, main language and experience—not every tool. Reported earnings are not guaranteed offers.</p></details>
+    </section>
+  {% endif %}
+  <section class="panel opportunities">
+    <h2>Explore matching jobs</h2>
+    <p>65%+ match · your remote preference · includes jobs already seen.</p>
+    {% if report.jobs_available %}<a class="button" href="{{ url_for('swipe.index') }}">Browse jobs</a>{% else %}<p>No matches at this threshold. Try updating your skills or location preference.</p><a class="button" href="{{ url_for('profile.index') }}">Edit profile</a>{% endif %}
+  </section>
+  <section class="upgrade-section" aria-labelledby="upgrade-title">
+    <h2 id="upgrade-title">Skills to explore</h2>
+    <div class="upgrade-grid">
+    {% for upgrade in report.top_upgrades %}
+      <article class="panel upgrade-card"><span class="recommendation-rank">{{ '{:02d}'.format(loop.index) }}</span><h3>{{ upgrade.skill }}</h3>
+        {% if upgrade.salary_gain_usd > 0 %}<p class="upgrade-gain">+${{ '{:,.0f}'.format(upgrade.salary_gain_usd) }} <small>/ month</small></p><p class="field-hint">+{{ '{:,.1f}'.format(upgrade.salary_gain_pct) }}% median cohort difference</p>{% else %}<p class="flat-gain">No positive salary difference</p>{% endif %}
+        <dl><div><dt>Additional salaried jobs</dt><dd>+{{ upgrade.new_jobs_count }}</dd></div><div><dt>Survey comparison sample</dt><dd>{{ '{:,}'.format(upgrade.sample_size) }} responses</dd></div></dl>
+      </article>
+    {% else %}<div class="panel"><h3>No supported upgrades</h3><p>Not enough DOU evidence for further recommendations.</p></div>{% endfor %}
+    </div>
+    <p class="field-hint methodology">Cohort differences, not guaranteed raises. Upgrade counts cover all locations.</p>
+    <details class="data-details"><summary>How recommendations work</summary><p class="field-hint">Salary comparisons use your role/skills baseline across all experience levels. Some tools map to broader role cohorts. Additional jobs cross a 65% match threshold across all locations, independently of your remote preference.</p></details>
+  </section>
+{% endif %}
+<footer class="panel insights-source"><p>Sources: <a href="https://dou.ua/lenta/tags/зарплати/">DOU salary surveys</a> · <a href="https://jobs.dou.ua/">DOU vacancies</a>. Salaries are monthly take-home USD.</p><details><summary>Dataset details</summary><p>Survey waves: June 2025, December 2025 and June 2026, from the <a href="https://github.com/devua/csv">DOU survey archive</a>. People may appear in multiple waves. Job counts use the supplied salaried-vacancy snapshot and may differ from current availability.</p></details></footer>
 {% endblock %}

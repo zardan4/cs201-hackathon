@@ -192,6 +192,25 @@ Skills: Python, Django, SQL, PostgreSQL, Docker
 English: B2
 ```
 
-Application factory, profile/CV onboarding, editing, storage and session gates
-are implemented. Swipe and insights pages still contain placeholders until
-B0–B5 and A4–A5 are completed; no vacancy or salary statistics are fabricated.
+## DOU insights (A4–A5)
+
+`/insights` uses the DA library exclusively through `insights_service`:
+
+- `analytics.salary.salary_stats` supplies median, average, p25/p75, sample size,
+  effective filters and distribution buckets from DOU salary surveys.
+- `analytics.matching.iter_ranked_jobs` counts the entire set of salaried jobs at
+  a match score of at least 65%, applying the profile's remote preference. Swiped
+  jobs remain in this market count; it is independent of the swipe queue length.
+- `analytics.upgrade.recommend_upgrades` provides up to five missing-skill
+  comparisons with salary differences, newly reachable jobs and sample sizes.
+- `/insights/salary-distribution.svg` renders the library's histogram using
+  matplotlib, with an accessible distribution table on the page. The last
+  bucket includes the upper tail and is labelled with a plus sign.
+
+The page explains broadened cohorts, actual survey filters and sources. Upgrade
+salary comparisons use all experience levels; upgrade job counts use all locations,
+as defined by DA's API. They describe cohort associations, not guaranteed raises.
+No survey responses or supported upgrades produce explicit empty states; unavailable
+data produces a retry page. Both the page and chart require completed onboarding.
+Profile edits affect the next request. No Gemini requests or raw dataset reads
+are made by the insights web layer.

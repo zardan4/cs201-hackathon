@@ -8,7 +8,7 @@
   {% block styles %}{% endblock %}
 </head>
 <body>
-  <header class="site-header"><a href="{{ url_for('profile.home') }}">BlowMyJob<span>Find your next move.</span></a></header>
+  <header class="site-header"><a href="{{ url_for('profile.home') }}">BlowMyJob</a></header>
   <main id="main-content">
     {% for category, message in get_flashed_messages(with_categories=true) %}
       <p class="notice {{ category }}" role="status">{{ message }}</p>
