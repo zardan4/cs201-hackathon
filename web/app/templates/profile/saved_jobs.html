@@ -1,3 +1,4 @@
+{% from "_mascot.html" import mascot %}
 <section class="panel" aria-labelledby="saved-jobs-title">
   <div class="saved-heading"><h2 id="saved-jobs-title">Saved jobs{% if not saved_jobs_error %} <span class="saved-count">{{ saved_jobs | length }}</span>{% endif %}</h2>
     {% if saved_jobs %}
@@ -36,7 +37,7 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p>No saved jobs yet.</p>
+    <div class="saved-empty">{{ mascot('sad', 72) }}<p>No saved jobs yet.</p></div>
     <a class="button" href="{{ url_for('swipe.index') }}">Browse jobs</a>
   {% endif %}
 </section>

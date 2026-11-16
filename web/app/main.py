@@ -8,6 +8,7 @@ from uuid import UUID, uuid4
 from dotenv import load_dotenv
 from flask import Flask, g, jsonify, redirect, render_template, request, session, url_for
 
+from app.mascot import mascot_url
 from app.services.profile_service import get_or_create_profile, is_profile_ready
 from app.web import register_swipe_blueprint
 from app.web.insights import insights_bp
@@ -78,6 +79,7 @@ def create_app(config: dict | None = None) -> Flask:
         return render_template("profile/error.html", title="File too large",
                                message="Please upload a CV smaller than 5 MiB."), 413
 
+    app.jinja_env.globals["mascot_url"] = mascot_url
     app.register_blueprint(profile_bp)
     app.register_blueprint(insights_bp)
     register_swipe_blueprint(app)

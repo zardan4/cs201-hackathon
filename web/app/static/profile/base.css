@@ -240,3 +240,11 @@ summary { cursor: pointer; font-weight: 650; }
 .skills-catalog .skill-options { max-height: none; overflow: visible; -webkit-mask-image: none; mask-image: none; padding: 0 0 .5rem; }
 .skill-option::before { content: "+"; margin-right: .45rem; color: var(--orange); font-weight: 800; }
 .skill-option:has(input:checked)::before { content: "✓"; color: #fff; }
+
+/* ---------- Mascot ---------- */
+.mascot { display: block; flex: none; object-fit: contain; user-select: none; }
+.tab-mascot { width: 30px; height: 30px; object-fit: contain; filter: grayscale(1) opacity(.55); transition: filter .15s, transform .15s; }
+.tab-bar a:hover .tab-mascot { filter: grayscale(.4) opacity(.85); }
+.tab-bar a[aria-current="page"] .tab-mascot { filter: none; transform: translateY(-2px); }
+.tab-bar .locked-tab .tab-mascot { filter: grayscale(1) opacity(.4); }
+.hello { display: flex; justify-content: center; margin: -.25rem 0 .5rem; }

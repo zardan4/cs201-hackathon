@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "swipe/_icons.html" import icon %}
+{% from "_mascot.html" import mascot %}
 {% block title %}Swipe{% endblock %}
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='swipe/swipe.css') }}">
@@ -13,7 +14,7 @@
 </section>
 {% elif not matches %}
 <section class="panel swipe-empty">
-  <span class="swipe-empty__icon">{{ icon('briefcase', 28) }}</span>
+  {{ mascot('caught-up', 112, 'swipe-empty__mascot') }}
   <h1>You're all caught up</h1>
   <p>No new matches{% if profile.remote_only %} with remote work{% endif %} right now.{% if skipped_count %} {{ skipped_count }} job{{ 's' if skipped_count != 1 else '' }} you skipped can come back.{% endif %}</p>
   {% if skipped_count %}

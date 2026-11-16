@@ -1,0 +1,4 @@
+{# {{ mascot('sad', 72) }}: decorative sprite from static/mascot/<name>.* (falls back to default). #}
+{% macro mascot(name, size=64, cls='') -%}
+<img class="mascot mascot--{{ name }} {{ cls }}" src="{{ mascot_url(name) }}" width="{{ size }}" height="{{ size }}" alt="" aria-hidden="true" draggable="false">
+{%- endmacro %}
