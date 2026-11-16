@@ -116,12 +116,12 @@ top_matches = rank_jobs(
 - **`score_job(job, position="", user_skills=frozenset(), target_categories=frozenset(), target_tags=frozenset()) -> tuple[float, list[str], list[str], str]`**
   Computes the match score for a single job.
 
-### `DA0` Stubs / Partial Implementations (for WE-A & WE-B integration)
+### DOU Salary Surveys, Upgrades & CV Parsing (`DA3`, `DA5`, `DA6`, `DA7`)
 
-- `analytics.salary`: `salary_stats(...)` (fixture stub until `DA5`), `vacancy_salary_stats(...)` (live stats from `iter_jobs`).
-- `analytics.upgrade`: `recommend_upgrades(...)` (fixture stub until `DA6`).
-- `analytics.cv`: `parse_cv(text)` (extracts real skills via `extract_skills` + regex heuristics for experience and English level).
-- `analytics.salary_records`: `load_salary_records()` (fixture stub until `DA3`).
+- **`analytics.salary_records`**: `build_salary_records(force=False)` & `load_salary_records(refresh=False)` normalize `2026_june_raw`, `2025_dec_raw`, and `2025_june_raw` (`38,535` rows) into `cache/salary_records.parquet` lazily (process-once).
+- **`analytics.salary`**: `salary_stats(position, skills, experience_years=None)` computes `median`, `mean`, `p25`, `p75`, `count`, `basis="survey"`, `filters` (with `widened: bool` & `mode`), and `histogram` strictly from DOU survey records, automatically widening filters when `count < 30`.
+- **`analytics.upgrade`**: `recommend_upgrades(position, skills, top_n=5)` computes missing-skill salary gains (`sample_size >= 30`, checking within-position survey cohorts first) and counts newly unlocked salaried jobs crossing `0.65` match score in `load_jobs()`.
+- **`analytics.cv`**: `parse_cv(text)` extracts `detected_position` (headline-first pattern matching + skill fallback), `detected_skills` (`extract_skills`), `detected_experience_years` (`N years` / `N років` / year ranges), `detected_english_level` (`none..fluent` in EN/UK), and `warnings`.
 
 ---
 

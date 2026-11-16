@@ -17,9 +17,13 @@
 ## 2. DOU Salary Surveys (`data/datasets/devua-salaries/`)
 
 - **Source & Attribution:** [devua/csv](https://github.com/devua/csv/tree/master/salaries) — DOU IT salary surveys. **Mandatory attribution:** publications/demos must cite **DOU** with an active link (`https://dou.ua/` / `https://github.com/devua/csv`).
-- **Inspected Schemas:**
-  - `2026_june_raw`: 14,361 rows × 40 columns (`ЗАРПЛАТА СУМАРНИЙ ДОХІД в ІТ`, `Категорії`, `Посади`, `Основна мова програмування`, `Загальний стаж роботи за нинішньою ІТ-спеціальністю`, `Знання англійської мови`).
-  - `2025_dec_raw`: 12,502 rows × 18 columns; `2025_june_raw`: 11,686 rows × 18 columns (column names vary slightly across waves).
+- **Normalized Table (`cache/salary_records.parquet`):** **38,535** normalized records across the 3 latest survey waves (`2026_june`: 14,361, `2025_dec`: 12,502, `2025_june`: 11,672 — filtering out `$0` or `> $35,000` invalid entries).
+- **Schema Harmonization:**
+  - Differing wave column names (`ЗАРПЛАТА СУМАРНИЙ ДОХІД в ІТ` vs multiline net salary header, `Посади` vs `Почніть вводити і оберіть вашу ОСНОВНУ посаду зі списку`, `Категорії` vs `Категорія`) are unified into `SalaryRecord`.
+  - Experience strings (`"4 роки"`, `"Півтора роки"`, `"15-20 років"`, `"-99"`) and numeric strings (`"2.5"`) parse to `float | None`.
+  - English proficiency maps onto `none/basic/pre/intermediate/upper/fluent`.
+  - Generic `"Software Engineer / Developer"` roles are disambiguated onto DOU positions (`Python`, `.NET`, `Java`, `Front End`, `Node.js`, `PHP`, `C++`, `Golang`, `Android`, `Flutter`, `Ruby`, `Rust`, `Scala`, `Embedded`) via `Основна мова програмування` and `Спеціалізації: SE`.
+- **Survey Medians & Upgrade Cohorts:** Overall median across the 38,535 records is `$2,800`; `salary_stats()` automatically widens filters whenever `count < 30`, and `recommend_upgrades()` enforces `sample_size >= 30` per DOU cohort.
 
 ---
 

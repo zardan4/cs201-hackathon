@@ -1,12 +1,202 @@
 [
-  {"survey": "2026_june", "salary_usd": 3500.0, "position": "Python", "main_language": "python", "specialization": "Back-end", "experience_years": 4.0, "english_level": "upper", "company_size": "200-1000"},
-  {"survey": "2026_june", "salary_usd": 2200.0, "position": "Python", "main_language": "python", "specialization": "Back-end", "experience_years": 2.0, "english_level": "intermediate", "company_size": "50-200"},
-  {"survey": "2026_june", "salary_usd": 4800.0, "position": "DevOps", "main_language": "bash", "specialization": "DevOps", "experience_years": 5.0, "english_level": "upper", "company_size": "1000+"},
-  {"survey": "2026_june", "salary_usd": 1800.0, "position": "QA", "main_language": "python", "specialization": "Automation QA", "experience_years": 2.5, "english_level": "intermediate", "company_size": "50-200"},
-  {"survey": "2026_june", "salary_usd": 4200.0, "position": "AI/ML", "main_language": "python", "specialization": "ML", "experience_years": 3.5, "english_level": "upper", "company_size": "200-1000"},
-  {"survey": "2026_june", "salary_usd": 2700.0, "position": "Data Engineer", "main_language": "sql", "specialization": "Data", "experience_years": 3.0, "english_level": "intermediate", "company_size": "200-1000"},
-  {"survey": "2026_june", "salary_usd": 3100.0, "position": "Front End", "main_language": "typescript", "specialization": "Front-end", "experience_years": 3.0, "english_level": "upper", "company_size": "50-200"},
-  {"survey": "2026_june", "salary_usd": 1100.0, "position": "Analyst", "main_language": "sql", "specialization": "Data Analyst", "experience_years": 1.0, "english_level": "intermediate", "company_size": "50-200"},
-  {"survey": "2026_june", "salary_usd": 5500.0, "position": ".NET", "main_language": "c#/.net", "specialization": "Back-end", "experience_years": 6.0, "english_level": "fluent", "company_size": "1000+"},
-  {"survey": "2026_june", "salary_usd": 4000.0, "position": "Java", "main_language": "java", "specialization": "Back-end", "experience_years": 4.5, "english_level": "upper", "company_size": "200-1000"}
+  {
+    "survey": "2026_june",
+    "salary_usd": 1300.0,
+    "position": ".NET",
+    "main_language": "c#/.net",
+    "specialization": NaN,
+    "experience_years": 4.0,
+    "english_level": "pre",
+    "company_size": "До 200"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 4500.0,
+    "position": "Other",
+    "main_language": NaN,
+    "specialization": "Full Stack розробка",
+    "experience_years": 6.0,
+    "english_level": "intermediate",
+    "company_size": "До 200"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 1600.0,
+    "position": "Other",
+    "main_language": "swift",
+    "specialization": "Mobile розробка",
+    "experience_years": 17.5,
+    "english_level": "intermediate",
+    "company_size": "До 10 спеціалістів"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 1400.0,
+    "position": "Python",
+    "main_language": "python",
+    "specialization": "Back-end розробка",
+    "experience_years": 2.0,
+    "english_level": "intermediate",
+    "company_size": "До 200"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 2000.0,
+    "position": "Front End",
+    "main_language": "typescript",
+    "specialization": "Full Stack розробка",
+    "experience_years": 3.0,
+    "english_level": "upper",
+    "company_size": "До 10 спеціалістів"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 4950.0,
+    "position": "Other",
+    "main_language": "swift",
+    "specialization": "Mobile розробка",
+    "experience_years": 13.0,
+    "english_level": "upper",
+    "company_size": "До 1000"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 3480.0,
+    "position": "Front End",
+    "main_language": "javascript",
+    "specialization": "Front-end розробка",
+    "experience_years": NaN,
+    "english_level": "fluent",
+    "company_size": "До 10 спеціалістів"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 2600.0,
+    "position": "Ruby",
+    "main_language": "ruby",
+    "specialization": "Back-end розробка",
+    "experience_years": 4.0,
+    "english_level": "intermediate",
+    "company_size": "До 10 спеціалістів"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 4000.0,
+    "position": "Front End",
+    "main_language": "typescript",
+    "specialization": "Mobile розробка",
+    "experience_years": 5.0,
+    "english_level": "intermediate",
+    "company_size": "До 50"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 4600.0,
+    "position": "Other",
+    "main_language": "swift",
+    "specialization": "Mobile розробка",
+    "experience_years": 5.0,
+    "english_level": "upper",
+    "company_size": "До 200"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 2500.0,
+    "position": "Java",
+    "main_language": "java",
+    "specialization": "Back-end розробка",
+    "experience_years": 3.0,
+    "english_level": "intermediate",
+    "company_size": "Понад 1000"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 2400.0,
+    "position": "Front End",
+    "main_language": "typescript",
+    "specialization": "Front-end розробка",
+    "experience_years": 5.0,
+    "english_level": "intermediate",
+    "company_size": "До 50"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 2300.0,
+    "position": "Java",
+    "main_language": "java",
+    "specialization": "Back-end розробка",
+    "experience_years": 17.5,
+    "english_level": "fluent",
+    "company_size": "Понад 1000"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 1100.0,
+    "position": "PHP",
+    "main_language": "php",
+    "specialization": "Front-end розробка",
+    "experience_years": 4.0,
+    "english_level": "pre",
+    "company_size": "До 10 спеціалістів"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 1000.0,
+    "position": ".NET",
+    "main_language": "c#/.net",
+    "specialization": NaN,
+    "experience_years": 5.0,
+    "english_level": "pre",
+    "company_size": "До 10 спеціалістів"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 700.0,
+    "position": "Java",
+    "main_language": "java",
+    "specialization": "Back-end розробка",
+    "experience_years": 1.5,
+    "english_level": "pre",
+    "company_size": "До 200"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 4000.0,
+    "position": "Architect",
+    "main_language": "php",
+    "specialization": NaN,
+    "experience_years": 13.0,
+    "english_level": "upper",
+    "company_size": "До 10 спеціалістів"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 1500.0,
+    "position": "Front End",
+    "main_language": "javascript",
+    "specialization": "Full Stack розробка",
+    "experience_years": 4.0,
+    "english_level": "fluent",
+    "company_size": "До 200"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 5100.0,
+    "position": "Android",
+    "main_language": "kotlin",
+    "specialization": "Mobile розробка",
+    "experience_years": 13.0,
+    "english_level": "upper",
+    "company_size": "До 10 спеціалістів"
+  },
+  {
+    "survey": "2026_june",
+    "salary_usd": 3300.0,
+    "position": "Other",
+    "main_language": "sql",
+    "specialization": "Full Stack розробка",
+    "experience_years": NaN,
+    "english_level": "upper",
+    "company_size": "До 200"
+  }
 ]
