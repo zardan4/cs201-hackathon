@@ -51,11 +51,40 @@
     reloadIfEmpty();
   });
 
+  // "Full description" bottom sheet: content is rendered by the server in a <template> per card.
+  const sheet = document.getElementById("job-sheet");
+  const sheetContent = document.getElementById("job-sheet-content");
+  let sheetOpener = null;
+
+  function openSheet(card, opener) {
+    const template = card.querySelector(".job-card__detail");
+    if (!template) return;
+    sheetContent.replaceChildren(template.content.cloneNode(true));
+    sheet.hidden = false;
+    sheet.querySelector(".job-sheet__panel").scrollTop = 0;
+    sheetOpener = opener;
+    sheet.querySelector(".job-sheet__close").focus();
+  }
+
+  function closeSheet() {
+    if (sheet.hidden) return;
+    sheet.hidden = true;
+    if (sheetOpener) sheetOpener.focus();
+  }
+
+  stack.querySelectorAll("[data-details]").forEach((button) =>
+    button.addEventListener("click", () => openSheet(button.closest(".job-card"), button))
+  );
+  sheet.querySelectorAll("[data-sheet-close]").forEach((element) => element.addEventListener("click", closeSheet));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeSheet();
+  });
+
   let startX = 0, deltaX = 0, dragging = null;
 
   stack.addEventListener("pointerdown", (event) => {
     const card = topCard();
-    if (!card || !card.contains(event.target) || event.target.closest("a")) return;
+    if (!card || !card.contains(event.target) || event.target.closest("a, button")) return;
     dragging = card;
     startX = event.clientX;
     deltaX = 0;

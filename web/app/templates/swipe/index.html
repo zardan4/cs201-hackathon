@@ -50,15 +50,41 @@
           </ul>
           {% endif %}
           <p class="job-card__snippet">{{ job.snippet | truncate(200) }}</p>
+          <button type="button" class="job-card__more" data-details>Full description</button>
           <div class="job-card__footer">
             <div class="job-card__score">
               <span>Match score</span>
               <strong class="job-card__percent">{{ percent }}%</strong>
               <span class="job-card__bar"><span style="width: {{ percent }}%"></span></span>
             </div>
-            <a class="job-card__link" href="{{ job.url }}" target="_blank" rel="noopener">DOU {{ icon('external', 14) }}</a>
+          </div>
+          <div class="job-card__source">
+            <a class="job-card__link" href="{{ job.url }}" target="_blank" rel="noopener">View on DOU {{ icon('external', 14) }}</a>
           </div>
         </div>
+        {# Content of the "Full description" sheet; swipe.js copies it into the shared sheet. #}
+        <template class="job-card__detail">
+          <h2 class="job-sheet__title" id="job-sheet-title">{{ job.title }}</h2>
+          <p class="job-sheet__company">{{ job.company }}</p>
+          <ul class="job-sheet__facts">
+            <li class="job-sheet__salary">{{ job.salary_text or 'Salary not specified' }}</li>
+            {% if job.is_remote %}<li>{{ icon('globe', 14) }} Remote</li>{% endif %}
+            {% for city in job.locations %}<li>{{ city }}</li>{% endfor %}
+            {% if not job.is_remote and not job.locations %}<li>Location not specified</li>{% endif %}
+            <li>{{ icon('clock', 14) }} Posted {{ job.posted_at.strftime('%b %d, %Y') }}</li>
+            <li>{{ percent }}% match</li>
+          </ul>
+          {% if match.matched_skills or match.missing_skills %}
+          <h3>Skills</h3>
+          <ul class="job-card__skills job-sheet__skills" aria-label="Skills">
+            {% for skill in match.matched_skills %}<li class="skill skill--have">{{ skill }}</li>{% endfor %}
+            {% for skill in match.missing_skills %}<li class="skill skill--missing">+ {{ skill }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+          <h3>Description</h3>
+          <p class="job-sheet__text">{{ job.snippet }}</p>
+          <a class="job-sheet__link" href="{{ job.url }}" target="_blank" rel="noopener">Read the full posting on DOU {{ icon('external', 14) }}</a>
+        </template>
         <span class="job-card__stamp job-card__stamp--like">LIKE</span>
         <span class="job-card__stamp job-card__stamp--skip">NOPE</span>
       </article>
@@ -68,8 +94,16 @@
       <button type="button" class="swipe-btn swipe-btn--skip" data-action="skip" aria-label="Skip">{{ icon('x', 26) }}</button>
       <button type="button" class="swipe-btn swipe-btn--like" data-action="like" aria-label="Like and save">{{ icon('heart', 30) }}</button>
     </div>
-    <p class="swipe-hint">Swipe right to save · left to skip</p>
   </section>
+</div>
+
+<div class="job-sheet" id="job-sheet" hidden>
+  <div class="job-sheet__backdrop" data-sheet-close></div>
+  <div class="job-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="job-sheet-title">
+    <span class="job-sheet__grip" aria-hidden="true"></span>
+    <button type="button" class="job-sheet__close" aria-label="Close" data-sheet-close>{{ icon('x', 20) }}</button>
+    <div class="job-sheet__content" id="job-sheet-content"></div>
+  </div>
 </div>
 
 <div class="match-overlay" id="match-overlay" hidden>
