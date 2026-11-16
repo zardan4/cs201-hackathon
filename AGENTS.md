@@ -4,14 +4,14 @@ Read this file before doing any work. These rules come from the hackathon criter
 
 ## Project context
 
-Python hackathon on the topic **Open Data** (16 November, 16:30 Kyiv time). Max 15 points. The project idea is not defined yet; do not invent or assume one.
+Python hackathon on the topic **Open Data** (16 November, 16:30–21:00 Kyiv time; work until 20:15, defense 20:15–21:00 online in Google Meet). Max 15 points. The most important factor is that the program really works during the demo. The project idea is not defined yet; do not invent or assume one.
 
 ## Hard rules (violating any = 0 points for the team)
 
 1. **Python is the main language.** All core logic (data loading, processing, calculations, application logic) must be in Python. Only **HTML (and CSS)** is allowed as an auxiliary language, for rendering the website. No JavaScript-based business logic, no other languages for core logic.
 2. **Open data only.** The project must be built on data from an open source (e.g. data.gov.ua, kaggle.com/datasets, ourworldindata.org, data.worldbank.org, data.europa.eu, datasetsearch.research.google.com, or open APIs/scrapers). Always record the source and license of every dataset.
 3. **Repository content before the hackathon start (16:30 Kyiv):** only the `data` folder may exist. No code or other files outside `data` before the start.
-4. **⛔ Commit deadline: do NOT commit or push anything after 20:15 Kyiv time on 16 November.** Check the time before every commit. If it is past 20:15, stop and tell the user.
+4. **⛔ Commit deadline: do NOT commit or push anything after 20:15 Kyiv time on 16 November.** The repository is frozen at 20:15; any later commit is **−5 points**. Check the time before every commit. If it is past 20:15, stop and tell the user.
 
 ## Code quality rules (scored 0–4)
 
@@ -37,7 +37,8 @@ Python hackathon on the topic **Open Data** (16 November, 16:30 Kyiv time). Max 
 
 ## Demo rules (scored 0–1)
 
-- The demo must fit in **1–2 minutes**; significantly longer = −1 point.
+- Demo time: the criteria say 1–2 minutes, the event slides say 3 minutes. Target **2 minutes, never over 3**; significantly longer = −1 point.
+- After the demo there are ~2 minutes of questions: be ready to explain the code.
 - Keep the app easy to show: one clear flow, ready sample data.
 
 ## AI usage

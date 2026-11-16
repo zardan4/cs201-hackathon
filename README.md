@@ -1,7 +1,7 @@
 # Python Open Data Hackathon — Rules
 
-Event: Python hackathon on the topic **Open Data**, 16 November, 16:30 (Kyiv time).
-Maximum score: **15 points**.
+Event: KSE · CS201 Programming — Python hackathon on the topic **Open Data**, 16 November, 16:30–21:00 (Kyiv time).
+Maximum score: **15 points**. 34 teams, 5 groups. The most important thing: the program must actually work during the demo.
 
 > Project idea: TBD (not defined yet).
 
@@ -15,9 +15,10 @@ If either requirement is not met, the team gets **0 points**.
 ## Format
 
 - Teams of 3 to 5 people (no fewer, no more). Members may come from different groups.
-- Duration: 3 class periods (about 4–4.5 hours): 3.5 hours of work + 1 hour of presentations.
-- Defense: a 1–2 minute demo of the working program.
-- Hybrid format.
+- Work time: **16:30 – 20:15** (3 h 45 min). Defense: **20:15 – 21:00**.
+- Defense: a short demo of the working program (see Demo below), then questions.
+- Hybrid format: you can work from anywhere, but commit on time.
+- Defense is online: each group defends in its own Google Meet (links are sent separately).
 - Using AI is allowed. It does not lower the score, but **every team member must be able to explain how the code works** if asked during the defense.
 - Data can be found e.g. on data.gov.ua, kaggle.com/datasets, ourworldindata.org, data.worldbank.org, data.europa.eu, datasetsearch.research.google.com. APIs and web scrapers are also allowed.
 
@@ -56,11 +57,19 @@ If either requirement is not met, the team gets **0 points**.
 - The repository contains code or anything other than the `data` folder **before the hackathon starts**.
 - The team did not register by 14 November.
 
-**Penalty −1 point:** the demo lasts significantly longer than 2 minutes.
+**Penalty −1 point:** the demo lasts significantly longer than the time limit (see Demo).
+
+**Penalty −5 points:** any commit after 20:15 (the repository is frozen at 20:15).
+
+## Demo and timings
+
+- Time per team: 3 min demo + 2 min answers + 1 min reserve = 6 min. 7 teams per group = 42 of 45 min.
+- The criteria document says the demo should be 1–2 minutes; the event slides say 3 minutes. **Plan for 2 minutes, never exceed 3.**
+- Show clearly what was done and how it works. Every team member must be able to explain their code.
 
 ## ⛔ Commit deadline
 
-**No commits may be pushed to the repository after 20:15 Kyiv time (16 November).**
+**No commits may be pushed to the repository after 20:15 Kyiv time (16 November). The repository is frozen at 20:15; a commit after that costs −5 points.**
 
 ## Repository rules
 
