@@ -16,11 +16,13 @@
 .me__stats div { display: flex; flex-direction: column-reverse; align-items: center; padding: .65rem .25rem; background: var(--surface-2); border-radius: 1rem; }
 .me__stats dd { margin: 0; font-size: 1.35rem; font-weight: 850; color: var(--pink); }
 .me__stats dt { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.label-row { display: flex; align-items: baseline; justify-content: space-between; margin: 1.35rem 1.25rem .4rem; }
+.label-row .label { margin: 0; }
+.label-link { font-size: .8rem; font-weight: 700; text-decoration: none; }
 .label { margin: 1.35rem 1.25rem .4rem; font-size: .72rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .me__about { margin: 0 1.25rem; color: #d3d8ea; font-size: .95rem; overflow-wrap: anywhere; }
 .stack-chips { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; margin: 0; padding: 0 1.25rem; }
 .stack-chips li { padding: .4rem .85rem; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); font-size: .85rem; font-weight: 650; }
-.stack-chips li:nth-child(3n+1) { background: var(--grad-soft); border-color: rgba(255, 61, 129, .35); }
 .stack-chips .empty { color: var(--muted); }
 
 /* ---------- Saved jobs ---------- */

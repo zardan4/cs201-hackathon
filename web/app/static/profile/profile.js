@@ -145,6 +145,19 @@
     renderSelected();
   }
 
+  // "Edit skills" next to the Stack list opens the edit form and jumps to the skills picker.
+  document.querySelectorAll("[data-open-edit]").forEach((link) =>
+    link.addEventListener("click", (event) => {
+      const fold = document.getElementById("edit-profile");
+      const picker = fold && fold.querySelector("[data-skills]");
+      if (!picker) return;
+      event.preventDefault();
+      fold.open = true;
+      picker.scrollIntoView({ behavior: "smooth", block: "center" });
+      picker.querySelector("[data-skills-search]").focus({ preventScroll: true });
+    })
+  );
+
   document.querySelectorAll("[data-cv-upload]").forEach(initCvUpload);
   document.querySelectorAll("[data-skills]").forEach(initSkills);
 })();

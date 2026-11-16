@@ -28,13 +28,13 @@
   </dl>
   <h2 class="label">About</h2>
   <p class="me__about">{% if profile.cv_text %}{{ profile.cv_text | replace('\n', ' ') | replace('\r', ' ') | truncate(230) }}{% else %}Add your CV so recruiters see more than a skill list.{% endif %}</p>
-  <h2 class="label">Stack</h2>
+  <div class="label-row"><h2 class="label">Stack</h2><a class="label-link" href="#edit-profile" data-open-edit>Edit skills</a></div>
   <ul class="stack-chips" aria-label="Your skills">
     {% for skill in profile.skills %}<li>{{ skill }}</li>{% else %}<li class="empty">No skills yet</li>{% endfor %}
   </ul>
 </section>
 {% include "profile/saved_jobs.html" %}
-<details class="fold"{% if error %} open{% endif %}>
+<details class="fold" id="edit-profile"{% if error %} open{% endif %}>
   <summary>Edit profile</summary>
   <div class="fold__body">
     {% set form_action = url_for('profile.index') %}
