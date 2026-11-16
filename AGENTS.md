@@ -4,7 +4,16 @@ Read this file before doing any work. These rules come from the hackathon criter
 
 ## Project context
 
-Python hackathon on the topic **Open Data** (16 November, 16:30–21:00 Kyiv time; work until 20:15, defense 20:15–21:00 online in Google Meet). Max 15 points. The most important factor is that the program really works during the demo. The project idea is not defined yet; do not invent or assume one.
+Python hackathon on the topic **Open Data** (16 November, 16:30–21:00 Kyiv time; work until 20:15, defense 20:15–21:00 online in Google Meet). Max 15 points. The most important factor is that the program really works during the demo. The project idea is **SwipeJob** — a Tinder/Badoo-style web app for IT job search (3 tabs: swipes, profile, insights/upgrade). **Read the `Ідея проєкту (UA)` section in `README.md` first**: it defines the idea, data sources, module contracts and the task breakdown (T0–T10).
+
+## How to work on the project (for agents)
+
+- Take exactly **one task** (T0–T10 from `README.md`) from the developer who runs you; edit **only that task's files**.
+- Respect the module contracts in `README.md` (function names, DataFrame columns). Do not change a contract without telling the user.
+- Data lives in `data/` (read-only for the app code). The DOU CSV has a BOM: read it with `encoding="utf-8-sig"`. Only ~16% of vacancies have a salary.
+- Backend, matching, statistics and parsing: **Python only** (Flask + pandas). HTML/CSS for templates; JS only for the minimal swipe gesture, never for business logic.
+- Applying to jobs / sending resumes is **out of scope**; "like" only saves the vacancy in the profile.
+- Run `git pull --rebase` before starting and before each commit. Keep commits small.
 
 ## Hard rules (violating any = 0 points for the team)
 
