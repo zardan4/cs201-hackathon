@@ -81,6 +81,7 @@ data/*  ──►  analytics/ (Data Analyst)  ──►  cache/*.parquet + Pytho
 - `SwipeAction`: `user_id`, `job_id`, `action: "like" | "skip"`, `created_at`.
 - `SavedJob` = `SwipeAction` з `action="like"` + денормалізований `Job` для показу у профілі.
 - Правило: вакансія, на яку вже є `SwipeAction`, **не показується повторно**.
+- Виняток — скасування: якщо `SwipeAction` видалено (`reset_skipped`, `unsave_job`, `clear_saved`, розділ 4.2), вакансія знову потрапляє в стрічку.
 
 ### 2.7 `SalaryRecord` — рядок опитування зарплат (джерело: `data/datasets/devua-salaries/`)
 Нормалізована таблиця `cache/salary_records.parquet`. **Схеми файлів різні за роками** (колонки перейменовуються) — DA мапить їх до єдиної схеми. Для MVP беремо найсвіжіші: `2026_june_raw` (14 361 рядків), `2025_dec_raw` (12 502), за потреби `2025_june_raw`.
@@ -166,7 +167,7 @@ def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list
 |---|---|---|
 | `app/services/catalog_service.py` | WE-A | `all_skills() -> list[str]`, `all_positions() -> list[str]`, `skill_entries() -> list[dict]` (канонічні назви + aliases для Gemini) |
 | `app/services/profile_service.py` | WE-A | `get_or_create_profile(user_id) -> UserProfile`, `save_profile(profile)`, `import_cv(user_id, file) -> CvParseResult` |
-| `app/services/jobs_service.py` | WE-B | `next_matches(profile, limit=10) -> list[JobMatch]`, `record_swipe(user_id, job_id, action)`, `saved_jobs(user_id) -> list[Job]` |
+| `app/services/jobs_service.py` | WE-B | `next_matches(profile, limit=10) -> list[JobMatch]`, `record_swipe(user_id, job_id, action)`, `saved_jobs(user_id) -> list[Job]` (найновіші лайки першими), `swiped_job_ids(user_id) -> set[str]`; скасування свайпів: `skipped_count(user_id) -> int`, `reset_skipped(user_id) -> int` (повертає всі skip у стрічку, лайки лишаються), `unsave_job(user_id, job_id) -> bool` (прибирає один лайк), `clear_saved(user_id) -> int` (прибирає всі лайки, skip лишаються). Константа `STRONG_MATCH_SCORE = 0.7` — поріг оверлею «It's a Match!» |
 | `app/services/insights_service.py` | WE-A | `build_report(profile) -> InsightsReport` |
 
 Правило: функції сервісів приймають/повертають **dataclass-сутності з `app/models.py`**, а не DataFrame/dict. Перетворення `dict → dataclass` робиться тільки тут.
@@ -179,6 +180,9 @@ def recommend_upgrades(position: str, skills: list[str], top_n: int = 5) -> list
 | `POST /profile/cv` | WE-A | multipart `cv` (TXT/PDF, до 5 MiB запиту) → серверна чернетка `CvParseResult` → HTTP 303 на форму перегляду |
 | `GET /profile` | WE-A | профіль, редагування, **список вподобаних вакансій** (з `jobs_service.saved_jobs`) |
 | `POST /profile` | WE-A | збереження змін профілю |
+| `POST /profile/saved/remove` | WE-A | форма `job_id` (+ `csrf_token`, опц. `next=swipe`) → `jobs_service.unsave_job` → HTTP 303 назад |
+| `POST /profile/saved/clear` | WE-A | `csrf_token` (опц. `next=swipe`) → `jobs_service.clear_saved` → HTTP 303 назад |
+| `POST /profile/feed/reset` | WE-A | `csrf_token` (опц. `next=swipe`) → `jobs_service.reset_skipped` → HTTP 303 назад; кнопка «Show skipped jobs again» на порожній стрічці `/swipe` |
 | `GET /swipe` | WE-B | вкладка свайпів (перші картки рендеряться на сервері) |
 | `GET /api/next-jobs?limit=10` | WE-B | JSON: `list[JobMatch]` (наступна порція карток) |
 | `POST /api/swipe` | WE-B | тіло `{"job_id": "...", "action": "like"|"skip"}` → `{"ok": true}` |
@@ -218,6 +222,7 @@ def load_profile(user_id: str) -> UserProfile | None: ...
 def save_profile(profile: UserProfile) -> None: ...
 def list_swipes(user_id: str) -> list[SwipeAction]: ...
 def append_swipe(swipe: SwipeAction) -> None: ...
+def remove_swipes(user_id: str, *, action: str | None = None, job_id: str | None = None) -> int: ...
 def load_cv_draft(user_id: str) -> CvParseResult | None: ...
 def save_cv_draft(user_id: str, result: CvParseResult | None) -> None: ...
 ```
@@ -227,6 +232,8 @@ def save_cv_draft(user_id: str, result: CvParseResult | None) -> None: ...
 Оновлення профілю зберігає свайпи, додавання свайпу зберігає профіль.
 Повторний свайп одного `job_id` ігнорується (перша дія залишається).
 `append_swipe` потребує існуючого профілю; невідомий профіль → `ValueError`.
+`remove_swipes` видаляє свайпи за `action` та/або `job_id` і повертає кількість видалених;
+без жодного фільтра → `ValueError` (захист від випадкового стирання всієї історії).
 Запис — через тимчасовий файл + atomic replace; read-modify-write захищений
 lock у межах одного процесу (локальний Flask-сервер для демо).
 Для кількох worker-процесів потрібне інше сховище або міжпроцесне блокування.
