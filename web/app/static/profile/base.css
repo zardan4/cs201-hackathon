@@ -26,9 +26,10 @@
   line-height: 1.5;
 }
 * { box-sizing: border-box; }
-html { height: 100%; -webkit-text-size-adjust: 100%; }
+/* No sideways scrolling and no browser back/forward swipe on a two-finger trackpad gesture. */
+html { height: 100%; -webkit-text-size-adjust: 100%; overscroll-behavior-x: none; }
 body {
-  margin: 0; min-height: 100%; color: var(--ink);
+  margin: 0; min-height: 100%; overscroll-behavior-x: none; overflow-x: hidden; color: var(--ink);
   background:
     linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px) 0 0 / 100% 88px,
     linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px) 0 0 / 88px 100%,
@@ -64,7 +65,7 @@ dd { margin: 0 0 1rem; overflow-wrap: anywhere; }
 .brand__blow { color: var(--pink); }
 .brand__job { color: var(--orange); }
 .brand__my { margin: 0 .02em; }
-main { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: .5rem 1.15rem 1.5rem; scrollbar-width: none; }
+main { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; overflow-x: clip; overscroll-behavior: contain; padding: .5rem 1.15rem 1.5rem; scrollbar-width: none; }
 main::-webkit-scrollbar { display: none; }
 
 /* ---------- Bottom tab bar ---------- */
