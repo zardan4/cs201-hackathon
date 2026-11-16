@@ -153,11 +153,6 @@ legend { font-weight: 700; padding: 0; margin-bottom: .35rem; }
 .setup-steps li { flex: 1; height: 5px; border-radius: 99px; background: var(--surface-3); overflow: hidden; }
 .setup-steps li[aria-current="step"] { background: var(--grad); box-shadow: 0 0 12px rgba(255, 61, 129, .6); }
 .setup-steps li:has(~ [aria-current="step"]) { background: var(--grad); opacity: .55; }
-.hero { text-align: center; margin: .5rem 0 1.25rem; }
-.hero__logo { width: 190px; height: 190px; margin: 0 auto .25rem; display: block; border-radius: 2.2rem; box-shadow: 0 20px 60px rgba(255, 61, 129, .28); }
-.hero h1 { font-size: 2rem; margin: .85rem 0 .4rem; }
-.hero h1 span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.hero p { color: var(--muted); max-width: 30ch; margin: 0 auto; }
 .replace-cv { margin-top: 1.5rem; border-top: 1px solid var(--line); padding-top: 1rem; }
 summary { cursor: pointer; font-weight: 650; }
 
