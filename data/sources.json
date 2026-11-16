@@ -75,6 +75,33 @@
   ],
   "additional_sources": [
     {
+      "name": "DOU active vacancies",
+      "url": "https://jobs.dou.ua/vacancies/",
+      "publisher": "DOU (dou.ua)",
+      "purpose": "Swipe feed cards (only vacancies with a stated salary) and job counts for skill recommendations",
+      "local_file": "dou_active_vacancies.csv",
+      "columns": [
+        "date",
+        "title",
+        "company",
+        "location",
+        "salary",
+        "categories",
+        "link",
+        "snippet"
+      ],
+      "observed_rows": 3512,
+      "posting_dates": [
+        "2026-09-30",
+        "2026-11-16"
+      ],
+      "added_to_repository": "2026-11-16 (commit 9c2ef3c, before the hackathon start)",
+      "downloaded": true,
+      "license": "Not stated in the repository; to be confirmed by the team",
+      "collection_method": "Public job listings on jobs.dou.ua; exact method to be confirmed by the team",
+      "attribution": "Cite DOU (https://jobs.dou.ua/) as the source; every record keeps its original vacancy link"
+    },
+    {
       "name": "DOU salary surveys",
       "url": "https://github.com/devua/csv/tree/master/salaries",
       "example_file_url": "https://github.com/devua/csv/blob/master/salaries/2026_june_raw.csv",
