@@ -33,7 +33,7 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .job-card.is-skipped { transform: translateX(-150%) rotate(-20deg) !important; }
 
 .job-card__hero {
-  position: relative; flex: none; height: 38%; min-height: 128px; max-height: 210px; overflow: hidden;
+  position: relative; flex: none; height: 30%; min-height: 112px; max-height: 160px; overflow: hidden;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem;
   background: var(--h1);
 }
@@ -62,14 +62,14 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .job-card__salary { font-size: 1.35rem; font-weight: 850; letter-spacing: -.02em; color: var(--orange); }
 .job-card__posted { display: inline-flex; align-items: center; gap: .3rem; font-size: .8rem; color: var(--muted); }
 
-.job-card__skills { display: flex; flex-wrap: wrap; gap: .35rem; list-style: none; padding: 0; margin: .1rem 0; max-height: 4.4rem; overflow: hidden; }
+.job-card__skills { display: flex; flex-wrap: wrap; gap: .35rem; list-style: none; padding: 0; margin: .1rem 0; max-height: 3.6rem; overflow: hidden; }
 .skill { font-size: .75rem; font-weight: 700; padding: .2rem .65rem; border-radius: 999px; }
 .skill--have { background: var(--grad); color: #fff; }
 .skill--missing { background: transparent; color: var(--muted); border: 1px dashed rgba(255, 255, 255, .25); }
 
 .job-card__snippet {
   flex: 1; min-height: 0; overflow: hidden; margin: 0; font-size: .88rem; color: #c3c9de;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; max-height: 4.5em; line-height: 1.5;
 }
 .job-card__footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: .65rem; border-top: 1px solid var(--line); }
 .job-card__more { align-self: flex-start; padding: 0; border: 0; background: none; color: var(--pink); font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
@@ -165,3 +165,21 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .job-card__level--middle::before { background: #ffd166; }
 .job-card__level--senior::before { background: #ff8a3d; }
 .job-card__level--lead::before { background: #b794ff; }
+
+/* "+N more" chip: opens the full description with every skill. */
+.job-card__skills li { display: inline-flex; }
+.skill--more { border: 1px solid rgba(255, 255, 255, .25); background: var(--surface-2); color: var(--orange); font: inherit; font-size: .75rem; font-weight: 750; cursor: pointer; }
+.skill--more:hover { border-color: var(--orange); }
+.job-card__body > * { flex-shrink: 0; }
+.job-card__body > .job-card__snippet { flex: 1 1 0; min-height: 2.6em; }
+
+/* Short screens (small laptops, phones): compact header so nothing overlaps or is cut off. */
+@media (max-height: 820px) {
+  .job-card__hero { height: auto; min-height: 104px; max-height: 104px; gap: .35rem; }
+  .job-card__logo { width: 46px; height: 46px; border-radius: .9rem; }
+  .job-card__logo .icon { width: 26px; height: 26px; }
+  .job-card__body { gap: .35rem; padding: .85rem 1.1rem .9rem; }
+  .job-card__title { font-size: 1.15rem; }
+  .job-card__snippet { -webkit-line-clamp: 2; min-height: 0; max-height: 3em; }
+  .swipe-actions { margin-top: .6rem; }
+}

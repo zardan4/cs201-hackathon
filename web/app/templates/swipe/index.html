@@ -52,10 +52,15 @@
             <span class="job-card__salary">{{ job.salary_text or 'Salary not specified' }}</span>
             <span class="job-card__posted">{{ icon('clock', 14) }} Posted {{ job.posted_at.strftime('%b %d') }}</span>
           </p>
-          {% if match.matched_skills or match.missing_skills %}
+          {% set all_skills = match.matched_skills + match.missing_skills %}
+          {% if all_skills %}
+          {# At most 5 chips on the card (yours first); the rest opens in the full description. #}
           <ul class="job-card__skills" aria-label="Skills">
-            {% for skill in match.matched_skills %}<li class="skill skill--have">{{ skill }}</li>{% endfor %}
-            {% for skill in match.missing_skills %}<li class="skill skill--missing" title="You don't have this skill yet">+ {{ skill }}</li>{% endfor %}
+            {% for skill in all_skills[:5] %}
+              {% if skill in match.matched_skills %}<li class="skill skill--have">{{ skill }}</li>
+              {% else %}<li class="skill skill--missing" title="You don't have this skill yet">+ {{ skill }}</li>{% endif %}
+            {% endfor %}
+            {% if all_skills | length > 5 %}<li><button type="button" class="skill skill--more" data-details aria-label="Show {{ all_skills | length - 5 }} more skills">+{{ all_skills | length - 5 }} more</button></li>{% endif %}
           </ul>
           {% endif %}
           <p class="job-card__snippet">{{ job.snippet | truncate(200) }}</p>
