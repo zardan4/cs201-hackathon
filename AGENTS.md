@@ -4,7 +4,7 @@ Read this file before doing any work. These rules come from the hackathon criter
 
 ## Project context
 
-Python hackathon on the topic **Open Data** (16 November, 16:30–21:00 Kyiv time; work until 20:15, defense 20:15–21:00 online in Google Meet). Max 15 points. The most important factor is that the program really works during the demo. The project idea is **SwipeJob** — a Tinder/Badoo-style web app for IT job search (3 tabs: swipes, profile, insights/upgrade). **Read the `Ідея проєкту (UA)` section in `README.md` first**: it defines the idea and data sources. Then read `docs/TEAM.md` (roles, file ownership, tasks) and `docs/CONTRACTS.md` (entities, cache artifacts, function and HTTP interfaces).
+Python hackathon on the topic **Open Data** (16 November, 16:30–21:00 Kyiv time; work until 20:15, defense 20:15–21:00 online in Google Meet). Max 15 points. The most important factor is that the program really works during the demo. The project idea is **BlowMyJob** — a Tinder/Badoo-style web app for IT job search (3 tabs: swipes, profile, insights/upgrade). **Read the `Ідея проєкту (UA)` section in `README.md` first**: it defines the idea and data sources. Then read `docs/TEAM.md` (roles, file ownership, tasks) and `docs/CONTRACTS.md` (entities, cache artifacts, function and HTTP interfaces).
 
 ## How to work on the project (for agents)
 

@@ -1,6 +1,6 @@
 # `analytics` — Library Documentation
 
-The `analytics` package is SwipeJob's pure-Python data-access, normalization, skill-extraction, and job-ranking library. It reads open data from [`data/`](file:///home/artiekra/personal/kse/cs201-hackathon/data/), caches normalized tables in `cache/`, and exposes generator-based and DataFrame APIs for the web service layer (`app/services/`).
+The `analytics` package is BlowMyJob's pure-Python data-access, normalization, skill-extraction, and job-ranking library. It reads open data from [`data/`](file:///home/artiekra/personal/kse/cs201-hackathon/data/), caches normalized tables in `cache/`, and exposes generator-based and DataFrame APIs for the web service layer (`app/services/`).
 
 ---
 

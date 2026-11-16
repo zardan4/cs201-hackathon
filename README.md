@@ -3,11 +3,11 @@
 Event: KSE · CS201 Programming — Python hackathon on the topic **Open Data**, 16 November, 16:30–21:00 (Kyiv time).
 Maximum score: **15 points**. 34 teams, 5 groups. The most important thing: the program must actually work during the demo.
 
-> Project idea: see the **Ідея проєкту (UA)** section below (SwipeJob). Hackathon rules are in English, the idea is in Ukrainian.
+> Project idea: see the **Ідея проєкту (UA)** section below (BlowMyJob). Hackathon rules are in English, the idea is in Ukrainian.
 
 ## 💡 Ідея проєкту (UA)
 
-**Назва (робоча):** *SwipeJob* — «Tinder для IT-вакансій».
+**Назва:** *BlowMyJob* — «Tinder для IT-вакансій».
 
 Веб-застосунок із інтерфейсом у стилі Tinder/Badoo: користувач вказує свою IT-позицію та навички, а система показує **лише відповідні йому актуальні вакансії** як картки, які можна свайпати. Додатково застосунок аналізує дані та показує, **скільки користувач може заробляти і які навички варто підкачати**, щоб заробляти більше.
 
