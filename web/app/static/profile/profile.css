@@ -64,6 +64,5 @@
 .clear-confirm { display: inline-flex; align-items: center; gap: .7rem; font-size: .85rem; color: var(--muted); }
 .clear-confirm[hidden], [data-clear-ask][hidden] { display: none; }
 .link-button--muted { color: var(--muted); }
-.me__avatar .mascot { width: 74px; height: 74px; }
 .saved-empty { display: flex; align-items: center; gap: .9rem; margin: .75rem 0; color: var(--muted); }
 .saved-empty p { margin: 0; }

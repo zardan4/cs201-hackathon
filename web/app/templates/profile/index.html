@@ -17,7 +17,7 @@
 {% if error %}<p class="notice error" role="alert">{{ error }}</p>{% endif %}
 <section class="me">
   <div class="me__cover"></div>
-  <span class="me__avatar" aria-hidden="true">{{ mascot('avatar', 74) }}</span>
+  <span class="me__avatar" aria-hidden="true">{{ (profile.position or '?')[0] | upper }}</span>
   <div class="me__head">
     <h1>{{ profile.position }} developer</h1>
     <p class="me__sub">{{ profile.experience_years | round(1) | string | replace('.0', '') }} years · {{ english_levels.get(profile.english_level, profile.english_level) }}{% if profile.remote_only %} · Remote only{% endif %}</p>

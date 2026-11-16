@@ -6,12 +6,12 @@ sprite name, so the artist can draw a different pose for each of them.
 **How to add a sprite:** put a file named `<name>.png` (also `.webp`, `.svg` or `.gif`) into
 `web/app/static/mascot/`. It is picked up automatically. Until a sprite exists, `default.png` is used,
 so nothing breaks. Use transparent backgrounds, square images, at least 256×256 px.
+The profile avatar intentionally shows the first letter of the role, not the mascot.
 
 | Sprite name | Where it is used | Shown at |
 |---|---|---|
 | `default` | fallback for every missing sprite | n/a |
 | `tab` | Profile tab in the bottom menu (grey when inactive, in colour when active) | 30 px |
-| `avatar` | round avatar on the profile card | 74 px |
 | `hello` | onboarding, above the CV upload | 96 px |
 | `thinking` | while the CV is being analysed (bobs up and down) | 56 px |
 | `blow` | pops up from the bottom on a like, together with the confetti | 120 px |
