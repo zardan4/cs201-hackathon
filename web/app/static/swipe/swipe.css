@@ -12,7 +12,7 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
   --h1: #ff3d81;
   position: absolute; inset: 0; display: flex; flex-direction: column;
   background: var(--surface); border: 1px solid var(--line); border-radius: 1.75rem;
-  box-shadow: 0 22px 50px rgba(0, 0, 0, .5); overflow: hidden;
+  overflow: hidden;
   touch-action: pan-y; user-select: none; cursor: grab;
   opacity: 0; transform: translateY(24px) scale(.92);
   transition: transform .3s ease, opacity .3s ease;
@@ -47,7 +47,7 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 }
 .job-card__logo {
   position: relative; z-index: 1; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 1.3rem;
-  background: #fff; color: var(--h1); font-size: 2.1rem; font-weight: 850; box-shadow: 0 10px 28px rgba(0, 0, 0, .3);
+  background: #fff; color: var(--h1); font-size: 2.1rem; font-weight: 850;
 }
 .job-card__chips { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; list-style: none; margin: 0; padding: 0 1rem; }
 .job-card__chips li {
@@ -69,7 +69,7 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 
 .job-card__snippet {
   flex: 1; min-height: 0; overflow: hidden; margin: 0; font-size: .88rem; color: #c3c9de;
-  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
 }
 .job-card__footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: .65rem; border-top: 1px solid var(--line); }
 .job-card__more { align-self: flex-start; padding: 0; border: 0; background: none; color: var(--pink); font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
@@ -100,7 +100,7 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .job-sheet h3 { margin: 1rem 0 .45rem; font-size: .72rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .job-sheet__skills { max-height: none; margin: 0; }
 .job-sheet__text { margin: 0; color: #d3d8ea; font-size: .95rem; white-space: pre-line; overflow-wrap: anywhere; }
-.job-sheet__link { display: flex; align-items: center; justify-content: center; gap: .45rem; margin-top: 1.25rem; min-height: 3rem; border-radius: 999px; background: var(--pink); color: #fff; font-weight: 750; text-decoration: none; box-shadow: var(--glow); }
+.job-sheet__link { display: flex; align-items: center; justify-content: center; gap: .45rem; margin-top: 1.25rem; min-height: 3rem; border-radius: 999px; background: var(--pink); color: #fff; font-weight: 750; text-decoration: none; }
 @keyframes sheet-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
 
 .job-card__stamp {
@@ -115,14 +115,14 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 /* ---------- Action buttons ---------- */
 .swipe-actions { flex: none; display: flex; align-items: center; justify-content: center; gap: 1.6rem; margin-top: 1rem; }
 .swipe-btn {
-  display: grid; place-items: center; border-radius: 50%; cursor: pointer; transition: transform .15s, box-shadow .15s;
+  display: grid; place-items: center; border-radius: 50%; cursor: pointer; transition: transform .15s;
   background: var(--surface-2); border: 1.5px solid var(--line);
 }
 .swipe-btn:hover { transform: scale(1.08); }
 .swipe-btn:active { transform: scale(.94); }
 .swipe-btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
-.swipe-btn--skip { width: 3.9rem; height: 3.9rem; color: var(--red); border-color: rgba(255, 84, 104, .45); box-shadow: 0 8px 22px rgba(255, 84, 104, .18); }
-.swipe-btn--like { width: 4.9rem; height: 4.9rem; color: #fff; background: var(--grad); border: 0; box-shadow: var(--glow); }
+.swipe-btn--skip { width: 3.9rem; height: 3.9rem; color: var(--red); border-color: rgba(255, 84, 104, .45); }
+.swipe-btn--like { width: 4.9rem; height: 4.9rem; color: #fff; background: var(--grad); border: 0; }
 
 /* ---------- "It's a Match!" overlay ---------- */
 .match-overlay {
@@ -131,7 +131,7 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 }
 .match-overlay[hidden] { display: none; }
 .match-overlay__box { width: min(100%, 400px); display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
-.match-overlay__heart { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--grad); box-shadow: var(--glow); animation: pop .5s ease; }
+.match-overlay__heart { display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border-radius: 50%; background: var(--grad); animation: pop .5s ease; }
 .match-overlay h2 { margin: 0; font-size: clamp(2.4rem, 9vw, 3.3rem); font-weight: 900; letter-spacing: -.03em; color: var(--pink); }
 .match-overlay p { margin: 0; color: var(--muted); }
 .match-overlay__pair { display: flex; align-items: center; gap: 1.25rem; margin: .5rem 0; }
@@ -148,7 +148,7 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .match-overlay__primary, .match-overlay__secondary {
   display: grid; place-items: center; min-height: 3.1rem; border-radius: 999px; font: inherit; font-weight: 750; cursor: pointer; text-decoration: none;
 }
-.match-overlay__primary { background: var(--grad); color: #fff; box-shadow: var(--glow); }
+.match-overlay__primary { background: var(--grad); color: #fff; }
 .match-overlay__secondary { background: transparent; color: var(--ink); border: 1px solid rgba(255, 255, 255, .25); }
 @keyframes pop { 0% { transform: scale(.4); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
 
@@ -156,6 +156,6 @@ main:has(.feed) { display: flex; flex-direction: column; padding-bottom: .75rem;
 .swipe-empty { text-align: center; padding: 2.5rem 1.5rem; margin-top: 2rem; }
 .swipe-empty h1 { font-size: 1.5rem; }
 .swipe-empty p { color: var(--muted); }
-.swipe-empty__icon { display: inline-grid; place-items: center; width: 4rem; height: 4rem; margin-bottom: .75rem; border-radius: 1.2rem; background: var(--grad); color: #fff; box-shadow: var(--glow); }
+.swipe-empty__icon { display: inline-grid; place-items: center; width: 4rem; height: 4rem; margin-bottom: .75rem; border-radius: 1.2rem; background: var(--grad); color: #fff; }
 
 @media (prefers-reduced-motion: reduce) { .job-card, .swipe-btn, .match-overlay__heart, .job-sheet__panel { transition: none; animation: none; } }

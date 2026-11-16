@@ -14,7 +14,7 @@
 .metric small { display: block; margin-top: .4rem; color: var(--muted); font-size: .7rem; }
 .metric.featured {
   grid-column: 1 / -1; position: relative; overflow: hidden; padding: 1.35rem; border: 0;
-  background: var(--pink); box-shadow: var(--glow);
+  background: var(--pink);
 }
 /* The square in the background drifts slowly from the right edge to the left edge at a slight angle
    (it also sinks a little on the way) while it turns, 11 s per pass, looping forever (it fades at both
